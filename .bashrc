@@ -15,7 +15,13 @@ function _try_git_clone_to() {
 }
 
 function install-ohmyzsh {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    ZSH_DIR=~/.oh-my-zsh
+    if [ ! -e ${ZSH_DIR} ]; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    fi
+    if [ -d ${ZSH_DIR} ]; then
+        cp -r ~/.home-env/zsh-themes/* ${ZSH_DIR}/themes/
+    fi
 }
 
 function install-terminal-themes {
