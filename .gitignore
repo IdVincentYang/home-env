@@ -2,6 +2,7 @@
 !.bashalias
 !.bashrc
 !.gitconfig
-!.gitignoreconfig
+!.gitignore
+!.gitignoreglobal
 !.home-env/
 !.zshrc

@@ -1,1 +1,174 @@
-/Users/wensheng/my-config/bash_aliases
+
+# file shotcut
+alias ss='source ~/.bashrc'
+alias sa='source ~/.bashalias'
+alias edrc='vi ~/.bashrc'
+alias edalias='vi ~/.bashalias'
+alias ederbi='vi ~/.home-env/erbi/OpenVanilla/erbi.cin'
+
+# git
+alias g='git'
+# add
+alias ga='git add'
+alias gaa='git add --all'
+alias gapa='git add --patch'
+alias gau='git add --update'
+alias gav='git add --verbose'
+alias gap='git apply'
+# branch
+alias gb='git branch'
+alias gbr='git branch --remote'
+alias gba='git branch -a'
+alias gbrm='git branch -D'
+alias gbmv='git branch -M'
+alias gbt='git branch $(git_current_branch) -u'
+alias gbv='git branch -vv'
+alias gbsupo='git branch --set-upstream-to=origin/$(git_current_branch)'
+alias gbsupu='git branch --set-upstream-to=upstream/$(git_current_branch)'
+# checkout
+alias gcb='git checkout -b'
+alias gcbb='git checkout -B'
+alias gcd='git checkout develop'
+alias gcm='git checkout master'
+alias gco='git checkout'
+alias gct='git checkout --track'
+# cherry-pick
+alias gcp='git cherry-pick'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
+# fetch
+alias gfo='git fetch origin'
+alias gfu='git fetch upstream'
+# gui
+alias gg='git gui citool'
+alias gga='git gui citool --amend'
+# gitk
+alias gk='\gitk --all --branches'
+alias gke='\gitk --all $(git log -g --pretty=%h)'
+# pull
+alias glo='git pull origin $(git_current_branch)'
+alias glu='git pull upstream $(git_current_branch)'
+# log
+alias glogs='git log --stat'
+alias glog='git log --oneline --decorate'
+alias gloga='git log --oneline --decorate --graph --all'
+# push
+alias gp='git push'
+alias gpt='git push --tags'
+alias gpo='git push origin $(git_current_branch)'
+# alias gpu='git push upstream $(git_current_branch)'
+# rebase
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbi='git rebase -i'
+# remote
+alias gra='git remote add'
+alias grmv='git remote rename'
+alias grrm='git remote remove'
+alias grset='git remote set-url'
+alias grup='git remote update'
+alias grv='git remote -v'
+# reset
+alias grh='git reset HEAD'
+alias grhh='git reset HEAD --hard'
+alias gru='git reset --'
+# rm
+alias grm='git rm'
+alias grmc='git rm --cached'
+# status
+alias gst='git status'
+alias gsts='git status -s'
+# stash
+alias gsta='git stash save'
+alias gstaa='git stash apply'
+alias gstac='git stash clear'
+alias gstad='git stash drop'
+alias gstal='git stash list'
+alias gstap='git stash pop'
+alias gstav='git stash show --text'
+# tag
+alias gt='git tag'
+alias gtv='git tag -l'
+alias gtrm='git tag -d'
+
+alias gdt="git difftool -y"
+alias gsbu="git submodule update --init"
+alias gexp="git archive --format=zip"
+
+# docker
+alias d='docker'
+alias dci='docker rmi $(docker images -q -f dangling=true)'
+alias dcc='docker rm $(docker ps -a -q)'
+alias dc='docker-compose'
+alias dm='docker-machine'
+alias di='docker image'
+alias dnd='docker node'
+alias dnw='docker netowork'
+alias dp='docker plugin'
+alias dsr='docker secret'
+alias dst='docker stack'
+alias dsv='docker service'
+alias dsw='docker swarm'
+alias dv='docker volume'
+
+# Virtualbox
+alias usstart='VBoxManage startvm --type headless UbuntuS16'
+alias usstop='VBoxManage controlvm UbuntuS16 poweroff'
+
+# other
+alias vi='mvim'
+
+alias tel="rlwrap nc"
+
+function sfs () {
+    BIN_PATH=`which sshfs`
+    if [[ $? != 0 ]]; then
+        echo "Can't find command: sshfs, please install it first!"
+        return 1
+    fi
+    if [ -z $1 ]; then
+        echo "Please input remote directory path as argument 1."
+        return 2
+    fi
+    REMOTE_DIR="$1"
+    LOCAL_DIR="/Volumes/${REMOTE_DIR//\//.}"
+    if [ ! -d ${LOCAL_DIR} ]; then
+        mkdir -p ${LOCAL_DIR}
+    fi
+    sshfs ${REMOTE_DIR} ${LOCAL_DIR} -o volname=${REMOTE_DIR}
+    open ${LOCAL_DIR}
+}
+#Productivity
+md5check() { md5sum "$1" | grep "$2";}
+alias genpasswd="strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n'; echo"
+
+#System info
+alias cmount="mount | column -t"
+alias ps?="ps aux | grep"
+
+#Network
+alias ydl="youtube-dl --proxy socks5://127.0.0.1:1086/ -i"
+alias yget="you-get -x 127.0.0.1:1087"
+alias listen="lsof -P -i -n"
+alias port='netstat -tulanp'
+alias ipinfo="curl ifconfig.me && curl ifconfig.me/host"
+
+# wget args:
+#   -c: --continue
+#   -nc:--no-clobber
+#   -k: --convert-links
+#   -np:--no-parent
+#   -r: --recursive
+#   -p: --page-requisites
+#   -e: --execute=COMMAND
+#   -U: --user-agent=AGENT
+#
+#   --domains website.org
+#   --restrict-file-names=windows
+alias websiteget="wget --random-wait -c -nc -k -np -r -p -e robots=off -U mozilla"
+
+# intellij diff
+alias idiff="/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea diff"
+alias imerge="/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea merge"
+

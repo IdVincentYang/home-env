@@ -1,1 +1,42 @@
-/Users/wensheng/my-config/gitconfig
+[user]
+	name = yangws
+	email = wensheng.yang@cocos2d-x.org
+
+[core]
+    autocrlf = input
+	excludesfile = ~/.gitignoreglobal
+	editor = vim
+	ignorecase = false
+	quotepath = false
+
+[color]
+    ui = true
+
+[push]
+	default = simple
+
+[help]
+    autocorrect = 1
+
+[diff]
+	tool = bc4
+[difftool]
+    prompt = false
+[difftool "bc4"]
+	cmd = bcomp \"$LOCAL\" \"$REMOTE\"
+[merge]
+	tool = bc4
+[mergetool]
+    prompt = false
+    keepBackup = false
+[mergetool "bc4"]
+	cmd = bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+    trustexitcode = true
+
+
+[pull]
+	rebase = true
+[gui]
+	encoding = utf-8
+[i18n]
+	commitencoding = utf-8
