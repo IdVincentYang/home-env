@@ -55,6 +55,9 @@ fi
 export FONTCONFIG_PATH=/usr/local/etc/fonts
 
 # Node NVM NPM config
+function loadnvm() {
+    source $(brew --prefix nvm)/nvm.sh
+}
 export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
 alias npm='npm --registry=https://registry.npm.taobao.org '
 

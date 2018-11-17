@@ -61,7 +61,7 @@ plugins=(
     z
 
     zsh-autosuggestions
-    zsh-nvm
+#    zsh-nvm
     zsh-syntax-highlighting
 )
 
