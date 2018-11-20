@@ -1,8 +1,8 @@
-*
-!.bashalias
-!.bashrc
-!.gitconfig
-!.gitignore
-!.gitignoreglobal
-!.home-env/
-!.zshrc
+/*
+!/.home-env/
+!/.bashalias
+!/.bashrc
+!/.gitconfig
+!/.gitignore
+!/.gitignoreglobal
+!/.zshrc
