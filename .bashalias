@@ -147,7 +147,7 @@ alias genpasswd="strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr 
 
 #System info
 alias cmount="mount | column -t"
-alias ps?="ps aux | grep"
+alias psg="ps aux | grep"
 
 #Network
 alias ydl="youtube-dl --proxy socks5://127.0.0.1:1086/ -i"
