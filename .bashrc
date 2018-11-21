@@ -27,7 +27,7 @@ function install-ohmyzsh {
 function install-terminal-themes {
     # _try_git_clone_to git://github.com/altercation/solarized.git ~/.solarized --depth=1
 
-    _try_git_clone_to https://github.com/lysyi3m/macos-terminal-themes.git ~/.macos-terminal-themes --depth=1
+    # _try_git_clone_to https://github.com/lysyi3m/macos-terminal-themes.git ~/.macos-terminal-themes --depth=1
 
     # ref: https://www.jianshu.com/p/60a11f762f62
     POWERLINE_FONTS_DIR=~/.powerline-fonts
@@ -36,6 +36,7 @@ function install-terminal-themes {
     ./install.sh
     popd > /dev/null
 }
+
 function install-ohmyzsh-plugins {
     _try_git_clone_to https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
@@ -43,6 +44,38 @@ function install-ohmyzsh-plugins {
 
 }
 
+function install-brew {
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+}
+
+function install-brew-app {
+    #   base tools
+    brew install autoconf automake git lrzsz ntfs-3g p7zip sshfs stormssh tree vim wget you-get youtube-dl
+    #   network tools
+    brew install iperf3 iproute2mac
+    #   C++ dev tools
+    brew install cloc cmake the_silver_searcher
+    #   java/android dev tools
+    brew install ant jenv nvm
+}
+
+function install-brew-cask {
+    #   base tools
+    brew cask install apptrap macvim font-cantarell go2shell keepassxc openvanilla osxfuse
+    #   useful tools
+    brew cask install aria2gui betterzipql gimp icefloor iffmpeg iina invisor-lite qlmarkdown shadowsocksx-ng
+    #   dev tools
+    brew cask install beyond-compare gitkraken visual-studio-code wireshark
+    brew cask install android-sdk android-studio
+    # rdm virtualbox virtualbox-extension-pac
+    #   game tools
+    brew cask install openemu
+    #   quicklook plugs
+    # brew cask install provisionql qladdict qlcolorcode qldds qlgradle qlimagesize qlprettypatch
+    # qlrest qlstephen qlvideo quicklook-csv quicklook-json quicklook-pat quicklookapk
+    # quicklookase receiptquicklook webpquicklook
+
+}
 
 # custom bin path
 export PATH=~/bin:${PATH}
