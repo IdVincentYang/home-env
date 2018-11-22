@@ -61,7 +61,7 @@ function install-brew-base {
 }
 
 function install-brew-app {
-    brew cask install androidtool aria2gui betterzipql gimp icefloor iffmpeg iina invisor-lite qlmarkdown
+    brew cask install androidtool aria2gui gimp google-chrome icefloor iffmpeg iina invisor-lite qlmarkdown
     # rdm virtualbox virtualbox-extension-pac
     #   game tools
     brew cask install openemu
