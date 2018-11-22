@@ -50,7 +50,7 @@ function install-brew {
 
 function install-brew-base {
     brew install autoconf automake git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
-    brew cask install apptrap font-cantarell go2shell java karabiner-elements keepassxc macvim openvanilla osxfuse
+    brew cask install apptrap go2shell java karabiner-elements keepassxc macvim openvanilla osxfuse
     #   depends osxfuse
     brew install ntfs-3g sshfs
 
