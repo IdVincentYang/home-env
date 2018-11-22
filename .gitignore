@@ -13,6 +13,12 @@
 !/Library/Application\ Support/
 
 /Library/Application\ Support/*
+!/Library/Application\ Support/Code/
 !/Library/Application\ Support/Hosts/
 !/Library/Application\ Support/keepassxc/
 !/Library/Application\ Support/Logitech/
+
+/Library/Application\ Support/Code/*
+!/Library/Application\ Support/Code/User/
+
+/Library/Application\ Support/Code/User/workspaceStorage/
