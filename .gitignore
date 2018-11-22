@@ -1,4 +1,5 @@
 /*
+!/Library/
 !/.home-env/
 !/.bashalias
 !/.bashrc
@@ -6,3 +7,13 @@
 !/.gitignore
 !/.gitignoreglobal
 !/.zshrc
+
+
+/Library/*
+!/Library/Application\ Support/
+
+/Library/Application\ Support/*
+!/Library/Application\ Support/Hosts/
+!/Library/Application\ Support/keepassxc/
+!/Library/Application\ Support/Keyboard Maestro/
+!/Library/Application\ Support/Logitech/

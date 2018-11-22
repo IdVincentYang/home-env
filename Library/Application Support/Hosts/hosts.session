@@ -1,0 +1,37 @@
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1	localhost
+fe80::1%lo0	localhost
+
+########################################################################
+#
+#  本文件来自 老D博客 www.laod.cn  转载请说明出处！
+#
+#  更新于：2015-08-16 12:57
+#
+#  更新地址：http://laod.cn/hosts/2015-google-hosts.html
+#  
+#  部署hosts文件前请注意文本编码和换行符格式。
+#
+#######################################################################
+#+MESSAGE_END
+
+127.0.0.1	localhost
+
+# iffmpeg 破解
+#打开程序，弹出注册页面，邮箱可以随便输入，只要格式正确就可以，然后输入Serial Number，如下，这个不能随便乱输入的：
+# 00010001000100010001000100010001000101090909090999991111 (v6版本适用)
+# 000000000000000000000000000000000000004090909090 (v5版本适用)
+# download ffmpeg bin here http://www.osxexperts.net/ffmpeg/ffmpegexperts.html
+127.0.0.1	www.iffmpeg.com
+127.0.0.1	46.30.212.110
+127.0.0.1	webcluster110.one.com
+127.0.0.1	webcluster05.one.com
+127.0.0.1	webcluster06.one.com
+127.0.0.1	baidu.com
