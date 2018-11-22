@@ -48,33 +48,34 @@ function install-brew {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
-function install-brew-app {
-    #   base tools
-    brew install autoconf automake git lrzsz ntfs-3g p7zip sshfs stormssh tree vim wget you-get youtube-dl
+function install-brew-base {
+    brew install autoconf automake git lrzsz p7zip sshfs stormssh tree vim wget you-get youtube-dl
+    brew cask install apptrap font-cantarell go2shell java keepassxc macvim openvanilla osxfuse ntfs-3g
+
     #   network tools
     brew install iperf3 iproute2mac
+}
+
+function install-brew-app {
+    brew cask install aria2gui betterzipql gimp icefloor iffmpeg iina invisor-lite qlmarkdown shadowsocksx-ng
+    # rdm virtualbox virtualbox-extension-pac
+    #   game tools
+    brew cask install openemu
+}
+
+function install-brew-dev {
+    brew cask install beyond-compare gitkraken visual-studio-code wireshark
     #   C++ dev tools
     brew install cloc cmake the_silver_searcher
     #   java/android dev tools
     brew install ant jenv nvm
+    brew cask install android-sdk android-studio
 }
 
-function install-brew-cask {
-    #   base tools
-    brew cask install apptrap macvim font-cantarell go2shell keepassxc openvanilla osxfuse
-    #   useful tools
-    brew cask install aria2gui betterzipql gimp icefloor iffmpeg iina invisor-lite qlmarkdown shadowsocksx-ng
-    #   dev tools
-    brew cask install beyond-compare gitkraken visual-studio-code wireshark
-    brew cask install android-sdk android-studio
-    # rdm virtualbox virtualbox-extension-pac
-    #   game tools
-    brew cask install openemu
-    #   quicklook plugs
+function install-brew-ql {
     # brew cask install provisionql qladdict qlcolorcode qldds qlgradle qlimagesize qlprettypatch
     # qlrest qlstephen qlvideo quicklook-csv quicklook-json quicklook-pat quicklookapk
     # quicklookase receiptquicklook webpquicklook
-
 }
 
 # custom bin path
