@@ -46,6 +46,7 @@ function install-ohmyzsh-plugins {
 
 function install-brew {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew cask install shadowsocksx-ng
 }
 
 function install-brew-base {
@@ -60,7 +61,7 @@ function install-brew-base {
 }
 
 function install-brew-app {
-    brew cask install androidtool aria2gui betterzipql gimp icefloor iffmpeg iina invisor-lite qlmarkdown shadowsocksx-ng
+    brew cask install androidtool aria2gui betterzipql gimp icefloor iffmpeg iina invisor-lite qlmarkdown
     # rdm virtualbox virtualbox-extension-pac
     #   game tools
     brew cask install openemu
