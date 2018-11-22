@@ -73,7 +73,7 @@ function install-brew-dev {
     brew install cloc cmake the_silver_searcher
     #   java/android dev tools
     brew install ant jenv nvm
-    brew cask install android-sdk android-studio
+    brew cask install android-studio
 }
 
 function install-brew-ql {
