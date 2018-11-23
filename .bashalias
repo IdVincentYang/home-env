@@ -1,4 +1,6 @@
 
+alias _PROXY='ALL_PROXY=127.0.0.1:1087'
+
 # file shotcut
 alias ss='source ~/.bashrc'
 alias sa='source ~/.bashalias'

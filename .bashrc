@@ -113,15 +113,17 @@ export GOBIN=~/go/.bin
 export PATH=${GOBIN}:${PATH}
 
 # android sdk config
-export ANDROID_SDK_ROOT=/usr/local/share/android-sdk
+export ANDROID_SDK_ROOT=~/Library/Android/sdk
 export ANDROID_HOME=${ANDROID_SDK_ROOT}
 export PATH=${ANDROID_SDK_ROOT}/platform-tools:${PATH}
+
+# android ndk config
+#export ANDROID_NDK_HOME=~/Library/Android/android-ndk-r16b
+#export NDK_CCACHE=/usr/local/bin/ccache
 
 #   chromium source config
 export PATH=~/github/Chromium/depot_tools:${PATH}
 
-#export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
 #export USE_CCACHE=0
 #export CCACHE_DIR=/Developer/ccache
-#export NDK_CCACHE=/usr/local/bin/ccache
 
