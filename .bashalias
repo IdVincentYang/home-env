@@ -6,7 +6,8 @@ alias ss='source ~/.bashrc'
 alias sa='source ~/.bashalias'
 alias edrc='vi ~/.bashrc'
 alias edalias='vi ~/.bashalias'
-alias ederbi='vi ~/.home-env/erbi/OpenVanilla/erbi.cin'
+#alias ederbi='vi ~/.home-env/erbi/OpenVanilla/erbi.cin'
+alias ederbi='vi ~/Library/Application\ Support/OpenVanilla/UserData/TableBased/erbi.cin'
 
 # git
 alias g='git'
