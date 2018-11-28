@@ -118,7 +118,7 @@ export ANDROID_HOME=${ANDROID_SDK_ROOT}
 export PATH=${ANDROID_SDK_ROOT}/platform-tools:${PATH}
 
 # android ndk config
-#export ANDROID_NDK_HOME=~/Library/Android/android-ndk-r16b
+export ANDROID_NDK_HOME=/usr/local/share/android-ndk
 #export NDK_CCACHE=/usr/local/bin/ccache
 
 #   chromium source config
