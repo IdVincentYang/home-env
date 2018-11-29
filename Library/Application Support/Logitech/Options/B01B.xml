@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cache fw="0MPM050200077B105EEC" path="/Bluetooth/ec-a6-3d-8e-18-ea">
+<cache fw="0MPM050200077B105EEC" path="/Bluetooth/ec-a6-3d-8e-18-ed">
 	<command cmd="10FF000A0001" rsp="11FF000A01000100000000000000000000000000"/>
 	<command cmd="10FF000A0003" rsp="11FF000A02000200000000000000000000000000"/>
 	<command cmd="10FF001A000000" rsp="11FF001A04050000000000000000000000000000"/>
