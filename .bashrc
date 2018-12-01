@@ -52,10 +52,12 @@ function install-brew {
 function install-brew-base {
     brew install autoconf automake git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
     brew cask install apptrap caffeine oracle-jdk karabiner-elements keepassxc keyboard-maestro macvim openvanilla osxfuse
+    brew cask install suspicious-package
     #   depends osxfuse
     brew install ntfs-3g sshfs
     #   network tools
     brew install iperf3 iproute2mac
+    brew cask install charles wireshark
     #   need FQ
     # brew cask install go2shell
 }
@@ -68,7 +70,7 @@ function install-brew-app {
 }
 
 function install-brew-dev {
-    brew cask install beyond-compare gitkraken visual-studio-code wireshark
+    brew cask install beyond-compare gitkraken visual-studio-code 
     #   C++ dev tools
     brew install cloc cmake the_silver_searcher
     #   java/android dev tools
