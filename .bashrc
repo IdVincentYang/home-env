@@ -97,6 +97,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # export FONTCONFIG_PATH=/usr/local/etc/fonts
 
 # Node NVM NPM config
+export NVM_DIR=$HOME/.nvm
 function loadnvm() {
     source $(brew --prefix nvm)/nvm.sh
 }
