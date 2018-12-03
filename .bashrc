@@ -97,10 +97,31 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # export FONTCONFIG_PATH=/usr/local/etc/fonts
 
 # Node NVM NPM config
-export NVM_DIR=$HOME/.nvm
 function loadnvm() {
-    source $(brew --prefix nvm)/nvm.sh
+    # Set NVM_DIR if it isn't already defined
+    [[ -z "$NVM_DIR" ]] && export NVM_DIR="$HOME/.nvm"
+
+    # Load nvm if it exists
+    NVM_SH=$(brew --prefix nvm)/nvm.sh
+    [[ -f "$NVM_SH" ]] && source "$NVM_SH"
 }
+
+function hfs() {
+    [[ ! -f "$(which node)" ]] && loadnvm
+    if [ ! -f "$(which node)" ]; then
+        echo "invalid nodejs env"
+	return 1
+    fi
+
+    [[ ! -f "$(which http-server)" ]] && npm install http-server -g
+    if [ ! -f "$(which http-server)" ]; then
+        echo "can't find http-server bin"
+	return 2
+    fi
+
+    http-server $@
+}
+
 export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
 alias npm='npm --registry=https://registry.npm.taobao.org '
 
