@@ -15,7 +15,6 @@
 /Library/Application\ Support/*
 !/Library/Application\ Support/Code/
 !/Library/Application\ Support/Hosts/
-!/Library/Application\ Support/keepassxc/
 
 /Library/Application\ Support/Code/*
 !/Library/Application\ Support/Code/User/
