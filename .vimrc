@@ -1,4 +1,4 @@
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -234,10 +234,10 @@ nnoremap <leader>qa :bufdo bd<CR>
 nnoremap <leader>Q :bd<CR>
 
 " easyWindows
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-map <C-L> <C-W>l<C-W>_
-map <C-H> <C-W>h<C-W>_
+" map <C-J> <C-W>j<C-W>_
+" map <C-K> <C-W>k<C-W>_
+" map <C-L> <C-W>l<C-W>_
+" map <C-H> <C-W>h<C-W>_
 " "使用CTRL+[hjkl]在窗口间导航
 " noremap <C-c> <C-W>c
 " noremap <C-j> <C-W>j
@@ -246,40 +246,7 @@ map <C-H> <C-W>h<C-W>_
 " noremap <C-l> <C-W>l
 
 " Open current file in browser
-function! OpenInBrowser(file)
-    if !exists("g:my_chrome_path")
-        if OSX()
-            let g:my_chrome_path = '/Applications/Google Chrome.app/'
-        elseif WINDOWS()
-            let g:my_chrome_path = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
-        endif
-    endif
-
-    if !exists('g:my_chrome_path')
-        echom 'Error: Please set g:my_chrome_path variable in your $MYVIMRC.'
-        return
-    endif
-
-    if !filereadable(g:my_chrome_path)
-        echom 'Found file not exist:' . g:my_chrome_path
-        echom 'Error: Please set g:my_chrome_path to locate chrome.'
-        return
-    endif
-
-    if !filereadable(a:file)
-        echom 'Can not open none exists file:' . a:file
-        return
-    endif
-
-    if WINDOWS()
-        let l:run = '!start'
-    else
-        let l:run = '!open -a '
-    endif
-
-    execute 'silent '.l:run.' "'.g:my_chrome_path.'" "'.a:file.'"'
-endfunction
-nnoremap <leader>P :call OpenInBrowser(expand("%:p"))<CR>
+"nnoremap <leader>P :call netrw#BrowseX(expand("%:p"), 0)<CR>
 
 " Adjust viewports to the same size
 "map <Leader>= <C-w>=
@@ -334,9 +301,47 @@ vnoremap . :normal .<CR>
 "map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
+" Plugins: https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+
+" Auto install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
+" g:plug*
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/vim-plug'
+Plug 'lifepillar/vim-solarized8'
+
+call plug#end()
+
+function! PlugMappings()
+    let l:line = getline(".")
+
+    let l:name = expand("<cword>")
+    nnoremap <buffer> <silent> o :call netrw#BrowseX('https://google.com', 0)<CR>
+endfunction
+
+autocmd Filetype vim-plug call PlugMappings()
+
+" Automatically install missing plugins on startup
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
+
+""""""""""""""""""""""""""""""""""""""""
+" plug: 'vim-solarized8'
+if has_key(g:plugs, 'vim-solarized8')
+    set background=dark
+    colorscheme solarized8
+endif
+
