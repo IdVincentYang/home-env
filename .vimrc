@@ -76,6 +76,7 @@ set formatoptions+=mMj          " let vim can break chinese and join
 set history=1000                    " Store a ton of history (default is 20)
 set nobackup                  " Backups are nice ...
 set noswapfile
+set noundofile
 if has('persistent_undo')
     set undofile                " So is persistent undo ...
     set undolevels=1000         " Maximum number of changes that can be undone
@@ -341,7 +342,7 @@ autocmd VimEnter *
 """"""""""""""""""""""""""""""""""""""""
 " plug: 'vim-solarized8'
 if has_key(g:plugs, 'vim-solarized8')
-    set background=dark
+    " set background=dark
     colorscheme solarized8
 endif
 
