@@ -14,7 +14,6 @@ endfunction
 silent function! WINDOWS()
     return  (has('win16') || has('win32') || has('win64'))
 endfunction
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
@@ -304,7 +303,19 @@ vnoremap . :normal .<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins: https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 
-" Auto install vim-plug
+""""""""""""""""""""""""""""""""""""""""
+" internal plug: 'netrw' (https://shapeshed.com/vim-netrw/)
+let g:netrw_winsize = 25    " Set the width of the explorer to 25% of the page
+" Changing how files are opened
+"default - opened in the same window as the netrw directory browser
+"1 - open files in a new horizontal split
+"2 - open files in a new vertical split
+"3 - open files in a new tab
+"4 - open in previous window
+let g:netrw_browse_split = 4
+
+""""""""""""""""""""""""""""""""""""""""
+" Auto install plug manager: 'vim-plug'
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
