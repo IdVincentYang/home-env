@@ -1,5 +1,5 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker
-
+" [VIM脚本入门](https://www.ibm.com/developerworks/cn/linux/l-vim-script-1/)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Environment
@@ -152,7 +152,7 @@ autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " 高亮显示普通txt文件（需要txt.vim脚本）
-au BufRead,BufNewFile *  setfiletype txt
+"au BufRead,BufNewFile *  setfiletype txt
 
 """"""""""""""""""""""""""""""""""""""""
 " General: GUI
@@ -332,6 +332,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-plug'
 Plug 'lifepillar/vim-solarized8'
+Plug 'vim-scripts/txt.vim'
 
 call plug#end()
 
@@ -357,3 +358,14 @@ if has_key(g:plugs, 'vim-solarized8')
     colorscheme solarized8
 endif
 
+""""""""""""""""""""""""""""""""""""""""
+" Plug: 'txt.vim'
+if has_key(g:plugs, 'txt.vim')
+    " 在 '~/.vim/' 目录下添加检测脚本,把没有后缀的文件都默认使用 txt 插件高亮
+    let s:dir = expand('~/.vim/ftdetect/')
+    let s:fp = s:dir . 'txt.vim'
+    if !filereadable(s:fp)
+        call mkdir(s:dir, 'p')
+        call writefile(['au BufRead,BufNewFile *  setfiletype txt'], s:fp)
+    endif
+endif
