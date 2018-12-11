@@ -5,15 +5,6 @@
 " Environment
 set nocompatible
 
-silent function! OSX()
-    return has('macunix')
-endfunction
-silent function! LINUX()
-    return has('unix') && !has('macunix') && !has('win32unix')
-endfunction
-silent function! WINDOWS()
-    return  (has('win16') || has('win32') || has('win64'))
-endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
@@ -158,20 +149,12 @@ autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 " General: GUI
 
 if has("gui_running")
-    " use big font
-    if LINUX()
-        set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
-    elseif OSX()
-        set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
-    elseif WINDOWS()
-        set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-    endif
 
     "浏览档案的目录，GUI 版本始有。预设是上一次浏览的目录。就是 GUI版本功能表上的 [File] -> [Open] 会打开的目录。
     set bsdir=buffer
 
     if has('statusline')
-        set fillchars+=stl:\|
+        "set fillchars+=stl:\|
     endif
 
     if has('termguicolors')
@@ -305,14 +288,6 @@ vnoremap . :normal .<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 " internal plug: 'netrw' (https://shapeshed.com/vim-netrw/)
-let g:netrw_winsize = 25    " Set the width of the explorer to 25% of the page
-" Changing how files are opened
-"default - opened in the same window as the netrw directory browser
-"1 - open files in a new horizontal split
-"2 - open files in a new vertical split
-"3 - open files in a new tab
-"4 - open in previous window
-let g:netrw_browse_split = 4
 
 """"""""""""""""""""""""""""""""""""""""
 " Auto install plug manager: 'vim-plug'
