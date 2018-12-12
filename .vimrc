@@ -310,6 +310,10 @@ Plug 'junegunn/vim-plug'
 Plug 'lifepillar/vim-solarized8'
 Plug 'vim-scripts/txt.vim'
 
+" 目前没有找到如何在vim 脚本里面判断是否已安装 fzf 命令的方法, 先直接引用插件
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 
 function! PlugMappings()
@@ -345,3 +349,7 @@ if has_key(g:plugs, 'txt.vim')
         call writefile(['au BufRead,BufNewFile *  setfiletype txt'], s:fp)
     endif
 endif
+
+""""""""""""""""""""""""""""""""""""""""
+" Plug: 'fzf.vim': https://segmentfault.com/a/1190000016186540
+
