@@ -1,5 +1,6 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker
 " [VIM脚本入门](https://www.ibm.com/developerworks/cn/linux/l-vim-script-1/)
+" [Vim Awesome](https://vimawesome.com/)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Environment
@@ -173,7 +174,7 @@ au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [1, 1, 1, 0])
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key (re)Mapping
 let mapleader = ','
-let maplocalleader = '.'
+let maplocalleader = '`'
 
 " 插入空行
 nnoremap <CR> o<Esc>
