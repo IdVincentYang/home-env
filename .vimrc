@@ -67,9 +67,8 @@ set formatoptions+=mMj          " let vim can break chinese and join
 set history=1000                    " Store a ton of history (default is 20)
 set nobackup                  " Backups are nice ...
 set noswapfile
-set noundofile
 if has('persistent_undo')
-    set undofile                " So is persistent undo ...
+    set noundofile                " So is persistent undo ...
     set undolevels=1000         " Maximum number of changes that can be undone
     set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 endif
@@ -352,4 +351,7 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""
 " Plug: 'fzf.vim': https://segmentfault.com/a/1190000016186540
+" 集成说明: https://segmentfault.com/a/1190000016186540
+"let g:fzf_command_prefix = 'F'  " 设置fzf命令前缀
+nnoremap <silent> <C-o> :FZF <CR>
 
