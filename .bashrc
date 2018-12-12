@@ -50,7 +50,7 @@ function install-brew {
 }
 
 function install-brew-base {
-    brew install autoconf automake fzf git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
+    brew install autoconf automake fd fzf git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
     brew cask install apptrap caffeine oracle-jdk karabiner-elements keepassxc keyboard-maestro macvim openvanilla osxfuse
     brew cask install suspicious-package
     #   vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
@@ -102,8 +102,13 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # fzf config
 if [ -f `which fzf` ]; then
     # https://zhuanlan.zhihu.com/p/41859976
-    if [ -f `which ag` ]; then
+    if [ -f `which fd` ]; then
+        export FZF_DEFAULT_COMMAND='fd --type file'
+    elif [ -f `which ag` ]; then
         export FZF_DEFAULT_COMMAND='ag -g ""'
+    fi
+    if [ ! -z $FZF_DEFAULT_COMMAND ]; then
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     fi
     # FZF_COMPLETION_TRIGGER: 默认 **<tab>
     # fzf 参数详见 fzf -h
