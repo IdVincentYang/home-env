@@ -354,5 +354,5 @@ endif
 " 集成说明: https://segmentfault.com/a/1190000016186540
 "let g:fzf_command_prefix = 'F'  " 设置fzf命令前缀
 nnoremap <silent> <leader>o :FZF <CR>
-nnoremap <silent> <leader>f :call fzf#vim#ag(input("xixi:"))<CR>
+nnoremap <silent> <leader>f :call fzf#vim#ag(input("Ag args:"))<CR>
 
