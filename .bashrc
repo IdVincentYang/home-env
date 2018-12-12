@@ -50,7 +50,7 @@ function install-brew {
 }
 
 function install-brew-base {
-    brew install autoconf automake git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
+    brew install autoconf automake fzf git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
     brew cask install apptrap caffeine oracle-jdk karabiner-elements keepassxc keyboard-maestro macvim openvanilla osxfuse
     brew cask install suspicious-package
     #   vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
@@ -98,6 +98,17 @@ fi
 export HOMEBREW_NO_AUTO_UPDATE=1
 # ffmpeg
 # export FONTCONFIG_PATH=/usr/local/etc/fonts
+
+# fzf config
+if [ -f `which fzf` ]; then
+    # https://zhuanlan.zhihu.com/p/41859976
+    if [ -f `which ag` ]; then
+        export FZF_DEFAULT_COMMAND='ag -g ""'
+    fi
+    # FZF_COMPLETION_TRIGGER: 默认 **<tab>
+    # fzf 参数详见 fzf -h
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
+fi
 
 # Node NVM NPM config
 function loadnvm() {
