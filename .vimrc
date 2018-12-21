@@ -69,6 +69,7 @@ set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set autoread
 set autowrite
 set formatoptions+=mMj          " let vim can break chinese and join
+set formatoptions-=ro           " 不要在插入新行时自动添加注释前导符
 
 """"""""""""""""""""""""""""""""""""""""
 " General: backup
@@ -181,6 +182,7 @@ au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [1, 1, 1, 0])
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key (re)Mapping
 let mapleader = ','
+nnoremap \ ,
 let maplocalleader = '`'
 
 " 插入空行

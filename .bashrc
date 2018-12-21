@@ -50,7 +50,7 @@ function install-brew {
 }
 
 function install-brew-base {
-    brew install autoconf automake fd fzf git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
+    brew install autoconf automake fd ffmpeg fzf git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
     brew cask install apptrap caffeine oracle-jdk karabiner-elements keepassxc keyboard-maestro macvim openvanilla osxfuse
     brew cask install suspicious-package
     #   vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
@@ -78,12 +78,12 @@ function install-brew-dev {
     brew install cloc cmake the_silver_searcher
     #   java/android dev tools
     brew install ant jenv nvm
-    brew cask install android-studio
+    brew cask install android-studio quicklook-json
 }
 
 function install-brew-ql {
     # brew cask install provisionql qladdict qlcolorcode qldds qlgradle qlimagesize qlprettypatch
-    # qlrest qlstephen qlvideo quicklook-csv quicklook-json quicklook-pat quicklookapk
+    # qlrest qlstephen qlvideo quicklook-csv quicklook-pat quicklookapk
     # quicklookase receiptquicklook webpquicklook
 }
 

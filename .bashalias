@@ -153,7 +153,7 @@ alias cmount="mount | column -t"
 alias psg="ps aux | grep"
 
 #Network
-alias ydl="youtube-dl --proxy socks5://127.0.0.1:1086/ -i"
+alias ydl="youtube-dl --yes-playlist --proxy socks5://127.0.0.1:1086/ -i"
 alias yget="you-get -x 127.0.0.1:1087"
 alias listen="lsof -P -i -n"
 alias port='netstat -tulanp'
