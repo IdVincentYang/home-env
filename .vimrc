@@ -317,6 +317,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-plug'
 Plug 'lifepillar/vim-solarized8'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-scripts/txt.vim'
 
 " 目前没有找到如何在vim 脚本里面判断是否已安装 fzf 命令的方法, 先直接引用插件
@@ -345,6 +346,33 @@ autocmd VimEnter *
 if has_key(g:plugs, 'vim-solarized8')
     " set background=dark
     colorscheme solarized8
+endif
+
+""""""""""""""""""""""""""""""""""""""""
+" Plug: 'vim-airline'
+if has_key(g:plugs, 'vim-airline')
+    if has("gui_running")
+        let g:airline_powerline_fonts = 1
+    endif
+    " show absolute file path in status line
+    "let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+
+    let g:airline#extensions#tabline#enabled = 1
+
+    if g:airline#extensions#tabline#enabled
+        let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+        "let g:airline#extensions#tabline#fnametruncate = 16
+        "let g:airline#extensions#tabline#fnamecollapse = 2
+
+        let g:airline#extensions#tabline#buffer_idx_mode = 1
+        let g:airline#extensions#tabline#buffer_nr_show = 1
+
+        let g:airline#extensions#tabline#show_tabs = 0
+        if g:airline#extensions#tabline#show_tabs
+            let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+            let g:airline#extensions#tabline#show_tab_nr = 1
+        endif
+    endif
 endif
 
 """"""""""""""""""""""""""""""""""""""""
