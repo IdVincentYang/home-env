@@ -65,7 +65,7 @@ function install-brew-base {
 }
 
 function install-brew-app {
-    brew cask install androidtool aria2gui gimp google-chrome icefloor iina invisor-lite qlmarkdown
+    brew cask install androidtool aria2gui gimp google-chrome icefloor iina invisor-lite
     brew cask install xmind
     # rdm virtualbox virtualbox-extension-pac
     #   game tools
@@ -82,8 +82,9 @@ function install-brew-dev {
 }
 
 function install-brew-ql {
+    brew cask install  qlmarkdown qlvideo
     # brew cask install provisionql qladdict qlcolorcode qldds qlgradle qlimagesize qlprettypatch
-    # qlrest qlstephen qlvideo quicklook-csv quicklook-pat quicklookapk
+    # qlrest qlstephen quicklook-csv quicklook-pat quicklookapk
     # quicklookase receiptquicklook webpquicklook
 }
 
