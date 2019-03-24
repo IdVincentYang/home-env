@@ -8,3 +8,5 @@
 255.255.255.255	broadcasthost
 ::1	localhost
 127.0.0.1	baidu.com
+127.0.0.1	me
+192.168.1.10	nas
