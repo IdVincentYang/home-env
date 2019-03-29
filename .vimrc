@@ -318,11 +318,15 @@ Plug 'junegunn/vim-plug'
 Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-scripts/txt.vim'
+Plug 'tpope/vim-surround'
 
 " 目前没有找到如何在vim 脚本里面判断是否已安装 fzf 命令的方法, 先直接引用插件
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
+" 解决调用终端命令报错: WARNING: terminal is not fully functional
+" https://github.com/vim-utils/vim-man
+Plug 'vim-utils/vim-man'
 call plug#end()
 
 function! PlugMappings()
@@ -393,3 +397,11 @@ endif
 nnoremap <silent> <leader>o :GFiles <CR>
 nnoremap <silent> <leader>f :call fzf#vim#ag(input("Ag args:"))<CR>
 
+""""""""""""""""""""""""""""""""""""""""
+" Plug: 'vim-utils/vim-man'
+if has_key(g:plugs, 'vim-man')
+    if has("gui_running")
+        nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
+    endif
+endif
+echom ".vimrc loaded"
