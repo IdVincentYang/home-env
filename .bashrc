@@ -52,7 +52,7 @@ function install-brew {
 function install-brew-base {
     brew install autoconf automake fd ffmpeg fzf git lrzsz p7zip stormssh tree vim wget you-get youtube-dl
     brew cask install apptrap caffeine oracle-jdk karabiner-elements keepassxc keyboard-maestro macvim openvanilla osxfuse
-    brew cask install suspicious-package
+    brew cask install suspicious-package hammerspoon
     #   vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
 
     #   depends osxfuse
