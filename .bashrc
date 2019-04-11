@@ -39,6 +39,7 @@ function install-terminal-themes {
 
 function install-ohmyzsh-plugins {
     _try_git_clone_to https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    _try_git_clone_to https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
     # more external oh-my-zsh themes: https://github.com/robbyrussell/oh-my-zsh/wiki/External-themes
 
