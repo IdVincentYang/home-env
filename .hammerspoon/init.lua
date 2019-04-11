@@ -13,9 +13,26 @@ local _log = hs.logger.new("my_config", "debug");
 local _application_launch_action_mapping = {};
 local _application_launch_hotkey_mapping = {};
 
+--[[    启动路径指定的应用并把鼠标移上去
+--]]
+local function _launch_app(path)
+    if (hs.application.launchOrFocus(path)) then
+        local app = hs.application.frontmostApplication();
+        if (app and app:path():match(path)) then
+            local win = app:focusedWindow();
+            if (win) then
+                hs.mouse.setAbsolutePosition(win:frame().center);
+            end
+        end
+        app:activate(true); --  前置所有窗口
+    else
+        hs.alert("找不到应用: " .. path);
+    end
+end
+
 local function _add_app(hotkey, name, path)
     local key = "app_launch_" .. name;
-    _application_launch_action_mapping[key] = hs.fnutils.partial(hs.application.launchOrFocus, path);
+    _application_launch_action_mapping[key] = hs.fnutils.partial(_launch_app, path);
     _application_launch_hotkey_mapping[key] = { _SUPER_META, hotkey };
 end
 
