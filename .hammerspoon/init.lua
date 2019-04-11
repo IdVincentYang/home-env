@@ -65,33 +65,42 @@ local function _window_move_in_screen(direction, division, duration)
         w.y = inPos and ((w.y + d.h) % (d.h * division)) or s.y;
         w.size = d;
     else
-        hs.alert.show("Error: 不支持此移动模式："..direction);
+        hs.alert.show("Error: 不支持此移动模式：" .. direction);
         return;
     end
     _log:d("%s{inPos: %s, w: %s}", direction, tostring(inPos), tostring(w));
     win:setFrameWithWorkarounds(w, duration);
+    hs.mouse.setAbsolutePosition(win:frame().center);
 end
 
-local function _window_move_to_screen(how)
+local function _window_move_to_screen(how, duration)
     local win = hs.window.focusedWindow();
     if win == nil then
         hs.alert.show("Error: 没有当前窗口");
         return;
     end
+    local currScreen = win:screen();
+    local nextScreen, tipMsg;
     if how == "Left" then
-        hs.alert.show("窗口左移");
-        win:moveOneScreenWest();
+        tipMsg = "窗口左移";
+        nextScreen = currScreen:toWest();
     elseif how == "Right" then
-        hs.alert.show("窗口右移");
-        win:moveOneScreenEast();
+        tipMsg = "窗口右移";
+        nextScreen = currScreen:toEast();
     elseif how == "Up" then
-        hs.alert.show("窗口上移");
-        win:moveOneScreenNorth();
+        tipMsg = "窗口上移";
+        nextScreen = currScreen:toNorth();
     elseif how == "Down" then
-        hs.alert.show("窗口下移");
-        win:moveOneScreenSouth();
+        tipMsg = "窗口下移";
+        nextScreen = currScreen:toSouth();
     end
-
+    if (currScreen ~= nextScreen) then
+        win:moveToScreen(nextScreen, nil, nil, duration);
+        hs.mouse.setAbsolutePosition(win:frame().center);
+        if (tipMsg ~= nil) then
+            hs.alert.show(tipMsg);
+        end
+    end
 end
 
 local _window_move_hotkey_mapping = {
