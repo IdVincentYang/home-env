@@ -7,6 +7,39 @@ local _SUPER_META = { "cmd", "alt", "ctrl", "shift" };
 local _log = hs.logger.new("my_config", "debug");
 
 --[[--
+--  快捷键：启动应用
+--]]
+--[[launch application begin]]
+local _application_launch_action_mapping = {};
+local _application_launch_hotkey_mapping = {};
+
+local function _add_app(hotkey, name, path)
+    local key = "app_launch_" .. name;
+    _application_launch_action_mapping[key] = hs.fnutils.partial(hs.application.launchOrFocus, path);
+    _application_launch_hotkey_mapping[key] = { _SUPER_META, hotkey };
+end
+
+_add_app("a", "android_studio", "/Applications/Android Studio.app");
+_add_app("c", "cocos_creator", "/Applications/CocosCreator.app");
+_add_app("e", "git_kraken", "/Applications/GitKraken.app");
+_add_app("f", "finder", "/System/Library/CoreServices/Finder.app");
+_add_app("g", "google_chrome", "/Applications/Google Chrome.app");
+_add_app("k", "google_keep", "~/Applications/Chrome Apps.localized/Default hmjkmjkepdijhoojdojkdfohbdgmmhki.app");
+_add_app("m", "mweb", "/Applications/MWeb.app");
+_add_app("n", "notes", "/Applications/Notes.app");
+_add_app("p", "preview", "/Applications/Preview.app");
+_add_app("r", "calendar", "/Applications/Calendar.app");
+_add_app("s", "visual_studio_code", "/Applications/Visual Studio Code.app");
+_add_app("t", "terminal", "/Applications/Utilities/Terminal.app");
+_add_app("v", "mac_vim", "/Applications/MacVim.app");
+_add_app("w", "we_chat", "/Applications/WeChat.app");
+_add_app("x", "xcode", "/Applications/Xcode.app");
+_add_app("y", "visual_paradigm", "/Applications/Visual Paradigm.app");
+_add_app("z", "xmind", "/Applications/XMind.app");
+
+hs.spoons.bindHotkeysToSpec(_application_launch_action_mapping, _application_launch_hotkey_mapping);
+--[[launch application end]]
+--[[--
 --  快捷键：窗口移动
 --]]
 --[[window move begin]]
@@ -103,18 +136,6 @@ local function _window_move_to_screen(how, duration)
     end
 end
 
-local _window_move_hotkey_mapping = {
-    window_move_in_center = { _SUPER_META, "1" },
-    window_move_in_screen_horizontal = { _SUPER_META, "2" },
-    window_move_in_screen_vertical = { _SUPER_META, "3" },
-    window_move_in_screen_slash = { _SUPER_META, "4" },
-    window_move_in_screen_backslash = { _SUPER_META, "5" },
-    window_move_to_screen_left = { _SUPER_META, "Left" },
-    window_move_to_screen_right = { _SUPER_META, "Right" },
-    window_move_to_screen_up = { _SUPER_META, "Up" },
-    window_move_to_screen_down = { _SUPER_META, "Down" },
-};
-
 local _window_move_action_mapping = {
     window_move_in_center = hs.fnutils.partial(_window_move_in_screen, "centered", 3, 0),
     window_move_in_screen_horizontal = hs.fnutils.partial(_window_move_in_screen, "horizontal", 2, 0),
@@ -125,6 +146,18 @@ local _window_move_action_mapping = {
     window_move_to_screen_right = hs.fnutils.partial(_window_move_to_screen, "Right"),
     window_move_to_screen_up = hs.fnutils.partial(_window_move_to_screen, "Up"),
     window_move_to_screen_down = hs.fnutils.partial(_window_move_to_screen, "Down"),
+};
+
+local _window_move_hotkey_mapping = {
+    window_move_in_center = { _SUPER_META, "1" },
+    window_move_in_screen_horizontal = { _SUPER_META, "2" },
+    window_move_in_screen_vertical = { _SUPER_META, "3" },
+    window_move_in_screen_slash = { _SUPER_META, "4" },
+    window_move_in_screen_backslash = { _SUPER_META, "5" },
+    window_move_to_screen_left = { _SUPER_META, "Left" },
+    window_move_to_screen_right = { _SUPER_META, "Right" },
+    window_move_to_screen_up = { _SUPER_META, "Up" },
+    window_move_to_screen_down = { _SUPER_META, "Down" },
 };
 
 hs.spoons.bindHotkeysToSpec(_window_move_action_mapping, _window_move_hotkey_mapping);
