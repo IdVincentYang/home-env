@@ -89,6 +89,10 @@ function install-brew-ql {
     # quicklookase receiptquicklook webpquicklook
 }
 
+function tweak-osx {
+    defaults write com.apple.appstore ShowDebugMenu -bool true
+}
+
 # custom bin path
 export PATH=~/bin:${PATH}
 
