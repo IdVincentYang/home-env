@@ -115,6 +115,7 @@ endif
 
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
 set linespace=0                 " No extra spaces between rows
+set relativenumber              " 使用相对行号
 set nu                          " Line numbers on
 set showmatch                   " 高亮显示匹配的括号
 set winminheight=0              " Windows can be 0 line high
@@ -300,6 +301,8 @@ vnoremap . :normal .<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 " Auto install plug manager: 'vim-plug'
+" search plug from: https://vimawesome.com
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -319,6 +322,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-scripts/txt.vim'
 Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
 
 " 目前没有找到如何在vim 脚本里面判断是否已安装 fzf 命令的方法, 先直接引用插件
 Plug '/usr/local/opt/fzf'
@@ -403,5 +407,26 @@ if has_key(g:plugs, 'vim-man')
     if has("gui_running")
         nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
     endif
+endif
+
+""""""""""""""""""""""""""""""""""""""""
+" Plug: 'scrooloose/nerdcommenter'
+if has_key(g:plugs, 'nerdcommenter')
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 1
+    " Use compact syntax for prettified multi-line comments
+    "let g:NERDCompactSexyComs = 1
+    " Align line-wise comment delimiters flush left instead of following code indentation
+    let g:NERDDefaultAlign = 'left'
+    " Set a language to use its alternate delimiters by default
+    let g:NERDAltDelims_java = 1
+    " Add your own custom formats or override the defaults
+    " let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+    " Allow commenting and inverting empty lines (useful when commenting a region)
+    let g:NERDCommentEmptyLines = 1
+    " Enable trimming of trailing whitespace when uncommenting
+    let g:NERDTrimTrailingWhitespace = 1
+    " Enable NERDCommenterToggle to check all selected lines is commented or not 
+    let g:NERDToggleCheckAllLines = 1
 endif
 echom ".vimrc loaded"

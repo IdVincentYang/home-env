@@ -62,7 +62,7 @@ plugins=(
     z
 
     zsh-autosuggestions
-    zsh-syntax-highlighting
+#    zsh-syntax-highlighting
 )
 
 # User configuration
