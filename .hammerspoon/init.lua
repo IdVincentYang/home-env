@@ -61,10 +61,24 @@ hs.spoons.bindHotkeysToSpec(_application_launch_action_mapping, _application_lau
 --  快捷键：窗口移动
 --]]
 --[[window move begin]]
+
+--  数 a 接近数 b 的整数倍
+local function _number_near_multiple(a, b, dt)
+    local mod = math.fmod(a, b);
+    return (math.abs(mod) <= dt) or (math.abs(mod - b) <= dt)
+end
+
 local function _get_menu_bar_height()
     return hs.screen.primaryScreen():frame().y;
 end
+
 local function _window_move_in_screen(direction, division, duration)
+    _log.d(string.format(
+        "_window_move_in_screen(direction: %s, division: %d, duration: %d)",
+        direction,
+        division,
+        duration
+    ));
     local win = hs.window.focusedWindow();
     if win == nil then
         hs.alert.show("Error: 没有当前窗口");
@@ -75,15 +89,14 @@ local function _window_move_in_screen(direction, division, duration)
     local s = win:screen():frame();
     local dt = _get_menu_bar_height();
     local inPos = nil;
-
     -- 窗口在预定位置，连续移动，否则设置为初始位置
     if (direction == "centered") then
         local d = hs.geometry.size(math.floor(s.w / division), math.floor(s.h / division));
-        local c = hs.geometry.point(math.floor((s.x + s.w) / 2), math.floor((s.y + s.h) / 2));
-        local isCenter = math.abs(w:distance(c)) < dt;
-        local fitSize = (w.w % d.w < dt) and (w.h % d.h < dt);
+        local c = hs.geometry.point(math.floor(w.x + w.w / 2), math.floor(w.y + w.h / 2));
+        local isCenter = math.abs(w:distance(c)) <= dt;
+        local fitSize = _number_near_multiple(w.w, d.w, dt) and _number_near_multiple(w.h, d.h, dt);
         inPos = isCenter and fitSize;
-        w.size = d:scale(inPos and (math.floor(w.w / d.w) % division + 1) or division);
+        w.size = d:scale(inPos and (math.floor((w.w + dt)/ d.w) % division + 1) or division);
         w.center = s.center;
     elseif (direction == "horizontal") then
         local d = hs.geometry.size(math.floor(s.w / division), s.h);
@@ -119,7 +132,7 @@ local function _window_move_in_screen(direction, division, duration)
         hs.alert.show("Error: 不支持此移动模式：" .. direction);
         return;
     end
-    _log:d("%s{inPos: %s, w: %s}", direction, tostring(inPos), tostring(w));
+    _log:d(string.format("%s{inPos: %s, w: %s}", direction, tostring(inPos), tostring(w)));
     win:setFrameWithWorkarounds(w, duration);
     hs.mouse.setAbsolutePosition(win:frame().center);
 end
