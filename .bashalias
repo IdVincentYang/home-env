@@ -156,7 +156,7 @@ alias psg="ps aux | grep"
 alias ydl="youtube-dl --yes-playlist --proxy socks5://127.0.0.1:1086/ -i"
 alias yget="you-get -x 127.0.0.1:1087"
 alias listen="lsof -P -i -n"
-alias port='netstat -tulanp'
+alias ports='netstat -tulanp'
 alias ipinfo="curl ifconfig.me && curl ifconfig.me/host"
 
 # wget args:

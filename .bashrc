@@ -1,3 +1,8 @@
+################################################################################
+# "read" Usage: read -r [VAR]
+#   -r causes the string to be interpreted "raw" (without considering backslash escapes)
+#
+################################################################################
 
 function _try_git_clone_to() {
      REPO_URL="$1"
@@ -96,6 +101,10 @@ function tweak-osx {
 # custom bin path
 export PATH=~/bin:${PATH}
 
+# macports config: usage: https://guide.macports.org/#using
+export PATH=/opt/local/bin:$PATH
+export PATH=/opt/local/sbin:$PATH
+
 if [ -f ~/.bashalias ]; then
     . ~/.bashalias
 fi
@@ -172,6 +181,43 @@ export ANDROID_NDK_HOME=/usr/local/share/android-ndk
 
 #   chromium source config
 export PATH=~/github/Chromium/depot_tools:${PATH}
+
+# wine config
+# winetricks src: https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+# winetricks variable doc: https://github.com/Winetricks/winetricks/wiki
+export XDG_DATA_HOME=/Users/yangws/.local/share/wineprefixes
+export WINEARCH=win32
+function winenv() {
+    if [ $# = 0 ]; then
+        unset WINEPREFIX
+        unset WINARCH
+    else
+        export WINEPREFIX=$XDG_DATA_HOME/$1
+        if [ $# -gt 1 ]; then
+            export WINEARCH=win$2
+        fi
+    fi
+    #   if WINEPREFIX dir not exit, try make it or tip exist dirs
+    if [ ! -d $WINEPREFIX ]; then
+        echo  "WINEPREFIX directory not exists yet, do you want create it [y/n]?"
+        read -r _YN
+        case $_YN in
+            [Yy]* )
+                mkdir $WINEPREFIX
+                if [ -d $WINEPREFIX ]; then
+                    wineboot
+                    winecfg
+                else
+                    echo "Failure to create WINEPREFIX folder: $WINEPREFIX"
+                fi
+                ;;
+            [Nn]* )
+                echo "Please use valid dir as below:"
+                ls $XDG_DATA_HOME
+                ;;
+        esac
+    fi
+}
 
 #export USE_CCACHE=0
 #export CCACHE_DIR=/Developer/ccache
