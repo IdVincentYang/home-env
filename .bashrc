@@ -2,6 +2,8 @@
 # "read" Usage: read -r [VAR]
 #   -r causes the string to be interpreted "raw" (without considering backslash escapes)
 #
+# extension="${basename##*.}"
+# filename="${basename%.*}"
 ################################################################################
 
 function _try_git_clone_to() {
@@ -216,6 +218,45 @@ function winenv() {
                 ls $XDG_DATA_HOME
                 ;;
         esac
+    fi
+}
+function winepack() {
+    if [ $# = 0 ]; then
+        echo "Please input exe file absolute path and args!"
+    elif [ ! -f $1 ]; then
+        echo "Invalid exe file path!"
+    else
+        _BASE_NAME="$(basename "${1}")"
+        _APP_NAME="${_BASE_NAME%.*}"
+        _APP_BUNDLE="${_APP_NAME}.app"
+        _CONTENT_DIR="${_APP_BUNDLE}/Contents"
+
+        if [ -e "${_APP_BUNDLE}" ]; then
+            echo "${PWD}/${_APP_BUNDLE} already exists :("
+        else
+            mkdir -p "${_CONTENT_DIR}"/MacOS
+            # create sh
+            _SH_PATH="${_CONTENT_DIR}/MacOS/${_APP_NAME}"
+            touch "$_SH_PATH"
+            echo "#!/bin/bash" > "$_SH_PATH"
+            echo "WINEPREFIX=$WINEPREFIX" >> "$_SH_PATH"
+            echo "WINEARCH=$WINEARCH" >> "$_SH_PATH"
+            echo "wine $@" >>  "$_SH_PATH"
+            chmod +x "$_SH_PATH"
+            #create plist
+            _PLIST="${_CONTENT_DIR}/Info.plist"
+            touch "$_PLIST"
+            echo '<?xml version="1.0" encoding="UTF-8"?>' > "$_PLIST"
+            echo '<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> "$_PLIST"
+            echo '<plist version="1.0">' >> "$_PLIST"
+            echo '<dict>' >> "$_PLIST"
+            echo '  <key>CFBundleExecutable</key>' >> "$_PLIST"
+            echo "    <string>${_APP_NAME}</string>" >> "$_PLIST"
+            echo '  </dict>' >> "$_PLIST"
+            echo '</plist>' >> "$_PLIST"
+
+            echo "${_APP_BUNDLE} packed success"
+        fi
     fi
 }
 
