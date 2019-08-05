@@ -49,6 +49,7 @@ _add_app("p", "preview", "/Applications/Preview.app");
 _add_app("r", "calendar", "/Applications/Calendar.app");
 _add_app("s", "visual_studio_code", "/Applications/Visual Studio Code.app");
 _add_app("t", "terminal", "/Applications/Utilities/Terminal.app");
+_add_app("u", "we_chat_work", "/Applications/企业微信.app");
 _add_app("v", "mac_vim", "/Applications/MacVim.app");
 _add_app("w", "we_chat", "/Applications/WeChat.app");
 _add_app("x", "xcode", "/Applications/Xcode.app");
