@@ -38,7 +38,8 @@ end
 
 _add_app("a", "android_studio", "/Applications/Android Studio.app");
 _add_app("c", "cocos_creator", "/Applications/CocosCreator.app");
-_add_app("e", "git_fork", "/Applications/fork.app");
+--_add_app("e", "git_fork", "/Applications/fork.app");
+_add_app("e", "gitkraken", "/Applications/GitKraken.app");
 _add_app("f", "finder", "/System/Library/CoreServices/Finder.app");
 _add_app("g", "google_chrome", "/Applications/Google Chrome.app");
 --_add_app("k", "google_keep", "~/Applications/Chrome Apps.localized/Default hmjkmjkepdijhoojdojkdfohbdgmmhki.app");
