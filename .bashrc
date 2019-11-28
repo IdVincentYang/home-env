@@ -54,7 +54,7 @@ function install-ohmyzsh-plugins {
 
 function install-brew {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew cask install shadowsocksx-ng
+    brew cask install clashx
 }
 
 function install-brew-base {
@@ -73,15 +73,19 @@ function install-brew-base {
 }
 
 function install-brew-app {
-    brew cask install androidtool aria2gui gimp google-chrome icefloor iina invisor-lite
+    brew cask install androidtool aria2gui gimp google-chrome icefloor
     brew cask install xmind
     # rdm virtualbox virtualbox-extension-pac
+    #   media apps
+    brew cask install iina invisor-lite macx-youtube-downloader media-converter
     #   game tools
     brew cask install openemu
+    #   wine apps
+    brew cask install  wine-stable
 }
 
 function install-brew-dev {
-    brew cask install beyond-compare gitkraken visual-studio-code 
+    brew cask install beyond-compare smartgit visual-studio-code 
     #   C++ dev tools
     brew install cloc cmake the_silver_searcher
     #   java/android dev tools
