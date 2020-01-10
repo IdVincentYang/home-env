@@ -6,7 +6,7 @@
     autocrlf = input
 	excludesfile = ~/.gitignoreglobal
 	editor = vim
-	ignorecase = false
+	ignorecase = true
 	quotepath = false
 
 [color]
