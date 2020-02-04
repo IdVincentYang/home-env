@@ -54,7 +54,7 @@ function install-ohmyzsh-plugins {
 
 function install-brew {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew cask install clashx
+    brew cask install clashx cakebrew
 }
 
 function install-brew-base {

@@ -1,0 +1,40 @@
+{
+  "title": "Change Caps Lock Key.",
+  "rules": [
+      {
+      "description": "Caps Lock to Escape on single press, Control on press and hold, Caps Locsk on long hold.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "to_if_held_down": [
+            {
+              "key_code": "caps_lock"
+            }
+          ],
+          "parameters": {
+            "basic.to_if_alone_timeout_milliseconds": 500,
+            "basic.to_if_held_down_threshold_milliseconds": 500
+          }
+        }
+      ]
+    }
+  ]
+}

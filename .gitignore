@@ -1,26 +1,44 @@
+# [format doc](https://git-scm.com/docs/gitignore)
+
 /*
-!/Library/
-!/.hammerspoon/
-!/.home-env/
+################################################################################
+# include root directory items
 !/.bashalias
 !/.bashrc
+!/.config
 !/.gitconfig
 !/.gitignore
 !/.gitignoreglobal
 !/.gvimrc
+!/.hammerspoon
+!/.home-env
 !/.vimrc
 !/.zshrc
+!/Library
 
+################################################################################
+.config/*
 
+# include filezilla config
+!.config/filezilla/
+.config/filezilla/*
+!.config/filezilla/sitemanager.xml
+
+# include karabiner config
+!.config/karabiner/
+
+################################################################################
+# include application support items
 /Library/*
-!/Library/Application\ Support/
+!Library/Application\ Support/
+Library/Application\ Support/*
 
-/Library/Application\ Support/*
-!/Library/Application\ Support/Code/
-!/Library/Application\ Support/Hosts/
+# include visual studio code config
+!Library/Application\ Support/Code/
+Library/Application\ Support/Code/*
+!Library/Application\ Support/Code/User/
+Library/Application\ Support/Code/User/globalStorage/
+Library/Application\ Support/Code/User/workspaceStorage/
 
-/Library/Application\ Support/Code/*
-!/Library/Application\ Support/Code/User/
-/Library/Application\ Support/Code/User/globalStorage/
-
-/Library/Application\ Support/Code/User/workspaceStorage/
+# include host config
+!Library/Application\ Support/Hosts/
