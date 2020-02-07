@@ -6,6 +6,15 @@
 # filename="${basename%.*}"
 ################################################################################
 
+function ensure() {
+    echo "Ensure cmd: $@"
+    while : ; do
+        $@
+        [ $? -eq 0 ] && break
+    done
+    terminal-notifier -title "Execute CMD Complete!" -message "$@"
+}
+
 function _try_git_clone_to() {
      REPO_URL="$1"
      DEST_DIR="$2"
