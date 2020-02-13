@@ -1,6 +1,8 @@
 
 alias _PROXY='ALL_PROXY=http://127.0.0.1:7890'
 
+alias rsync='rsync --exclude ".DS_Store"'
+
 # file shotcut
 alias ss='source ~/.bashrc'
 alias sa='source ~/.bashalias'
