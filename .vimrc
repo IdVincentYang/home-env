@@ -71,6 +71,14 @@ set autowrite
 set formatoptions+=mMj          " let vim can break chinese and join
 
 """"""""""""""""""""""""""""""""""""""""
+" General: view
+set nofoldenable                " close fold as default open fold using cmd: fen
+set foldcolumn=1
+set foldlevelstart=1
+set foldmethod=syntax
+set foldminlines=3
+
+""""""""""""""""""""""""""""""""""""""""
 " General: backup
 set history=1000                    " Store a ton of history (default is 20)
 set nobackup                  " Backups are nice ...
