@@ -86,7 +86,7 @@ function install-brew-app {
     brew cask install xmind
     # rdm virtualbox virtualbox-extension-pac
     #   media apps
-    brew cask install iina invisor-lite macx-youtube-downloader media-converter
+    brew cask install 5kplayer iina invisor-lite media-converter
     #   game tools
     brew cask install openemu
     #   wine apps
