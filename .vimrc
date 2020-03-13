@@ -280,6 +280,7 @@ vnoremap . :normal .<CR>
 
 " Some helpers to edit mode
 " http://vimcasts.org/e/14
+nnoremap <leader><space> i<space><esc>
 "cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 "map <leader>ew :e %%
 "map <leader>es :sp %%
