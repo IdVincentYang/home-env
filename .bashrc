@@ -83,7 +83,8 @@ function install-brew-base {
 
 function install-brew-app {
     brew cask install androidtool aria2gui gimp google-chrome icefloor
-    brew cask install xmind
+    # devices apps
+    brew cask install soduto
     # rdm virtualbox virtualbox-extension-pac
     #   media apps
     brew cask install 5kplayer iina invisor-lite media-converter
@@ -94,6 +95,9 @@ function install-brew-app {
 }
 
 function install-brew-dev {
+    #   design tools
+    brew cask install xmind
+    #   coding tools
     brew cask install beyond-compare smartgit visual-studio-code 
     #   C++ dev tools
     brew install cloc cmake the_silver_searcher
