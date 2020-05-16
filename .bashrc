@@ -87,7 +87,7 @@ function install-brew-app {
     brew cask install soduto
     # rdm virtualbox virtualbox-extension-pac
     #   media apps
-    brew cask install 5kplayer iina invisor-lite media-converter
+    brew cask install iina invisor-lite macx-youtube-downloader media-converter
     #   game tools
     brew cask install openemu
     #   wine apps
