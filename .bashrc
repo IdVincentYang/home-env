@@ -84,7 +84,7 @@ function install-brew-base {
 function install-brew-app {
     brew cask install androidtool aria2gui gimp google-chrome icefloor
     # devices apps
-    brew cask install soduto
+    brew cask install soduto turbo-boost-switcher
     # rdm virtualbox virtualbox-extension-pac
     #   media apps
     brew cask install iina invisor-lite macx-youtube-downloader media-converter
