@@ -10,9 +10,6 @@
 127.0.0.1	baidu.com
 127.0.0.1	me
 192.168.1.10	nas
-127.0.0.1	release.axocdn.com
-127.0.0.1	release.gitkraken.com
 # Added by Docker Desktop
 # To allow the same kube context to work on the host and the container:
-127.0.0.1 kubernetes.docker.internal
 # End of section
