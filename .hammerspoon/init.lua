@@ -37,7 +37,7 @@ local function _add_app(hotkey, name, path)
 end
 
 _add_app("a", "android_studio", "/Applications/Android Studio.app");
-_add_app("c", "cocos_creator", "/Applications/CocosCreator.app");
+_add_app("c", "cocos_creator", "/Applications/CocosCreator/Creator/2.4.2/CocosCreator.app");
 --_add_app("e", "git_fork", "/Applications/fork.app");
 _add_app("e", "gitkraken", "/Applications/GitKraken.app");
 _add_app("f", "finder", "/System/Library/CoreServices/Finder.app");
