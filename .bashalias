@@ -3,6 +3,76 @@ alias _PROXY='ALL_PROXY=http://127.0.0.1:7890'
 
 alias rsync='rsync --exclude ".DS_Store"'
 
+# adb shotcut
+
+_ADB_SCREEN_CAPTURE_USAGE="Usage: <cmd> [path, default='/tmp/screenshot.png']"
+function _adb_screen_capture() {
+    echo $_ADB_SCREEN_CAPTURE_USAGE
+    if [ ! -f `which adb` ] ; then
+        echo "Can't find adb command in BASH envirement variable!"
+    else
+        SAVE_PATH=$1
+        if [ -z "$SAVE_PATH" ] ; then
+           SAVE_PATH="/tmp/screenshot.png"
+        fi
+
+        echo "Capturing..."
+        adb shell screencap -p > $SAVE_PATH
+        #adb $2 $3 shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > $SAVE_PATH
+        sleep 1
+        open $SAVE_PATH
+    fi
+}
+
+_ADB_SCREEN_RECORD_USAGE="
+Usage: <cmd> [Arguments]
+
+Arguments:
+    1(default '<HOME>/Downloads/screen_record_adb.mp4')\tthe record file path
+    2(default 10)\tthe record save time length in seconds
+    3(default 540x960)\tthe record size in widthxheight
+"
+function _adb_screen_record() {
+    echo $_ADB_SCREEN_RECORD_USAGE
+    if [ ! -f `which adb` ] ; then
+        echo "Can't find adb command in BASH envirement variable!"
+    else
+        if [ -n "$1" ] ; then
+            SAVE_PATH="$1"
+        else
+            SAVE_PATH="$HOME/Downloads/screen_record_adb.mp4"
+        fi
+
+        if [ -n "$2" ] ; then
+            SAVE_TIME="--time-limit $2"
+        else
+            SAVE_TIME="--time-limit 10"
+        fi
+
+        if [ -n "$3" ] ; then
+            SAVE_SIZE="--size $3"
+        else
+            SAVE_SIZE="--size 540x960"
+        fi
+
+        RECORD_PATH="/sdcard/screen_record_adb.mp4"
+
+        echo "run cmd: adb shell screenrecord  $SAVE_TIME $SAVE_SIZE $RECORD_PATH"
+        adb shell screenrecord $SAVE_TIME $SAVE_SIZE $RECORD_PATH
+        adb pull -p $RECORD_PATH $SAVE_PATH
+        adb shell rm -f $RECORD_PATH
+        open $SAVE_PATH
+    fi
+}
+
+alias adbcapture='_adb_screen_capture'
+alias adbpower='adb shell input keyevent 26'
+alias adbrecord='_adb_screen_record'
+alias adbswipe='adb shell inputswipe' # 500 50 500 700 // 从x,y=(500，50)滑动到500，700
+alias adbtap='adb shell input tap'  # x y
+alias adbtopactivity='adb shell dumpsys activity top | grep ACTIVITY' # get top activity name
+alias adbwifisignal='adb shell settings put global captive_portal_detection_enabled' # 0, 1
+
 # file shotcut
 alias ss='source ~/.bashrc'
 alias sa='source ~/.bashalias'
