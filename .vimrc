@@ -27,7 +27,7 @@ scriptencoding utf-8
 " fallback into cp1252(Windows Latin-1) instead of eg. iso-8859-15.
 " Newer Windows files might contain utf-8 or utf-16 LE so we might
 " want to try them first.
-set fileencodings=ucs-bom,utf-8,chinese,utf-16,cp1252,iso-8859-15
+set fileencodings=ucs-bom,utf-8,chinese,utf-16,big5,big5-hkscs,cp1252,iso-8859-15
 set fileencoding=utf-8
 
 set termencoding=utf-8

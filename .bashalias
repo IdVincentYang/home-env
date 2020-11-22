@@ -67,6 +67,7 @@ function _adb_screen_record() {
 
 alias adbcapture='_adb_screen_capture'
 alias adbpower='adb shell input keyevent 26'
+alias adbpoweroff='adb shell reboot -p'
 alias adbrecord='_adb_screen_record'
 alias adbswipe='adb shell inputswipe' # 500 50 500 700 // 从x,y=(500，50)滑动到500，700
 alias adbtap='adb shell input tap'  # x y
