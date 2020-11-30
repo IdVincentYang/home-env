@@ -104,7 +104,7 @@ if has('cmdline_info')
     set ruler                   " Show the ruler
     set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
     set showcmd                 " Show partial commands in status line and
-                                " Selected characters/lines in visual mode
+    " Selected characters/lines in visual mode
 endif
 
 if has('statusline')
@@ -219,15 +219,15 @@ nnoremap <C-tab> :bn<CR>
 " fast buffer close
 command! BcloseOthers call <SID>BufCloseOthers()
 function! <SID>BufCloseOthers()
-   let l:currentBufNum   = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
-   for i in range(1,bufnr("$"))
-     if buflisted(i)
-       if i!=l:currentBufNum
-         execute("bdelete ".i)
-       endif
-     endif
-   endfor
+    let l:currentBufNum   = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+    for i in range(1,bufnr("$"))
+        if buflisted(i)
+            if i!=l:currentBufNum
+                execute("bdelete ".i)
+            endif
+        endif
+    endfor
 endfunction
 nnoremap <leader>qo :BcloseOthers<CR>
 nnoremap <leader>qq :bp\|bd#<CR>
@@ -260,7 +260,7 @@ if exists('g:spf13_clear_search_highlight')
     nmap <silent> <leader>/ :nohlsearch<CR>
 else
     nmap <silent> <leader>/ :set invhlsearch<CR>
-endif 
+endif
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
@@ -313,14 +313,14 @@ nnoremap <leader><space> i<space><esc>
 " search plug from: https://vimawesome.com
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 function! Cond(cond, ...)
-  let opts = get(a:000, 0, {})
-  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+    let opts = get(a:000, 0, {})
+    return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
 
 " g:plug*
@@ -332,6 +332,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-scripts/txt.vim'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
+Plug 'chrisbra/unicode.vim'
+Plug 'Chiel92/vim-autoformat'
 
 " 目前没有找到如何在vim 脚本里面判断是否已安装 fzf 命令的方法, 先直接引用插件
 Plug '/usr/local/opt/fzf'
@@ -353,25 +355,29 @@ autocmd Filetype vim-plug call PlugMappings()
 
 " Automatically install missing plugins on startup
 autocmd VimEnter *
-  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
-  \| endif
+            \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+            \|   PlugInstall --sync | q
+            \| endif
 
 """"""""""""""""""""""""""""""""""""""""
-" plug: 'vim-solarized8'
+" plug: 'https://github.com/lifepillar/vim-solarized8'
 if has_key(g:plugs, 'vim-solarized8')
     " set background=dark
     colorscheme solarized8
 endif
 
 """"""""""""""""""""""""""""""""""""""""
-" Plug: 'vim-airline'
+" Plug: 'https://github.com/vim-airline/vim-airline'
 if has_key(g:plugs, 'vim-airline')
     if has("gui_running")
         let g:airline_powerline_fonts = 1
     endif
     " show absolute file path in status line
     "let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+
+    " 关闭状态显示缩进行计数
+    let g:airline#extensions#whitespace#enabled = 0
+    " 没效果 let g:airline#extensions#whitespace#symbol = '!'
 
     let g:airline#extensions#tabline#enabled = 1
 
@@ -392,7 +398,7 @@ if has_key(g:plugs, 'vim-airline')
 endif
 
 """"""""""""""""""""""""""""""""""""""""
-" Plug: 'txt.vim'
+" Plug: 'https://github.com/vim-scripts/txt.vim'
 if has_key(g:plugs, 'txt.vim')
     " 在 '~/.vim/' 目录下添加检测脚本,把没有后缀的文件都默认使用 txt 插件高亮
     let s:dir = expand('~/.vim/ftdetect/')
@@ -411,7 +417,7 @@ nnoremap <silent> <leader>o :GFiles <CR>
 nnoremap <silent> <leader>f :call fzf#vim#ag(input("Ag args:"))<CR>
 
 """"""""""""""""""""""""""""""""""""""""
-" Plug: 'vim-utils/vim-man'
+" Plug: 'https://github.com/vim-utils/vim-man'
 if has_key(g:plugs, 'vim-man')
     if has("gui_running")
         nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
@@ -419,7 +425,7 @@ if has_key(g:plugs, 'vim-man')
 endif
 
 """"""""""""""""""""""""""""""""""""""""
-" Plug: 'scrooloose/nerdcommenter'
+" Plug: 'https://github.com/scrooloose/nerdcommenter'
 if has_key(g:plugs, 'nerdcommenter')
     " Add spaces after comment delimiters by default
     let g:NERDSpaceDelims = 1
@@ -435,7 +441,29 @@ if has_key(g:plugs, 'nerdcommenter')
     let g:NERDCommentEmptyLines = 1
     " Enable trimming of trailing whitespace when uncommenting
     let g:NERDTrimTrailingWhitespace = 1
-    " Enable NERDCommenterToggle to check all selected lines is commented or not 
+    " Enable NERDCommenterToggle to check all selected lines is commented or not
     let g:NERDToggleCheckAllLines = 1
 endif
+
+""""""""""""""""""""""""""""""""""""""""
+" Plug 'https://github.com/chrisbra/unicode.vim'
+if has_key(g:plugs, 'vim-airline')
+    " 替换默认的查询当前光标下字符编码的命令
+    nmap ga :UnicodeName<CR>
+endif
+
+""""""""""""""""""""""""""""""""""""""""
+" Plug 'https://github.com/Chiel92/vim-autoformat'
+if has_key(g:plugs, 'nerdcommenter')
+
+    autocmd FileType c,cpp autocmd BufWrite * :Autoformat
+
+    " let g:autoformat_verbosemode = 1
+    " let g:autoformat_autoindent = 0
+    " let g:autoformat_retab = 0
+    " disable remove trailing spaces due to this has been done by above
+    let g:autoformat_remove_trailing_spaces = 0
+
+endif
+
 echom ".vimrc loaded"
