@@ -115,6 +115,8 @@ function install-brew-ql {
 
 function tweak-osx {
     defaults write com.apple.appstore ShowDebugMenu -bool true
+    # 隐藏窗口显示半透明效果
+    defaults write com.apple.Dock showhidden -bool true
 }
 
 # custom bin path
