@@ -71,6 +71,7 @@ alias adbpoweroff='adb shell reboot -p'
 alias adbrecord='_adb_screen_record'
 alias adbswipe='adb shell inputswipe' # 500 50 500 700 // 从x,y=(500，50)滑动到500，700
 alias adbtap='adb shell input tap'  # x y
+alias adbtext='adb shell input text' # some text
 alias adbtopactivity='adb shell dumpsys activity top | grep ACTIVITY' # get top activity name
 alias adbwifisignal='adb shell settings put global captive_portal_detection_enabled' # 0, 1
 
