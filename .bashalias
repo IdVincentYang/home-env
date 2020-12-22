@@ -65,6 +65,11 @@ function _adb_screen_record() {
     fi
 }
 
+function _ascript_display_alert() {
+    ASCRIPT="display alert \"$1\" message \"$2 $3 $4 $5 $6 $7 $8 $9\""
+    osascript -e "${ASCRIPT}"
+}
+
 alias adbcapture='_adb_screen_capture'
 alias adbpower='adb shell input keyevent 26'
 alias adbpoweroff='adb shell reboot -p'
@@ -75,6 +80,8 @@ alias adbtext='adb shell input text' # some text
 alias adbtopactivity='adb shell dumpsys activity top | grep ACTIVITY' # get top activity name
 alias adbwifisignal='adb shell settings put global captive_portal_detection_enabled' # 0, 1
 
+# display alert
+alias alert='_ascript_display_alert'
 # file shotcut
 alias ss='source ~/.bashrc'
 alias sa='source ~/.bashalias'
