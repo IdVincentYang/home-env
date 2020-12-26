@@ -24,63 +24,20 @@ function _adb_screen_capture() {
     fi
 }
 
-_ADB_SCREEN_RECORD_USAGE="
-Usage: <cmd> [Arguments]
+alias adbcapture='_adb_screen_capture'
+alias adbpower='adb shell input keyevent 26'
+alias adbpoweroff='adb shell reboot -p'
+alias adbscr='scrcpy --shortcut-mod=ralt --show-touches '
+alias adbtopactivity='adb shell dumpsys activity top | grep ACTIVITY' # get top activity name
+alias adbwifisignal='adb shell settings put global captive_portal_detection_enabled' # 0, 1
 
-Arguments:
-    1(default '<HOME>/Downloads/screen_record_adb.mp4')\tthe record file path
-    2(default 10)\tthe record save time length in seconds
-    3(default 540x960)\tthe record size in widthxheight
-"
-function _adb_screen_record() {
-    echo $_ADB_SCREEN_RECORD_USAGE
-    if [ ! -f `which adb` ] ; then
-        echo "Can't find adb command in BASH envirement variable!"
-    else
-        if [ -n "$1" ] ; then
-            SAVE_PATH="$1"
-        else
-            SAVE_PATH="$HOME/Downloads/screen_record_adb.mp4"
-        fi
-
-        if [ -n "$2" ] ; then
-            SAVE_TIME="--time-limit $2"
-        else
-            SAVE_TIME="--time-limit 10"
-        fi
-
-        if [ -n "$3" ] ; then
-            SAVE_SIZE="--size $3"
-        else
-            SAVE_SIZE="--size 540x960"
-        fi
-
-        RECORD_PATH="/sdcard/screen_record_adb.mp4"
-
-        echo "run cmd: adb shell screenrecord  $SAVE_TIME $SAVE_SIZE $RECORD_PATH"
-        adb shell screenrecord $SAVE_TIME $SAVE_SIZE $RECORD_PATH
-        adb pull -p $RECORD_PATH $SAVE_PATH
-        adb shell rm -f $RECORD_PATH
-        open $SAVE_PATH
-    fi
-}
+# display alert
 
 function _ascript_display_alert() {
     ASCRIPT="display alert \"$1\" message \"$2 $3 $4 $5 $6 $7 $8 $9\""
     osascript -e "${ASCRIPT}"
 }
 
-alias adbcapture='_adb_screen_capture'
-alias adbpower='adb shell input keyevent 26'
-alias adbpoweroff='adb shell reboot -p'
-alias adbrecord='_adb_screen_record'
-alias adbswipe='adb shell inputswipe' # 500 50 500 700 // 从x,y=(500，50)滑动到500，700
-alias adbtap='adb shell input tap'  # x y
-alias adbtext='adb shell input text' # some text
-alias adbtopactivity='adb shell dumpsys activity top | grep ACTIVITY' # get top activity name
-alias adbwifisignal='adb shell settings put global captive_portal_detection_enabled' # 0, 1
-
-# display alert
 alias alert='_ascript_display_alert'
 # file shotcut
 alias ss='source ~/.bashrc'
