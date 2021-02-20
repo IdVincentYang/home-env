@@ -70,6 +70,12 @@ set autoread
 set autowrite
 set formatoptions+=mMj          " let vim can break chinese and join
 
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
 """"""""""""""""""""""""""""""""""""""""
 " General: view
 set nofoldenable                " close fold as default open fold using cmd: fen
@@ -436,7 +442,7 @@ if has_key(g:plugs, 'nerdcommenter')
     " Set a language to use its alternate delimiters by default
     let g:NERDAltDelims_java = 1
     " Add your own custom formats or override the defaults
-    " let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+    let g:NERDCustomDelimiters = { 'text': { 'left': '#','right': '' } }
     " Allow commenting and inverting empty lines (useful when commenting a region)
     let g:NERDCommentEmptyLines = 1
     " Enable trimming of trailing whitespace when uncommenting
@@ -447,14 +453,15 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""
 " Plug 'https://github.com/chrisbra/unicode.vim'
-if has_key(g:plugs, 'vim-airline')
+if has_key(g:plugs, 'unicode.vim')
+    " let g:Unicode_no_default_mappings = v:true
     " 替换默认的查询当前光标下字符编码的命令
     nmap ga :UnicodeName<CR>
 endif
 
 """"""""""""""""""""""""""""""""""""""""
 " Plug 'https://github.com/Chiel92/vim-autoformat'
-if has_key(g:plugs, 'nerdcommenter')
+if has_key(g:plugs, 'vim-autoformat')
 
     autocmd FileType c,cpp autocmd BufWrite * :Autoformat
 
