@@ -10,7 +10,8 @@ local _SUPER_META = { "cmd", "alt", "ctrl", "shift" };
 每个功能描述为一个数组，格式为: {<功能函数名>[, arg1[, arg2[, ...] ] ]}.
 可用的功能函数:
     toogle_application: 启动或显示某应用界面. args:
-        arg1: 应用名称,应用绝对路径或bundleID
+        arg1: 应用名称
+        arg2: 应用绝对路径或bundleID
 ]]
 local _SHORTCUT_KEYS = {
     a = { _SUPER_META, { { "toogle_application", "Android Studio" } } },
@@ -26,23 +27,39 @@ local _SHORTCUT_KEYS = {
     k = { _SUPER_META, { { "toogle_application", "" } } },
     l = { _SUPER_META, { { "toogle_application", "" } } },
     m = { _SUPER_META, { { "toogle_application", "MWeb" } } },
-    n = { _SUPER_META, { { "toogle_application", "Notes" } } },
+    n = { _SUPER_META, {
+        { "toogle_application", "Notes" },
+        { "toogle_application", "Numbers" },
+    } },
     o = { _SUPER_META, { { "toogle_application", "" } } },
-    p = { _SUPER_META, { { "toogle_application", "Preview" } } },
+    p = { _SUPER_META, {
+        { "toogle_application", "Preview" },
+        { "toogle_application", "Visual Paradigm" },
+    } },
     q = { _SUPER_META, { { "toogle_application", "" } } },
     r = { _SUPER_META, { { "toogle_application", "Calendar" } } },
-    s = { _SUPER_META, { { "toogle_application", "com.microsoft.VSCode" } } },
+    s = { _SUPER_META, { { "toogle_application", "Visual Studio Code", "com.microsoft.VSCode" } } },
     t = { _SUPER_META, { { "toogle_application", "Terminal" } } },
     u = { _SUPER_META, { { "toogle_application", "WeCom" } } },
     v = { _SUPER_META, { { "toogle_application", "MacVim" } } },
     w = { _SUPER_META, { { "toogle_application", "WeChat" } } },
     x = { _SUPER_META, { { "toogle_application", "Xcode" } } },
-    y = { _SUPER_META, { { "toogle_application", "Visual Paradigm" } } },
+    y = { _SUPER_META, {} },
     z = { _SUPER_META, { { "toogle_application", "XMind" } } },
 };
 
 local _log = hs.logger.new("my_config", "debug");
 local _ACTIONS = {};
+local function _do_action(actionInfo)
+    if (type(actionInfo) == "table" and #actionInfo > 0) then
+        local func = _ACTIONS[actionInfo[1]];
+        if (func) then
+            func(table.unpack(actionInfo, 2));
+        else
+            hs.alert("未定义行为: " .. actionInfo[1]);
+        end
+    end
+end
 --  遍历 _SHORTCUT_KEYS, 绑定所有快捷键
 for k, v in pairs(_SHORTCUT_KEYS) do
     if (type(v) == "table" and #v > 1) then
@@ -51,14 +68,25 @@ for k, v in pairs(_SHORTCUT_KEYS) do
             hs.hotkey.bind(v[1], k, function()
                 local actionCounts = #actionInfos;
                 if (actionCounts == 1) then
-                    local actionInfo = actionInfos[1];
-                    if (type(actionInfo) == "table" and #actionInfo > 0) then
-                        local func = _ACTIONS[actionInfo[1]];
-                        if (func) then
-                            func(table.unpack(actionInfo, 2));
-                        else
-                            hs.alert("未定义行为: " .. actionInfo[1]);
+                    _do_action(actionInfos[1]);
+                else
+                    if (actionCounts > 1) then
+                        local choices = {};
+                        for i, info in pairs(actionInfos) do
+                            local c = { actionInfo = info };
+                            if ("toogle_application" == info[1]) then
+                                c.text = "切换应用: " .. info[2];
+                                c.subText = info[3];
+                            else
+                                c.text = hs.json.encode(info);
+                            end
+                            choices[i] = c;
                         end
+                        hs.chooser.new(function(result)
+                            _do_action(result.actionInfo);
+                        end)
+                        :choices(choices)
+                        :show();
                     end
                 end
             end)
@@ -67,11 +95,13 @@ for k, v in pairs(_SHORTCUT_KEYS) do
 end
 
 --[[启动或显示某应用界面. args:
-        appHint: 应用名称,应用绝对路径或bundleID
+        name: 应用名称
+        pathOrBundleID: 应用绝对路径或 bundleID
 ]]
-_ACTIONS.toogle_application = function(appHint)
+_ACTIONS.toogle_application = function(name, pathOrBundleID)
+    local appHint = pathOrBundleID or name
     if (type(appHint) ~= "string" or string.len(appHint) == 0) then
-        _log.e("toogle_application invalid args: appHint: " .. appHint);
+        _log.e(string.format("toogle_application invalid args(name: %s, pathOrBundleID: %s)", name, pathOrBundleID));
         return;
     end
     local app = hs.application.find(appHint)
@@ -98,7 +128,7 @@ _ACTIONS.toogle_application = function(appHint)
         -- 如果此应用有焦点窗口, 移动鼠标到窗口中间
         if (focusedWin) then
             hs.mouse.setAbsolutePosition(focusedWin:frame().center);
-            hs.alert.show(appHint);
+            hs.alert.show(name);
         end
     end
 end
