@@ -20,7 +20,7 @@ local _SHORTCUT_KEYS = {
     e = { _SUPER_META, { { "toogle_application", "GitKraken" } } },
     f = { _SUPER_META, { { "toogle_application", "Finder" } } },
     g = { _SUPER_META, { { "toogle_application", "Google Chrome" } } },
-    h = { _SUPER_META, { { "toogle_application", "com.microsoft.VSCode" } } },
+    h = { _SUPER_META, { { "toogle_application", "" } } },
     i = { _SUPER_META, { { "toogle_application", "" } } },
     j = { _SUPER_META, { { "toogle_application", "" } } },
     k = { _SUPER_META, { { "toogle_application", "" } } },
@@ -31,7 +31,7 @@ local _SHORTCUT_KEYS = {
     p = { _SUPER_META, { { "toogle_application", "Preview" } } },
     q = { _SUPER_META, { { "toogle_application", "" } } },
     r = { _SUPER_META, { { "toogle_application", "Calendar" } } },
-    s = { _SUPER_META, { { "toogle_application", "Visual Studio Code" } } },
+    s = { _SUPER_META, { { "toogle_application", "com.microsoft.VSCode" } } },
     t = { _SUPER_META, { { "toogle_application", "Terminal" } } },
     u = { _SUPER_META, { { "toogle_application", "WeCom" } } },
     v = { _SUPER_META, { { "toogle_application", "MacVim" } } },
@@ -75,7 +75,7 @@ _ACTIONS.toogle_application = function(appHint)
         return;
     end
     local app = hs.application.find(appHint)
-    if not app then
+    if (not app) then
         --  没有找到此应用, 启动它
         app = hs.application.open(appHint)
         if (hs.application.launchOrFocus(appHint)) then
@@ -86,11 +86,16 @@ _ACTIONS.toogle_application = function(appHint)
         end
     else
         --  如果此应用不是前台应用，激活它
-        if not app:isFrontmost() then
+        if (not app:isFrontmost()) then
             app:activate(true);
         end
-        -- 如果此应用有焦点窗口, 移动鼠标到窗口中间
         local focusedWin = app:focusedWindow();
+        --  如果此应用没有有焦点的窗口,但是有窗口,则激活一下
+        if (not focusedWin and #app:allWindows() > 0) then
+            hs.application.launchOrFocus(appHint);
+            focusedWin = app:focusedWindow();
+        end
+        -- 如果此应用有焦点窗口, 移动鼠标到窗口中间
         if (focusedWin) then
             hs.mouse.setAbsolutePosition(focusedWin:frame().center);
             hs.alert.show(appHint);
