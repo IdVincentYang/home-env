@@ -4,66 +4,104 @@
 --  [Spoons Download](https://www.hammerspoon.org/Spoons/)
 --]]
 local _SUPER_META = { "cmd", "alt", "ctrl", "shift" };
+--[[快捷键配置表，配置项格式: <key> = {快捷键描述1, 快捷键描述2, ...}
+
+每个快捷键描述为一个数组，格式为: {<修饰键数组>, {功能描述1, 功能描述2, ...}.
+每个功能描述为一个数组，格式为: {<功能函数名>[, arg1[, arg2[, ...] ] ]}.
+可用的功能函数:
+    toogle_application: 启动或显示某应用界面. args:
+        arg1: 应用名称,应用绝对路径或bundleID
+]]
+local _SHORTCUT_KEYS = {
+    a = { _SUPER_META, { { "toogle_application", "Android Studio" } } },
+    b = { _SUPER_META, { { "toogle_application", "" } } },
+    c = { _SUPER_META, { { "toogle_application", "CocosCreator" } } },
+    d = { _SUPER_META, { { "toogle_application", "" } } },
+    e = { _SUPER_META, { { "toogle_application", "GitKraken" } } },
+    f = { _SUPER_META, { { "toogle_application", "Finder" } } },
+    g = { _SUPER_META, { { "toogle_application", "Google Chrome" } } },
+    h = { _SUPER_META, { { "toogle_application", "com.microsoft.VSCode" } } },
+    i = { _SUPER_META, { { "toogle_application", "" } } },
+    j = { _SUPER_META, { { "toogle_application", "" } } },
+    k = { _SUPER_META, { { "toogle_application", "" } } },
+    l = { _SUPER_META, { { "toogle_application", "" } } },
+    m = { _SUPER_META, { { "toogle_application", "MWeb" } } },
+    n = { _SUPER_META, { { "toogle_application", "Notes" } } },
+    o = { _SUPER_META, { { "toogle_application", "" } } },
+    p = { _SUPER_META, { { "toogle_application", "Preview" } } },
+    q = { _SUPER_META, { { "toogle_application", "" } } },
+    r = { _SUPER_META, { { "toogle_application", "Calendar" } } },
+    s = { _SUPER_META, { { "toogle_application", "Visual Studio Code" } } },
+    t = { _SUPER_META, { { "toogle_application", "Terminal" } } },
+    u = { _SUPER_META, { { "toogle_application", "WeCom" } } },
+    v = { _SUPER_META, { { "toogle_application", "MacVim" } } },
+    w = { _SUPER_META, { { "toogle_application", "WeChat" } } },
+    x = { _SUPER_META, { { "toogle_application", "Xcode" } } },
+    y = { _SUPER_META, { { "toogle_application", "Visual Paradigm" } } },
+    z = { _SUPER_META, { { "toogle_application", "XMind" } } },
+};
+
 local _log = hs.logger.new("my_config", "debug");
-
---[[--
---  快捷键：启动应用
---]]
---[[launch application begin]]
-local _application_launch_action_mapping = {};
-local _application_launch_hotkey_mapping = {};
-
---[[    启动路径指定的应用并把鼠标移上去
---]]
-local function _launch_app(path)
-    if (hs.application.launchOrFocus(path)) then
-        local app = hs.application.frontmostApplication();
-        if (app and app:path():match(path)) then
-            local win = app:focusedWindow();
-            if (win) then
-                hs.mouse.setAbsolutePosition(win:frame().center);
-            end
+local _ACTIONS = {};
+--  遍历 _SHORTCUT_KEYS, 绑定所有快捷键
+for k, v in pairs(_SHORTCUT_KEYS) do
+    if (type(v) == "table" and #v > 1) then
+        local actionInfos = v[2];
+        if (type(actionInfos) == "table" and #actionInfos > 0) then
+            hs.hotkey.bind(v[1], k, function()
+                local actionCounts = #actionInfos;
+                if (actionCounts == 1) then
+                    local actionInfo = actionInfos[1];
+                    if (type(actionInfo) == "table" and #actionInfo > 0) then
+                        local func = _ACTIONS[actionInfo[1]];
+                        if (func) then
+                            func(table.unpack(actionInfo, 2));
+                        else
+                            hs.alert("未定义行为: " .. actionInfo[1]);
+                        end
+                    end
+                end
+            end)
         end
-        app:activate(true); --  前置所有窗口
-    else
-        hs.alert("找不到应用: " .. path);
     end
 end
 
-local function _add_app(hotkey, name, path)
-    local key = "app_launch_" .. name;
-    _application_launch_action_mapping[key] = hs.fnutils.partial(_launch_app, path);
-    _application_launch_hotkey_mapping[key] = { _SUPER_META, hotkey };
+--[[启动或显示某应用界面. args:
+        appHint: 应用名称,应用绝对路径或bundleID
+]]
+_ACTIONS.toogle_application = function(appHint)
+    if (type(appHint) ~= "string" or string.len(appHint) == 0) then
+        _log.e("toogle_application invalid args: appHint: " .. appHint);
+        return;
+    end
+    local app = hs.application.find(appHint)
+    if not app then
+        --  没有找到此应用, 启动它
+        app = hs.application.open(appHint)
+        if (hs.application.launchOrFocus(appHint)) then
+            hs.alert("启动应用: " .. appHint);
+            _log.d(hs.application.frontmostApplication():bundleID());
+        else
+            hs.alert("启动应用失败: " .. appHint);
+        end
+    else
+        --  如果此应用不是前台应用，激活它
+        if not app:isFrontmost() then
+            app:activate(true);
+        end
+        -- 如果此应用有焦点窗口, 移动鼠标到窗口中间
+        local focusedWin = app:focusedWindow();
+        if (focusedWin) then
+            hs.mouse.setAbsolutePosition(focusedWin:frame().center);
+            hs.alert.show(appHint);
+        end
+    end
 end
 
-_add_app("a", "android_studio", "/Applications/Android Studio.app");
-_add_app("c", "cocos_creator", "/Applications/CocosCreator/Creator/2.4.2/CocosCreator.app");
---_add_app("e", "git_fork", "/Applications/fork.app");
-_add_app("e", "gitkraken", "/Applications/GitKraken.app");
-_add_app("f", "finder", "/System/Library/CoreServices/Finder.app");
-_add_app("g", "google_chrome", "/Applications/Google Chrome.app");
---_add_app("k", "google_keep", "~/Applications/Chrome Apps.localized/Default hmjkmjkepdijhoojdojkdfohbdgmmhki.app");
---_add_app("k", "google_keep", "/Users/yangws/Applications/Chrome Apps.localized/Default hmjkmjkepdijhoojdojkdfohbdgmmhki.app");
-_add_app("m", "mweb", "/Applications/MWeb.app");
-_add_app("n", "notes", "/Applications/Notes.app");
-_add_app("p", "preview", "/Applications/Preview.app");
-_add_app("r", "calendar", "/Applications/Calendar.app");
-_add_app("s", "visual_studio_code", "/Applications/Visual Studio Code.app");
-_add_app("t", "terminal", "/Applications/Utilities/Terminal.app");
-_add_app("u", "we_chat_work", "/Applications/企业微信.app");
-_add_app("v", "mac_vim", "/Applications/MacVim.app");
-_add_app("w", "we_chat", "/Applications/WeChat.app");
-_add_app("x", "xcode", "/Applications/Xcode.app");
-_add_app("y", "visual_paradigm", "/Applications/Visual Paradigm.app");
-_add_app("z", "xmind", "/Applications/XMind.app");
-
-hs.spoons.bindHotkeysToSpec(_application_launch_action_mapping, _application_launch_hotkey_mapping);
---[[launch application end]]
 --[[--
 --  快捷键：窗口移动
 --]]
 --[[window move begin]]
-
 --  数 a 接近数 b 的整数倍
 local function _number_near_multiple(a, b, dt)
     local mod = math.fmod(a, b);
@@ -76,10 +114,10 @@ end
 
 local function _window_move_in_screen(direction, division, duration)
     _log.d(string.format(
-        "_window_move_in_screen(direction: %s, division: %d, duration: %d)",
-        direction,
-        division,
-        duration
+    "_window_move_in_screen(direction: %s, division: %d, duration: %d)",
+    direction,
+    division,
+    duration
     ));
     local win = hs.window.focusedWindow();
     if win == nil then
@@ -98,7 +136,7 @@ local function _window_move_in_screen(direction, division, duration)
         local isCenter = math.abs(w:distance(c)) <= dt;
         local fitSize = _number_near_multiple(w.w, d.w, dt) and _number_near_multiple(w.h, d.h, dt);
         inPos = isCenter and fitSize;
-        w.size = d:scale(inPos and (math.floor((w.w + dt)/ d.w) % division + 1) or division);
+        w.size = d:scale(inPos and (math.floor((w.w + dt) / d.w) % division + 1) or division);
         w.center = s.center;
     elseif (direction == "horizontal") then
         local d = hs.geometry.size(math.floor(s.w / division), s.h);

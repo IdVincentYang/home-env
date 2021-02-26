@@ -63,52 +63,52 @@ function install-ohmyzsh-plugins {
 
 function install-brew {
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew cask install clashx cakebrew
+    brew install clashx cakebrew
 }
 
 function install-brew-base {
     brew install autoconf automake fd ffmpeg fzf git lrzsz p7zip stormssh tree vim watch wget you-get youtube-dl
-    brew cask install apptrap caffeine oracle-jdk karabiner-elements keepassxc keyboard-maestro macvim openvanilla osxfuse
-    brew cask install suspicious-package hammerspoon
+    brew install apptrap caffeine itsycal oracle-jdk karabiner-elements keepassxc keyboard-maestro macvim openvanilla osxfuse
+    brew install suspicious-package hammerspoon
     #   vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
 
     #   depends osxfuse
     brew install ntfs-3g sshfs
     #   network tools
     brew install iperf3 iproute2mac
-    brew cask install charles wireshark
+    brew install charles wireshark
     #   need FQ
-    # brew cask install go2shell
+    # brew install go2shell
 }
 
 function install-brew-app {
-    brew cask install aria2gui gimp google-chrome icefloor
+    brew install aria2gui gimp google-chrome icefloor
     # devices apps
-    brew cask install soduto scrcpy turbo-boost-switcher
+    brew install soduto scrcpy turbo-boost-switcher
     # rdm virtualbox virtualbox-extension-pac
     #   media apps
-    brew cask install iina invisor-lite macx-youtube-downloader media-converter
+    brew install iina invisor-lite macx-youtube-downloader media-converter
     #   game tools
-    brew cask install openemu
+    brew install openemu
     #   wine apps
-    brew cask install  wine-stable
+    brew install  wine-stable
 }
 
 function install-brew-dev {
     #   design tools
-    brew cask install xmind
+    brew install xmind
     #   coding tools
-    brew cask install beyond-compare smartgit visual-studio-code 
+    brew install beyond-compare smartgit visual-studio-code 
     #   C++ dev tools
     brew install cloc cmake the_silver_searcher
     #   java/android dev tools
     brew install ant jenv nvm
-    brew cask install android-studio quicklook-json
+    brew install android-studio quicklook-json
 }
 
 function install-brew-ql {
-    brew cask install  qlmarkdown qlvideo
-    # brew cask install provisionql qladdict qlcolorcode qldds qlgradle qlimagesize qlprettypatch
+    brew install  qlmarkdown qlvideo
+    # brew install provisionql qladdict qlcolorcode qldds qlgradle qlimagesize qlprettypatch
     # qlrest qlstephen quicklook-csv quicklook-pat quicklookapk
     # quicklookase receiptquicklook webpquicklook
 }
