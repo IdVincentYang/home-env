@@ -177,7 +177,7 @@ _ACTIONS.move_window = function(gridPartition, gridDescribe)
         _log.e(string.format("move_window invalid args(gridPartition: %s, gridDescribe: %s)", gridPartition, gridDescribe));
         return;
     end
-    local wind = hs.window.focusedWindow();
+    local wind = hs.window.focusedWindow() or hs.window.frontmostWindow();
     if (wind == nil) then
         hs.alert("没有当前窗口");
         return;
@@ -191,11 +191,20 @@ _ACTIONS.move_window = function(gridPartition, gridDescribe)
     if (gridDescribe) then
         if (wind:isMaximizable()) then
             hs.grid.set(wind, gridDescribe);
+            hs.alert("改变窗口: " .. wind:title());
+            hs.mouse.setAbsolutePosition(wind:frame().center);
         else
-            hs.alert("当前窗口不支持改变大小");
+            local from = wind:frame().center;
+            local to = hs.geometry.copy(hs.grid.getCell(gridDescribe, wind:screen())).center;
+            wind:move(hs.geometry.point(to.x - from.x, to.y - from.y));
+            hs.alert("移动窗口: " .. wind:title());
+            hs.mouse.setAbsolutePosition(to);
         end
     else
-        hs.grid.toggleShow(function() _log.d("move_window toggleShow exited callback"); end, false);
+        hs.grid.show(function()
+            hs.alert((wind:isMaximizable() and "改变窗口: " or "移动窗口: ") .. wind:title());
+            hs.mouse.setAbsolutePosition(wind:frame().center);
+        end, false);
     end
 end
 
