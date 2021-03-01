@@ -90,7 +90,7 @@ for k, v in pairs(_SHORTCUT_KEYS) do
                 :choices(choices)
                 :show();
             end
-        end)
+        end, hs.alert.closeAll);
     end
 end
 
