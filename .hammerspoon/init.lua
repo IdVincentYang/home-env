@@ -207,17 +207,3 @@ _ACTIONS.move_window = function(gridPartition, gridDescribe)
         end, false);
     end
 end
-
---[[--
---  快捷键：窗口移动
---]]
---[[window move begin]]
---  数 a 接近数 b 的整数倍
-local function _number_near_multiple(a, b, dt)
-    local mod = math.fmod(a, b);
-    return (math.abs(mod) <= dt) or (math.abs(mod - b) <= dt)
-end
-
-local function _get_menu_bar_height()
-    return hs.screen.primaryScreen():frame().y;
-end
