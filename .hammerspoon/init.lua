@@ -4,93 +4,128 @@
 --  [Spoons Download](https://www.hammerspoon.org/Spoons/)
 --]]
 local _SUPER_META = { "cmd", "alt", "ctrl", "shift" };
--- 优先绑定重载配置快捷键
-hs.hotkey.bind(_SUPER_META, "l", function() hs.reload() end)
-
 --[[快捷键配置表，配置项格式: <key> = {快捷键描述1, 快捷键描述2, ...}
 
 每个快捷键描述为一个数组，格式为: {<修饰键数组>, {功能描述1, 功能描述2, ...}.
-每个功能描述为一个数组，格式为: {<功能函数名>[, arg1[, arg2[, ...] ] ]}.
+每个功能描述为一个数组，格式为: {<功能说明>, <功能函数名>[, arg1[, arg2[, ...] ] ]}.
 可用的功能函数:
     toogle_application: 启动或显示某应用界面. args:
-        arg1: 应用名称
-        arg2: 应用绝对路径或bundleID
+        - arg1<required>: 应用名称
+        - arg2[optional]: 应用绝对路径或bundleID, 如果没有, 则根据应用名称来查找应用
+
+    move_window: 移动当前焦点窗口的位置或改变大小. args:
+        - arg1<required>: 窗口所在屏幕的网格划分, 比如 "2x2" 把屏幕划分为2列2行
+        - arg2[optional]: 窗口要设置的网格描述, 比如 "0,0 1x1" 为把窗口移动到网格的左上角划分区域
 ]]
 local _SHORTCUT_KEYS = {
-    a = { _SUPER_META, { { "toogle_application", "Android Studio" } } },
-    b = { _SUPER_META, { { "toogle_application", "" } } },
-    c = { _SUPER_META, { { "toogle_application", "CocosCreator" } } },
-    d = { _SUPER_META, { { "toogle_application", "" } } },
-    e = { _SUPER_META, { { "toogle_application", "GitKraken" } } },
-    f = { _SUPER_META, { { "toogle_application", "Finder" } } },
-    g = { _SUPER_META, { { "toogle_application", "Google Chrome" } } },
-    h = { _SUPER_META, { { "toogle_application", "" } } },
-    i = { _SUPER_META, { { "toogle_application", "" } } },
-    j = { _SUPER_META, { { "toogle_application", "" } } },
-    k = { _SUPER_META, { { "toogle_application", "" } } },
+    ["1"] = { _SUPER_META, {} },
+    ["2"] = { _SUPER_META, {} },
+    ["3"] = { _SUPER_META, {} },
+    ["4"] = { _SUPER_META, {} },
+    ["5"] = { _SUPER_META, {} },
+    ["6"] = { _SUPER_META, {} },
+    ["7"] = { _SUPER_META, {} },
+    ["8"] = { _SUPER_META, { {nil, "move_window", "4x4" } } },
+    ["9"] = { _SUPER_META, {
+        { "FS(full screen)", "move_window", "1x1", "0,0 1x1" },
+        { "LH(left half)", "move_window", "2x1", "0,0, 1x1" },
+        { "RH(right half)", "move_window", "2x1", "1,0, 1x1" },
+        { "TH(top half)", "move_window", "1x2", "0,0, 1x1" },
+        { "BH(bottom half)", "move_window", "1x2", "0,1, 1x1" },
+    } },
+    ["0"] = { _SUPER_META, { {nil, "toggle_zoom" } } },
+    a = { _SUPER_META, { {nil, "toogle_application", "Android Studio" } } },
+    b = { _SUPER_META, { {nil, "toogle_application", "" } } },
+    c = { _SUPER_META, { {nil, "toogle_application", "CocosCreator" } } },
+    d = { _SUPER_META, { {nil, "toogle_application", "" } } },
+    e = { _SUPER_META, { {nil, "toogle_application", "GitKraken" } } },
+    f = { _SUPER_META, { {nil, "toogle_application", "Finder" } } },
+    g = { _SUPER_META, { {nil, "toogle_application", "Google Chrome" } } },
+    h = { _SUPER_META, { {nil, "toogle_application", "" } } },
+    i = { _SUPER_META, { {nil, "toogle_application", "" } } },
+    --  j = { _SUPER_META, { nil,{ "toogle_application", "" } } },
+    k = { _SUPER_META, { {nil, "toogle_application", "" } } },
     --  l 被重载快捷键占用
-    m = { _SUPER_META, { { "toogle_application", "MWeb" } } },
+    m = { _SUPER_META, { {nil, "toogle_application", "MWeb" } } },
     n = { _SUPER_META, {
-        --  { "toogle_application", "Notes" },
-        { "toogle_application", "Numbers" },
+        --  { "Notes","toogle_application", "Notes" },
+        { "Numbers", "toogle_application", "Numbers" },
     } },
-    o = { _SUPER_META, { { "toogle_application", "" } } },
+    o = { _SUPER_META, { {nil, "toogle_application", "" } } },
     p = { _SUPER_META, {
-        { "toogle_application", "Preview" },
-        { "toogle_application", "Visual Paradigm" },
+        { "Preview", "toogle_application", "Preview" },
+        { "Paradigm", "toogle_application", "Visual Paradigm" },
     } },
-    q = { _SUPER_META, { { "toogle_application", "" } } },
-    r = { _SUPER_META, { { "toogle_application", "Calendar" } } },
-    s = { _SUPER_META, { { "toogle_application", "Visual Studio Code", "com.microsoft.VSCode" } } },
-    t = { _SUPER_META, { { "toogle_application", "Terminal" } } },
-    u = { _SUPER_META, { { "toogle_application", "企业微信", "com.tencent.WeWorkMac" } } },
-    v = { _SUPER_META, { { "toogle_application", "MacVim" } } },
-    w = { _SUPER_META, { { "toogle_application", "WeChat" } } },
-    x = { _SUPER_META, { { "toogle_application", "Xcode" } } },
+    q = { _SUPER_META, { {nil, "toogle_application", "" } } },
+    r = { _SUPER_META, { {nil, "toogle_application", "Calendar" } } },
+    s = { _SUPER_META, { {nil, "toogle_application", "Visual Studio Code", "com.microsoft.VSCode" } } },
+    t = { _SUPER_META, { {nil, "toogle_application", "Terminal" } } },
+    u = { _SUPER_META, { {nil, "toogle_application", "企业微信", "com.tencent.WeWorkMac" } } },
+    v = { _SUPER_META, { {nil, "toogle_application", "MacVim" } } },
+    w = { _SUPER_META, { {nil, "toogle_application", "WeChat" } } },
+    x = { _SUPER_META, { {nil, "toogle_application", "Xcode" } } },
     y = { _SUPER_META, {} },
-    z = { _SUPER_META, { { "toogle_application", "XMind" } } },
+    z = { _SUPER_META, { {nil, "toogle_application", "XMind" } } },
 };
+hs.window.animationDuration = 0;
+hs.window.setFrameCorrectness = true;
 
 local _log = hs.logger.new("my_config", "debug");
 local _ACTIONS = {};
+local _closableAlert;
 local function _do_action(actionInfo)
-    if (type(actionInfo) == "table" and #actionInfo > 0) then
-        local func = _ACTIONS[actionInfo[1]];
+    if (type(actionInfo) == "table" and #actionInfo > 1) then
+        local func = _ACTIONS[actionInfo[2]];
         if (func) then
-            func(table.unpack(actionInfo, 2));
+            func(table.unpack(actionInfo, 3));
         else
-            hs.alert("未定义行为: " .. actionInfo[1]);
+            hs.alert("未定义行为: " .. actionInfo[2]);
         end
     end
 end
 --  遍历 _SHORTCUT_KEYS, 绑定所有快捷键
 for k, v in pairs(_SHORTCUT_KEYS) do
     if (type(v) == "table" and (#v == 2) and (type(v[1]) == "table") and (type(v[2]) == "table")) then
-        hs.hotkey.bind(v[1], k, function()
-            local actionInfos = v[2];
-            if (#actionInfos == 0) then
-                hs.alert("快捷键未绑定功能");
-            elseif (#actionInfos == 1) then
-                _do_action(actionInfos[1]);
-            else
-                local choices = {};
-                for i, info in pairs(actionInfos) do
-                    local c = { actionInfo = info };
-                    if ("toogle_application" == info[1]) then
-                        c.text = "切换应用: " .. info[2];
-                        c.subText = info[3];
-                    else
-                        c.text = hs.json.encode(info);
-                    end
-                    choices[i] = c;
-                end
-                hs.chooser.new(function(result)
-                    _do_action(result.actionInfo);
-                end)
-                :choices(choices)
-                :show();
+        local actionInfos = v[2];
+        local invalidActionInfoCount = 0;
+        for _, t in pairs(actionInfos) do
+            if (type(t) ~= "table") then
+                _log.e(string.format("_SHORTCUT_KEYS config for key('%s') has invalud action config: %s", k, t));
+                invalidActionInfoCount = invalidActionInfoCount + 1;
             end
-        end, hs.alert.closeAll);
+        end
+        if (invalidActionInfoCount == 0) then
+            hs.hotkey.bind(v[1], k, function()
+                if (#actionInfos == 0) then
+                    hs.alert("快捷键未绑定功能");
+                elseif (#actionInfos == 1) then
+                    _do_action(actionInfos[1]);
+                else
+                    local choices = {};
+                    for i, info in pairs(actionInfos) do
+                        if (info[2]) then
+                            table.insert(choices, {
+                                actionInfo = info,
+                                subText = table.concat(info, ", ", info[1] and 2 or 3),
+                                text = info[1] or info[2],
+                            });
+                        end
+                    end
+                    hs.chooser.new(function(result)
+                        if (result) then
+                            _do_action(result.actionInfo);
+                        end
+                    end)
+                    :choices(choices)
+                    :show();
+                end
+            end, function()
+                if (_closableAlert) then
+                    hs.alert.closeSpecific(_closableAlert);
+                    _closableAlert = nil;
+                end
+            end);
+        end
     end
 end
 
@@ -104,13 +139,11 @@ _ACTIONS.toogle_application = function(name, pathOrBundleID)
         _log.e(string.format("toogle_application invalid args(name: %s, pathOrBundleID: %s)", name, pathOrBundleID));
         return;
     end
-    local app = hs.application.find(appHint)
+    local app = hs.application.find(appHint);
     if (not app) then
         --  没有找到此应用, 启动它
-        app = hs.application.open(appHint)
         if (hs.application.launchOrFocus(appHint)) then
             hs.alert("启动应用: " .. appHint);
-            _log.d(hs.application.frontmostApplication():bundleID());
         else
             hs.alert("启动应用失败: " .. appHint);
         end
@@ -128,8 +161,41 @@ _ACTIONS.toogle_application = function(name, pathOrBundleID)
         -- 如果此应用有焦点窗口, 移动鼠标到窗口中间
         if (focusedWin) then
             hs.mouse.setAbsolutePosition(focusedWin:frame().center);
-            hs.alert.show(name);
+            _closableAlert = hs.alert.show(name);
+        else
+            hs.alert(string.format("应用 %s 无活动窗口", app:name()));
         end
+    end
+end
+
+--[[移动当前焦点窗口的位置或改变大小. args:
+        - gridPartition<required>: 窗口所在屏幕的网格划分, 比如 "2x2" 把屏幕划分为2行2列
+        - gridDescribe[optional]: 窗口要设置的网格描述, 比如 "0,0 1x1" 为把窗口移动到网格的左上角划分区域
+]]
+_ACTIONS.move_window = function(gridPartition, gridDescribe)
+    if (type(gridPartition) ~= "string" or (gridDescribe and type(gridDescribe) ~= "string")) then
+        _log.e(string.format("move_window invalid args(gridPartition: %s, gridDescribe: %s)", gridPartition, gridDescribe));
+        return;
+    end
+    local wind = hs.window.focusedWindow();
+    if (wind == nil) then
+        hs.alert("没有当前窗口");
+        return;
+    end
+    _log.d(string.format("move_window(%s)'%s' in gridPartation '%s'",
+    wind:title(),
+    gridDescribe and string.format(" to '%s'", gridDescribe) or "",
+    gridPartition
+    ));
+    hs.grid.setGrid(gridPartition);
+    if (gridDescribe) then
+        if (wind:isMaximizable()) then
+            hs.grid.set(wind, gridDescribe);
+        else
+            hs.alert("当前窗口不支持改变大小");
+        end
+    else
+        hs.grid.toggleShow(function() _log.d("move_window toggleShow exited callback"); end, false);
     end
 end
 
@@ -146,125 +212,3 @@ end
 local function _get_menu_bar_height()
     return hs.screen.primaryScreen():frame().y;
 end
-
-local function _window_move_in_screen(direction, division, duration)
-    _log.d(string.format(
-    "_window_move_in_screen(direction: %s, division: %d, duration: %d)",
-    direction,
-    division,
-    duration
-    ));
-    local win = hs.window.focusedWindow();
-    if win == nil then
-        hs.alert.show("Error: 没有当前窗口");
-        return;
-    end
-
-    local w = win:frame();
-    local s = win:screen():frame();
-    local dt = _get_menu_bar_height();
-    local inPos = nil;
-    -- 窗口在预定位置，连续移动，否则设置为初始位置
-    if (direction == "centered") then
-        local d = hs.geometry.size(math.floor(s.w / division), math.floor(s.h / division));
-        local c = hs.geometry.point(math.floor(w.x + w.w / 2), math.floor(w.y + w.h / 2));
-        local isCenter = math.abs(w:distance(c)) <= dt;
-        local fitSize = _number_near_multiple(w.w, d.w, dt) and _number_near_multiple(w.h, d.h, dt);
-        inPos = isCenter and fitSize;
-        w.size = d:scale(inPos and (math.floor((w.w + dt) / d.w) % division + 1) or division);
-        w.center = s.center;
-    elseif (direction == "horizontal") then
-        local d = hs.geometry.size(math.floor(s.w / division), s.h);
-        local fitSize = (math.abs(w.w - d.w) < dt) and (math.abs(w.h - d.h) < dt);
-        inPos = fitSize and ((w.x - s.x) % d.w) == 0;
-        w.x = inPos and ((w.x + d.w) % (d.w * division)) or s.x;
-        w.y = s.y;
-        w.size = d;
-    elseif (direction == "vertical") then
-        local d = hs.geometry.size(s.w, math.floor(s.h / division));
-        local fitSize = (math.abs(w.w - d.w) < dt) and (math.abs(w.h - d.h) < dt);
-        inPos = fitSize and ((w.y - s.y) % d.h) == 0;
-        w.x = s.x;
-        w.y = inPos and ((w.y + d.h) % (d.h * division)) or s.y;
-        w.size = d;
-    elseif (direction == "slash") then
-        local d = hs.geometry.size(math.floor(s.w / division), math.floor(s.h / division));
-        local onGrid = ((w.x - s.x) % d.w) == 0 and ((w.y - s.y) % d.h) == 0;
-        local fitSize = (math.abs(w.w - d.w) < dt) and (math.abs(w.h - d.h) < dt);
-        inPos = onGrid and fitSize and (math.abs(w.x - w.y) > (d.w + d.h) / 2);
-        w.x = inPos and ((w.x - d.w) % (d.w * division)) or (s.x + d.w * (division - 1));
-        w.y = inPos and ((w.y + d.h) % (d.h * division)) or s.y;
-        w.size = d;
-    elseif (direction == "backslash") then
-        local d = hs.geometry.size(math.floor(s.w / division), math.floor(s.h / division));
-        local onGrid = ((w.x - s.x) % d.w) == 0 and ((w.y - s.y) % d.h) == 0;
-        local fitSize = (math.abs(w.w - d.w) < dt) and (math.abs(w.h - d.h) < dt);
-        inPos = onGrid and fitSize and (math.abs(w.x - w.y) < math.min(d.w, d.h) / 2);
-        w.x = inPos and ((w.x + d.w) % (d.w * division)) or s.x;
-        w.y = inPos and ((w.y + d.h) % (d.h * division)) or s.y;
-        w.size = d;
-    else
-        hs.alert.show("Error: 不支持此移动模式：" .. direction);
-        return;
-    end
-    _log:d(string.format("%s{inPos: %s, w: %s}", direction, tostring(inPos), tostring(w)));
-    win:setFrameWithWorkarounds(w, duration);
-    hs.mouse.setAbsolutePosition(win:frame().center);
-end
-
-local function _window_move_to_screen(how, duration)
-    local win = hs.window.focusedWindow();
-    if win == nil then
-        hs.alert.show("Error: 没有当前窗口");
-        return;
-    end
-    local currScreen = win:screen();
-    local nextScreen, tipMsg;
-    if how == "Left" then
-        tipMsg = "窗口左移";
-        nextScreen = currScreen:toWest();
-    elseif how == "Right" then
-        tipMsg = "窗口右移";
-        nextScreen = currScreen:toEast();
-    elseif how == "Up" then
-        tipMsg = "窗口上移";
-        nextScreen = currScreen:toNorth();
-    elseif how == "Down" then
-        tipMsg = "窗口下移";
-        nextScreen = currScreen:toSouth();
-    end
-    if (currScreen ~= nextScreen) then
-        win:moveToScreen(nextScreen, nil, nil, duration);
-        hs.mouse.setAbsolutePosition(win:frame().center);
-        if (tipMsg ~= nil) then
-            hs.alert.show(tipMsg);
-        end
-    end
-end
-
-local _window_move_action_mapping = {
-    window_move_in_center = hs.fnutils.partial(_window_move_in_screen, "centered", 3, 0),
-    window_move_in_screen_horizontal = hs.fnutils.partial(_window_move_in_screen, "horizontal", 2, 0),
-    window_move_in_screen_vertical = hs.fnutils.partial(_window_move_in_screen, "vertical", 2, 0),
-    window_move_in_screen_slash = hs.fnutils.partial(_window_move_in_screen, "slash", 2, 0),
-    window_move_in_screen_backslash = hs.fnutils.partial(_window_move_in_screen, "backslash", 2, 0),
-    window_move_to_screen_left = hs.fnutils.partial(_window_move_to_screen, "Left", 0),
-    window_move_to_screen_right = hs.fnutils.partial(_window_move_to_screen, "Right", 0),
-    window_move_to_screen_up = hs.fnutils.partial(_window_move_to_screen, "Up", 0),
-    window_move_to_screen_down = hs.fnutils.partial(_window_move_to_screen, "Down", 0),
-};
-
-local _window_move_hotkey_mapping = {
-    window_move_in_center = { _SUPER_META, "0" },
-    window_move_in_screen_horizontal = { _SUPER_META, "9" },
-    window_move_in_screen_vertical = { _SUPER_META, "8" },
-    window_move_in_screen_slash = { _SUPER_META, "7" },
-    window_move_in_screen_backslash = { _SUPER_META, "6" },
-    window_move_to_screen_left = { _SUPER_META, "Left" },
-    window_move_to_screen_right = { _SUPER_META, "Right" },
-    window_move_to_screen_up = { _SUPER_META, "Up" },
-    window_move_to_screen_down = { _SUPER_META, "Down" },
-};
-
-hs.spoons.bindHotkeysToSpec(_window_move_action_mapping, _window_move_hotkey_mapping);
---[[window move end]]
