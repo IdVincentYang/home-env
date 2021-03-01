@@ -4,6 +4,9 @@
 --  [Spoons Download](https://www.hammerspoon.org/Spoons/)
 --]]
 local _SUPER_META = { "cmd", "alt", "ctrl", "shift" };
+-- 优先绑定重载配置快捷键
+hs.hotkey.bind(_SUPER_META, "l", function() hs.reload() end)
+
 --[[快捷键配置表，配置项格式: <key> = {快捷键描述1, 快捷键描述2, ...}
 
 每个快捷键描述为一个数组，格式为: {<修饰键数组>, {功能描述1, 功能描述2, ...}.
@@ -25,7 +28,7 @@ local _SHORTCUT_KEYS = {
     i = { _SUPER_META, { { "toogle_application", "" } } },
     j = { _SUPER_META, { { "toogle_application", "" } } },
     k = { _SUPER_META, { { "toogle_application", "" } } },
-    l = { _SUPER_META, { { "toogle_application", "" } } },
+    --  l 被重载快捷键占用
     m = { _SUPER_META, { { "toogle_application", "MWeb" } } },
     n = { _SUPER_META, {
         --  { "toogle_application", "Notes" },
