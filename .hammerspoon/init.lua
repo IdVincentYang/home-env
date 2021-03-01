@@ -28,7 +28,7 @@ local _SHORTCUT_KEYS = {
     l = { _SUPER_META, { { "toogle_application", "" } } },
     m = { _SUPER_META, { { "toogle_application", "MWeb" } } },
     n = { _SUPER_META, {
-        { "toogle_application", "Notes" },
+        --  { "toogle_application", "Notes" },
         { "toogle_application", "Numbers" },
     } },
     o = { _SUPER_META, { { "toogle_application", "" } } },
@@ -40,7 +40,7 @@ local _SHORTCUT_KEYS = {
     r = { _SUPER_META, { { "toogle_application", "Calendar" } } },
     s = { _SUPER_META, { { "toogle_application", "Visual Studio Code", "com.microsoft.VSCode" } } },
     t = { _SUPER_META, { { "toogle_application", "Terminal" } } },
-    u = { _SUPER_META, { { "toogle_application", "WeCom" } } },
+    u = { _SUPER_META, { { "toogle_application", "企业微信", "com.tencent.WeWorkMac" } } },
     v = { _SUPER_META, { { "toogle_application", "MacVim" } } },
     w = { _SUPER_META, { { "toogle_application", "WeChat" } } },
     x = { _SUPER_META, { { "toogle_application", "Xcode" } } },
@@ -62,35 +62,32 @@ local function _do_action(actionInfo)
 end
 --  遍历 _SHORTCUT_KEYS, 绑定所有快捷键
 for k, v in pairs(_SHORTCUT_KEYS) do
-    if (type(v) == "table" and #v > 1) then
-        local actionInfos = v[2];
-        if (type(actionInfos) == "table" and #actionInfos > 0) then
-            hs.hotkey.bind(v[1], k, function()
-                local actionCounts = #actionInfos;
-                if (actionCounts == 1) then
-                    _do_action(actionInfos[1]);
-                else
-                    if (actionCounts > 1) then
-                        local choices = {};
-                        for i, info in pairs(actionInfos) do
-                            local c = { actionInfo = info };
-                            if ("toogle_application" == info[1]) then
-                                c.text = "切换应用: " .. info[2];
-                                c.subText = info[3];
-                            else
-                                c.text = hs.json.encode(info);
-                            end
-                            choices[i] = c;
-                        end
-                        hs.chooser.new(function(result)
-                            _do_action(result.actionInfo);
-                        end)
-                        :choices(choices)
-                        :show();
+    if (type(v) == "table" and (#v == 2) and (type(v[1]) == "table") and (type(v[2]) == "table")) then
+        hs.hotkey.bind(v[1], k, function()
+            local actionInfos = v[2];
+            if (#actionInfos == 0) then
+                hs.alert("快捷键未绑定功能");
+            elseif (#actionInfos == 1) then
+                _do_action(actionInfos[1]);
+            else
+                local choices = {};
+                for i, info in pairs(actionInfos) do
+                    local c = { actionInfo = info };
+                    if ("toogle_application" == info[1]) then
+                        c.text = "切换应用: " .. info[2];
+                        c.subText = info[3];
+                    else
+                        c.text = hs.json.encode(info);
                     end
+                    choices[i] = c;
                 end
-            end)
-        end
+                hs.chooser.new(function(result)
+                    _do_action(result.actionInfo);
+                end)
+                :choices(choices)
+                :show();
+            end
+        end)
     end
 end
 
