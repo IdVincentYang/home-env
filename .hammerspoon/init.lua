@@ -4,6 +4,7 @@
 --  [Spoons Download](https://www.hammerspoon.org/Spoons/)
 --]]
 local _SUPER_META = { "cmd", "alt", "ctrl", "shift" };
+hs.hotkey.bind(_SUPER_META, "tab", hs.hints.windowHints);
 --[[快捷键配置表，配置项格式: <key> = {快捷键描述1, 快捷键描述2, ...}
 
 每个快捷键描述为一个数组，格式为: {<修饰键数组>, {功能描述1, 功能描述2, ...}.

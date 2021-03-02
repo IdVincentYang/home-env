@@ -1,6 +1,7 @@
 # [format doc](https://git-scm.com/docs/gitignore)
 
 /*
+!.DS_Store
 ################################################################################
 # include root directory items
 !/.bashalias
