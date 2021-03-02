@@ -26,15 +26,15 @@ local _SHORTCUT_KEYS = {
     ["5"] = { _SUPER_META, {} },
     ["6"] = { _SUPER_META, {} },
     ["7"] = { _SUPER_META, {} },
-    ["8"] = { _SUPER_META, { {nil, "move_window", "4x4" } } },
+    ["8"] = { _SUPER_META, {} },
     ["9"] = { _SUPER_META, {
-        { "FS(full screen)", "move_window", "1x1", "0,0 1x1" },
+        { "Customize", "move_window", "6x4" },
         { "LH(left half)", "move_window", "2x1", "0,0, 1x1" },
         { "RH(right half)", "move_window", "2x1", "1,0, 1x1" },
         { "TH(top half)", "move_window", "1x2", "0,0, 1x1" },
         { "BH(bottom half)", "move_window", "1x2", "0,1, 1x1" },
     } },
-    ["0"] = { _SUPER_META, { {nil, "toggle_zoom" } } },
+    ["0"] = { _SUPER_META, { {nil, "toogle_max_screen_size" } } },
     a = { _SUPER_META, { {nil, "toogle_application", "Android Studio" } } },
     b = { _SUPER_META, { {nil, "toogle_application", "" } } },
     c = { _SUPER_META, { {nil, "toogle_application", "CocosCreator" } } },
@@ -73,7 +73,7 @@ hs.window.setFrameCorrectness = true;
 
 local _log = hs.logger.new("my_config", "debug");
 local _ACTIONS = {};
-local _closableAlert;
+local _cloasable_alert;
 local function _do_action(actionInfo)
     if (type(actionInfo) == "table" and #actionInfo > 1) then
         local func = _ACTIONS[actionInfo[2]];
@@ -121,9 +121,9 @@ for k, v in pairs(_SHORTCUT_KEYS) do
                     :show();
                 end
             end, function()
-                if (_closableAlert) then
-                    hs.alert.closeSpecific(_closableAlert);
-                    _closableAlert = nil;
+                if (_cloasable_alert) then
+                    hs.alert.closeSpecific(_cloasable_alert);
+                    _cloasable_alert = nil;
                 end
             end);
         end
@@ -162,7 +162,7 @@ _ACTIONS.toogle_application = function(name, pathOrBundleID)
         -- 如果此应用有焦点窗口, 移动鼠标到窗口中间
         if (focusedWin) then
             hs.mouse.setAbsolutePosition(focusedWin:frame().center);
-            _closableAlert = hs.alert.show(name);
+            _cloasable_alert = hs.alert.show(name);
         else
             hs.alert(string.format("应用 %s 无活动窗口", app:name()));
         end
@@ -206,5 +206,31 @@ _ACTIONS.move_window = function(gridPartition, gridDescribe)
             hs.alert((wind:isMaximizable() and "改变窗口: " or "移动窗口: ") .. wind:title());
             hs.mouse.setAbsolutePosition(wind:frame().center);
         end, false);
+    end
+end
+
+--[[切换当前焦点窗口的满屏和当前大小, 当窗口不可以改变大小时, 行为变为切换窗口的当前位置和中间位置]]
+local _saved_window_frame = {};
+_ACTIONS.toogle_max_screen_size = function()
+    local wind = hs.window.focusedWindow() or hs.window.frontmostWindow();
+    if (wind == nil) then
+        hs.alert("没有当前窗口");
+        return;
+    end
+    local windTitle = wind:title();
+    local oldFrame = _saved_window_frame[windTitle];
+    if (oldFrame) then
+        wind:move(oldFrame);
+        _saved_window_frame[windTitle] = nil;
+    else
+        if (windTitle) then
+            _saved_window_frame[windTitle] = wind:frame();
+        end
+        if (wind:isMaximizable()) then
+            wind:maximize();
+        else
+            wind:centerOnScreen();
+        end
+        hs.mouse.setAbsolutePosition(wind:frame().center);
     end
 end
