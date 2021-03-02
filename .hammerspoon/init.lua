@@ -59,9 +59,9 @@ local _SHORTCUT_KEYS = {
     } },
     q = { _SUPER_META, { {nil, "toogle_application", "" } } },
     r = { _SUPER_META, { {nil, "toogle_application", "Calendar" } } },
-    s = { _SUPER_META, { {nil, "toogle_application", "Visual Studio Code", "com.microsoft.VSCode" } } },
+    s = { _SUPER_META, { {nil, "toogle_application", "Visual Studio Code", "/Applications/Visual Studio Code.app" } } },
     t = { _SUPER_META, { {nil, "toogle_application", "Terminal" } } },
-    u = { _SUPER_META, { {nil, "toogle_application", "企业微信", "com.tencent.WeWorkMac" } } },
+    u = { _SUPER_META, { {nil, "toogle_application", "企业微信", "/Applications/企业微信.app" } } },
     v = { _SUPER_META, { {nil, "toogle_application", "MacVim" } } },
     w = { _SUPER_META, { {nil, "toogle_application", "WeChat" } } },
     x = { _SUPER_META, { {nil, "toogle_application", "Xcode" } } },
@@ -217,14 +217,14 @@ _ACTIONS.toogle_max_screen_size = function()
         hs.alert("没有当前窗口");
         return;
     end
-    local windTitle = wind:title();
-    local oldFrame = _saved_window_frame[windTitle];
+    local windID = wind:id();
+    local oldFrame = _saved_window_frame[windID];
     if (oldFrame) then
         wind:move(oldFrame);
-        _saved_window_frame[windTitle] = nil;
+        _saved_window_frame[windID] = nil;
     else
-        if (windTitle) then
-            _saved_window_frame[windTitle] = wind:frame();
+        if (windID) then
+            _saved_window_frame[windID] = wind:frame();
         end
         if (wind:isMaximizable()) then
             wind:maximize();
