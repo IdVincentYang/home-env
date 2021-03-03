@@ -11,8 +11,9 @@ hs.hotkey.bind(_SUPER_META, "tab", hs.hints.windowHints);
 每个功能描述为一个数组，格式为: {<功能说明>, <功能函数名>[, arg1[, arg2[, ...] ] ]}.
 可用的功能函数:
     toogle_application: 启动或显示某应用界面. args:
-        - arg1<required>: 应用名称
-        - arg2[optional]: 应用绝对路径或bundleID, 如果没有, 则根据应用名称来查找应用
+        - arg1<required>: 应用名称, 用来做界面显示; 当应用没启动时, 也可能用来启动应用
+        - arg2[optional]: 应用绝对路径, 用来定位不同版本的的同名应用
+        - arg3[optional]: bundleID, 用来查找运行中的应用
 
     move_window: 移动当前焦点窗口的位置或改变大小. args:
         - arg1<required>: 窗口所在屏幕的网格划分, 比如 "2x2" 把屏幕划分为2列2行
@@ -59,9 +60,9 @@ local _SHORTCUT_KEYS = {
     } },
     q = { _SUPER_META, { {nil, "toogle_application", "" } } },
     r = { _SUPER_META, { {nil, "toogle_application", "Calendar" } } },
-    s = { _SUPER_META, { {nil, "toogle_application", "Visual Studio Code", "/Applications/Visual Studio Code.app" } } },
+    s = { _SUPER_META, { {nil, "toogle_application", "Visual Studio Code", "/Applications/Visual Studio Code.app", "com.microsoft.VSCode" } } },
     t = { _SUPER_META, { {nil, "toogle_application", "Terminal" } } },
-    u = { _SUPER_META, { {nil, "toogle_application", "企业微信", "/Applications/企业微信.app" } } },
+    u = { _SUPER_META, { {nil, "toogle_application", "企业微信", "/Applications/企业微信.app", "com.tencent.WeWorkMac" } } },
     v = { _SUPER_META, { {nil, "toogle_application", "MacVim" } } },
     w = { _SUPER_META, { {nil, "toogle_application", "WeChat" } } },
     x = { _SUPER_META, { {nil, "toogle_application", "Xcode" } } },
@@ -130,23 +131,27 @@ for k, v in pairs(_SHORTCUT_KEYS) do
     end
 end
 
---[[启动或显示某应用界面. args:
-        name: 应用名称
-        pathOrBundleID: 应用绝对路径或 bundleID
-]]
-_ACTIONS.toogle_application = function(name, pathOrBundleID)
-    local appHint = pathOrBundleID or name
-    if (type(appHint) ~= "string" or string.len(appHint) == 0) then
-        _log.e(string.format("toogle_application invalid args(name: %s, pathOrBundleID: %s)", name, pathOrBundleID));
+_ACTIONS.toogle_application = function(name, path, bundleID)
+    if (type(name) ~= "string" or string.len(name) == 0) then
+        _log.e("toogle_application invalid arg 'name': " .. name);
         return;
     end
-    local app = hs.application.find(appHint);
+    if (path and (type(path) ~= "string" or string.len(path) == 0)) then
+        _log.e("toogle_application invalid arg 'path': " .. path);
+        return;
+    end
+    if (bundleID and (type(bundleID) ~= "string" or string.len(bundleID) == 0)) then
+        _log.e("toogle_application invalid arg 'bundleID': " .. bundleID);
+        return;
+    end
+
+    local app = hs.application.find(bundleID or name);
     if (not app) then
         --  没有找到此应用, 启动它
-        if (hs.application.launchOrFocus(appHint)) then
-            hs.alert("启动应用: " .. appHint);
+        if (hs.application.launchOrFocus(path or name)) then
+            hs.alert("启动应用: " .. name);
         else
-            hs.alert("启动应用失败: " .. appHint);
+            hs.alert("启动应用失败: " .. name .. (path and string.format("(%s)", path) or ""));
         end
     else
         --  如果此应用不是前台应用，激活它
