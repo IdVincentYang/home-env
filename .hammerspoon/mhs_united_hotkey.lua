@@ -12,7 +12,7 @@ local _L = hs.logger.new(_CLASS_NAME, 5);
 
 local UnitedHotkey = Class(_CLASS_NAME, {});
 
-Class.Static(UnitedHotkey, "ActionArray", {});
+Class.Static(UnitedHotkey, "ActionMap", {});
 
 --[[--
 1. mods: t, key: s, message?: s, pressedFn?: f, releasedFn?: f, repeatedFn?: f, deferFn?: f
@@ -31,12 +31,35 @@ Class.Static(UnitedHotkey, "Bind", function(...)
     if (type1 == "table") then
         mods = arg1;
         key, msgOrObj, pressedFn, releasedFn, repeatFn = select(2, ...);
-        if (msgOrObj == nil or type(msgOrObj) == "string") then
-            local hk = hs.hotkey.bind(mods, key, msgOrObj, pressedFn, releasedFn, repeatFn);
+        if (msgOrObj == nil) then
+            local hk = hs.hotkey.bind(mods, key, nil, pressedFn, releasedFn, repeatFn);
             if (hk and deferFn) then
                 deferFn(hk);
             end
             return hk;
+        elseif (type(msgOrObj) == "string") then
+            local message = msgOrObj;
+            if (pressedFn or releasedFn or repeatFn) then
+                local hk = hs.hotkey.bind(mods, key, message, pressedFn, releasedFn, repeatFn);
+                if (hk and deferFn) then
+                    deferFn(hk);
+                end
+                return hk;
+            else
+                print(#UnitedHotkey.ActionMap);
+                local action = UnitedHotkey.ActionMap[message];
+                if (action) then
+                    local message, pressedFn, releasedFn, repeatFn, deferFn = table.unpack(action);
+                    local hk = hs.hotkey.bind(mods, key, message, pressedFn, releasedFn, repeatFn);
+                    if (hk and deferFn) then
+                        deferFn(hk);
+                    end
+                    return hk;
+                else
+                    _L.w("Invalid arguments for Bind: ", ...);
+                    return nil;
+                end
+            end
         elseif (type(msgOrObj) == "table") then
             local hk = hs.hotkey.bind(
             mods,

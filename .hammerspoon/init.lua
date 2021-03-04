@@ -3,19 +3,83 @@
 --  [API Docs](https://www.hammerspoon.org/docs/)
 --  [Spoons Download](https://www.hammerspoon.org/Spoons/)
 --]]
-local _log = hs.logger.new("my_config", "debug");
 hs.console.clearConsole();
 hs.loadSpoon("ReloadConfiguration");
 spoon.ReloadConfiguration:start();
+
 local _SUPER_META = { "cmd", "alt", "ctrl", "shift" };
+--[[列出准备使用快捷键切换应用的备选应用信息列表
+--  1. required: 应用名, 不包含路径和扩展名
+--  2. optional: 应用绝对路径，当存在多个同名程序时用来决定启动哪个程序
+--  3. optional: 应用的 BundleID, 当应用启动后在菜单栏显示的名字和第一项的名称不一样时使用
+]]
+local _AppMetaArray = {
+    { "Android Studio" },
+    { "Calendar" },
+    { "CocosCreator" },
+    { "Finder" },
+    { "GitKraken" },
+    { "Google Chrome" },
+    { "Numbers" },
+    { "MacVim" },
+    { "MWeb" },
+    { "Notes" },
+    { "Preview" },
+    { "Terminal" },
+    { "Visual Studio Code", "/Applications/Visual Studio Code.app", "com.microsoft.VSCode" },
+    { "WeChat" },
+    { "XMind" },
+    { "企业微信", "/Applications/企业微信.app", "com.tencent.WeWorkMac" },
+};
+--[[配置快捷键和对应的功能
+    1. 启动应用: 只需要配置快捷键和 _AppMetaArray 中配置的应用名称
+]]
+local _HotkeyMap = {
+    tab = { _SUPER_META, nil, hs.hints.windowHints },
+
+    a = { _SUPER_META, "Android Studio" },
+    b = {},
+    c = { _SUPER_META, "CocosCreator" },
+    d = {},
+    e = { _SUPER_META, "GitKraken" },
+    f = { _SUPER_META, "Finder" },
+    g = { _SUPER_META, "Google Chrome" },
+    h = {},
+    i = {},
+    j = {},
+    k = {},
+    l = {},
+    m = { _SUPER_META, "MWeb" },
+    n = { _SUPER_META, "Numbers" },
+    o = {},
+    p = { _SUPER_META, "Preview" },
+    q = {},
+    r = { _SUPER_META, "Calendar" },
+    s = { _SUPER_META, "Visual Studio Code" },
+    t = { _SUPER_META, "Terminal" },
+    u = { _SUPER_META, "企业微信" },
+    v = { _SUPER_META, "MacVim" },
+    w = { _SUPER_META, "WeChat" },
+    x = { _SUPER_META, "Xcode" },
+    y = {},
+    z = { _SUPER_META, "XMind" },
+};
+
 --  创建一个定时器来加载其它配置, 防止脚本出错导致 ReloadConfiguration 配置加载失败
 hs.timer.new(0, function()
 
     local Meteor = require("meteor");
     local UnitedHotkey = Meteor.UnitedHotkey;
-    UnitedHotkey.BindSpecMap({
-        ["tab"] = { _SUPER_META, nil, hs.hints.windowHints }
-    });
+
+    for k, v in pairs(_AppMetaArray) do
+        if (v and #v > 0) then
+            UnitedHotkey.ActionMap[v[1]] = { v[1], function()
+                Meteor.Application.SwitchTo(table.unpack(v));
+            end };
+        end
+    end
+
+    UnitedHotkey.BindSpecMap(_HotkeyMap);
 end):start();
 --[[快捷键配置表，配置项格式: <key> = {快捷键描述1, 快捷键描述2, ...}
 
@@ -31,6 +95,7 @@ end):start();
         - arg1<required>: 窗口所在屏幕的网格划分, 比如 "2x2" 把屏幕划分为2列2行
         - arg2[optional]: 窗口要设置的网格描述, 比如 "0,0 1x1" 为把窗口移动到网格的左上角划分区域
 ]]
+local _log = hs.logger.new("my_config", "debug");
 local _SHORTCUT_KEYS = {
     ["1"] = { _SUPER_META, {} },
     ["2"] = { _SUPER_META, {} },
@@ -48,38 +113,6 @@ local _SHORTCUT_KEYS = {
         { "BH(bottom half)", "move_window", "1x2", "0,1, 1x1" },
     } },
     ["0"] = { _SUPER_META, { {nil, "toogle_max_screen_size" } } },
-    a = { _SUPER_META, { {nil, "toogle_application", "Android Studio" } } },
-    b = { _SUPER_META, { {nil, "toogle_application", "" } } },
-    c = { _SUPER_META, { {nil, "toogle_application", "CocosCreator" } } },
-    d = { _SUPER_META, { {nil, "toogle_application", "" } } },
-    e = { _SUPER_META, { {nil, "toogle_application", "GitKraken" } } },
-    f = { _SUPER_META, { {nil, "toogle_application", "Finder" } } },
-    g = { _SUPER_META, { {nil, "toogle_application", "Google Chrome" } } },
-    h = { _SUPER_META, { {nil, "toogle_application", "" } } },
-    i = { _SUPER_META, { {nil, "toogle_application", "" } } },
-    --  j = { _SUPER_META, { nil,{ "toogle_application", "" } } },
-    k = { _SUPER_META, { {nil, "toogle_application", "" } } },
-    --  l 被重载快捷键占用
-    m = { _SUPER_META, { {nil, "toogle_application", "MWeb" } } },
-    n = { _SUPER_META, {
-        --  { "Notes","toogle_application", "Notes" },
-        { "Numbers", "toogle_application", "Numbers" },
-    } },
-    o = { _SUPER_META, { {nil, "toogle_application", "" } } },
-    p = { _SUPER_META, {
-        { "Preview", "toogle_application", "Preview" },
-        { "Paradigm", "toogle_application", "Visual Paradigm" },
-    } },
-    q = { _SUPER_META, { {nil, "toogle_application", "" } } },
-    r = { _SUPER_META, { {nil, "toogle_application", "Calendar" } } },
-    s = { _SUPER_META, { {nil, "toogle_application", "Visual Studio Code", "/Applications/Visual Studio Code.app", "com.microsoft.VSCode" } } },
-    t = { _SUPER_META, { {nil, "toogle_application", "Terminal" } } },
-    u = { _SUPER_META, { {nil, "toogle_application", "企业微信", "/Applications/企业微信.app", "com.tencent.WeWorkMac" } } },
-    v = { _SUPER_META, { {nil, "toogle_application", "MacVim" } } },
-    w = { _SUPER_META, { {nil, "toogle_application", "WeChat" } } },
-    x = { _SUPER_META, { {nil, "toogle_application", "Xcode" } } },
-    y = { _SUPER_META, {} },
-    z = { _SUPER_META, { {nil, "toogle_application", "XMind" } } },
 };
 hs.window.animationDuration = 0;
 hs.window.setFrameCorrectness = true;
@@ -138,49 +171,6 @@ for k, v in pairs(_SHORTCUT_KEYS) do
                     _cloasable_alert = nil;
                 end
             end);
-        end
-    end
-end
-
-_ACTIONS.toogle_application = function(name, path, bundleID)
-    if (type(name) ~= "string" or string.len(name) == 0) then
-        _log.e("toogle_application invalid arg 'name': " .. name);
-        return;
-    end
-    if (path and (type(path) ~= "string" or string.len(path) == 0)) then
-        _log.e("toogle_application invalid arg 'path': " .. path);
-        return;
-    end
-    if (bundleID and (type(bundleID) ~= "string" or string.len(bundleID) == 0)) then
-        _log.e("toogle_application invalid arg 'bundleID': " .. bundleID);
-        return;
-    end
-
-    local app = hs.application.find(bundleID or name);
-    if (not app) then
-        --  没有找到此应用, 启动它
-        if (hs.application.launchOrFocus(path or name)) then
-            hs.alert("启动应用: " .. name);
-        else
-            hs.alert("启动应用失败: " .. name .. (path and string.format("(%s)", path) or ""));
-        end
-    else
-        --  如果此应用不是前台应用，激活它
-        if (not app:isFrontmost()) then
-            app:activate(true);
-        end
-        local focusedWin = app:focusedWindow();
-        --  如果此应用没有有焦点的窗口,但是有窗口,则激活一下
-        if (not focusedWin and #app:allWindows() > 0) then
-            hs.application.launchOrFocus(appHint);
-            focusedWin = app:focusedWindow();
-        end
-        -- 如果此应用有焦点窗口, 移动鼠标到窗口中间
-        if (focusedWin) then
-            hs.mouse.setAbsolutePosition(focusedWin:frame().center);
-            _cloasable_alert = hs.alert.show(name);
-        else
-            hs.alert(string.format("应用 %s 无活动窗口", app:name()));
         end
     end
 end
