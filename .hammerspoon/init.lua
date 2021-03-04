@@ -3,8 +3,20 @@
 --  [API Docs](https://www.hammerspoon.org/docs/)
 --  [Spoons Download](https://www.hammerspoon.org/Spoons/)
 --]]
+local _log = hs.logger.new("my_config", "debug");
+hs.console.clearConsole();
+hs.loadSpoon("ReloadConfiguration");
+spoon.ReloadConfiguration:start();
 local _SUPER_META = { "cmd", "alt", "ctrl", "shift" };
-hs.hotkey.bind(_SUPER_META, "tab", hs.hints.windowHints);
+--  创建一个定时器来加载其它配置, 防止脚本出错导致 ReloadConfiguration 配置加载失败
+hs.timer.new(0, function()
+
+    local Meteor = require("meteor");
+    local UnitedHotkey = Meteor.UnitedHotkey;
+    UnitedHotkey.BindSpecMap({
+        ["tab"] = { _SUPER_META, nil, hs.hints.windowHints }
+    });
+end):start();
 --[[快捷键配置表，配置项格式: <key> = {快捷键描述1, 快捷键描述2, ...}
 
 每个快捷键描述为一个数组，格式为: {<修饰键数组>, {功能描述1, 功能描述2, ...}.
@@ -72,7 +84,6 @@ local _SHORTCUT_KEYS = {
 hs.window.animationDuration = 0;
 hs.window.setFrameCorrectness = true;
 
-local _log = hs.logger.new("my_config", "debug");
 local _ACTIONS = {};
 local _cloasable_alert;
 local function _do_action(actionInfo)
