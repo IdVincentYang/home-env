@@ -3,7 +3,6 @@
 --  [API Docs](https://www.hammerspoon.org/docs/)
 --  [Spoons Download](https://www.hammerspoon.org/Spoons/)
 
---  TODO: 快捷键 2次按键 切换窗口所在的 screen
 --  TODO: 字典查找功能 https://github.com/sugood/hammerspoon/blob/master/modules/dict.lua
 --  TODO: 提供所有 action 的按名字搜索功能
 --]]
