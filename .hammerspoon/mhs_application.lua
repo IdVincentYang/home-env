@@ -1,7 +1,7 @@
 local Class = require("c3class");
 
 local _CLASS_NAME = "Application";
-local _L = hs.logger.new(_CLASS_NAME, 4);
+local _L = hs.logger.new(_CLASS_NAME, 5);
 
 local Application = Class(_CLASS_NAME);
 

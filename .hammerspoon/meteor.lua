@@ -1,10 +1,9 @@
 local Class = require("c3class");
-local Application = require("mhs_application");
-local UnitedHotkey = require("mhs_united_hotkey");
 
 local Meteor = Class("Meteor", {});
 
-Class.Static(Meteor, "Application", Application);
-Class.Static(Meteor, "UnitedHotkey", UnitedHotkey);
+Class.Static(Meteor, "Application", require("mhs_application"));
+Class.Static(Meteor, "UnitedHotkey", require("mhs_united_hotkey"));
+Class.Static(Meteor, "Window", require("mhs_window"));
 
 return Meteor;
