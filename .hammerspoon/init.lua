@@ -2,6 +2,10 @@
 --  [Getting Started](http://www.hammerspoon.org/go/)
 --  [API Docs](https://www.hammerspoon.org/docs/)
 --  [Spoons Download](https://www.hammerspoon.org/Spoons/)
+
+--  TODO: 快捷键 2次按键 切换窗口所在的 screen
+--  TODO: 字典查找功能 https://github.com/sugood/hammerspoon/blob/master/modules/dict.lua
+--  TODO: 提供所有 action 的按名字搜索功能
 --]]
 hs.console.clearConsole();
 hs.loadSpoon("ReloadConfiguration");
@@ -28,6 +32,7 @@ local _AppMetaArray = {
     { "Terminal" },
     { "Visual Studio Code", "/Applications/Visual Studio Code.app", "com.microsoft.VSCode" },
     { "WeChat" },
+    { "Xcode" },
     { "XMind" },
     { "企业微信", "/Applications/企业微信.app", "com.tencent.WeWorkMac" },
 };
