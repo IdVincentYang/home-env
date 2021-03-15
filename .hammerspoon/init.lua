@@ -35,11 +35,18 @@ local _AppMetaArray = {
     { "XMind" },
     { "企业微信", "/Applications/企业微信.app", "com.tencent.WeWorkMac" },
 };
+
 --[[配置快捷键和对应的功能
     1. 启动应用: 只需要配置快捷键和 _AppMetaArray 中配置的应用名称
 ]]
+local Action = {};
 local _HotkeyMap = {
     tab = { _SUPER_META, nil, hs.hints.windowHints },
+
+    down = { _SUPER_META, nil, function() Action.MoveOneScreen("down"); end },
+    left = { _SUPER_META, nil, function() Action.MoveOneScreen("left"); end },
+    right = { _SUPER_META, nil, function() Action.MoveOneScreen("right"); end },
+    up = { _SUPER_META, nil, function() Action.MoveOneScreen("up"); end },
 
     ["9"] = { _SUPER_META, "meteor_window_move_by_grid" },
     ["0"] = { _SUPER_META, "meteor_window_toggle_maxsize" },
@@ -105,6 +112,27 @@ hs.timer.new(0, function()
             UnitedHotkey.ActionMap[v[1]] = { v[1], function()
                 Meteor.Application.SwitchTo(table.unpack(v));
             end };
+        end
+    end
+
+    -- 朝某个方向移动当前窗口一屏
+    function Action.MoveOneScreen(direction)
+        local wind = hs.window.focusedWindow();
+        if (wind == nil) then
+            hs.alert("没有当前窗口");
+        else
+            if (direction == "left") then
+                wind:moveOneScreenWest();
+            elseif (direction == "right") then
+                wind:moveOneScreenEast();
+            elseif (direction == "up") then
+                wind:moveOneScreenNorth();
+            elseif (direction == "down") then
+                wind:moveOneScreenSouth();
+            else
+                _L.w("_MoveOneScreen invalid argument: " .. direction);
+            end
+            hs.mouse.setAbsolutePosition(wind:frame().center);
         end
     end
 
