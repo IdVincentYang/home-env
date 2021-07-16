@@ -1,5 +1,5 @@
 
-alias _PROXY='ALL_PROXY=http://127.0.0.1:7890'
+alias _PROXY='HTTP_PROXY=http://127.0.0.1:7890 HTTPS_PROXY=http://127.0.0.1:7890 ALL_PROXY=socks5://127.0.0.1:7891'
 
 alias rsync='rsync --exclude ".DS_Store"'
 
