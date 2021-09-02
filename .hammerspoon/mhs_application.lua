@@ -69,6 +69,7 @@ Class.Static(Application, "SwitchTo", function(name, path, bundleID)
             hs.mouse.setAbsolutePosition(focusedWin:frame().center);
         else
             _L.df("应用 %s 无活动窗口", app:name());
+            hs.alert("应用" ..  app:name() .. "无活动窗口");
         end
     end
 end);
