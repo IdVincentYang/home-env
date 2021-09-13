@@ -103,14 +103,14 @@ function install-brew-dev {
     brew install cloc cmake the_silver_searcher
     #   java/android dev tools
     brew install ant jenv nvm
-    brew install android-studio quicklook-json
+    brew install android-studio
 }
 
 function install-brew-ql {
-    brew install  qlmarkdown qlvideo
-    # brew install provisionql qladdict qlcolorcode qldds qlgradle qlimagesize qlprettypatch
+    brew install  qlmarkdown qlvideo webpquicklook quicklook-json qlimagesize mdimagesizemdimporter
+    # brew install provisionql qladdict qlcolorcode qldds qlgradle qlprettypatch
     # qlrest qlstephen quicklook-csv quicklook-pat quicklookapk
-    # quicklookase receiptquicklook webpquicklook
+    # quicklookase receiptquicklook
 }
 
 function tweak-osx {
