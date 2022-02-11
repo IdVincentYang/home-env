@@ -38,7 +38,21 @@ function _ascript_display_alert() {
     osascript -e "${ASCRIPT}"
 }
 
+function _ascript_display_notification() {
+    WITH_TITLE=""
+    if [ -n "$2" ] ; then
+        WITH_TITLE="with title \"$2\""
+    fi
+    WITH_SUBTITLE=""
+    if [ -n "$3" ] ; then
+        WITH_SUBTITLE="subtitle \"$3\""
+    fi
+    ASCRIPT="display notification \"$1\" ${WITH_TITLE} ${WITH_SUBTITLE}"
+    osascript -e "${ASCRIPT}"
+}
+
 alias alert='_ascript_display_alert'
+alias notify='_ascript_display_notification'
 # file shotcut
 alias ss='source ~/.bashrc'
 alias sa='source ~/.bashalias'
