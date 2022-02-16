@@ -62,48 +62,107 @@ function install-ohmyzsh-plugins {
 }
 
 function install-brew {
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install clashx cakebrew
+    #   homepage: https://brew.sh/
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    #   tray: for FQ
+    brew install clashx
+    #   app: homebrew GUI
+    brew install cakebrew
 }
 
 function install-brew-base {
     brew install autoconf automake fd ffmpeg fzf git lrzsz p7zip stormssh tree vim watch wget you-get youtube-dl
-    brew install apptrap caffeine itsycal oracle-jdk karabiner-elements keepassxc keyboard-maestro macvim openvanilla osxfuse
-    brew install suspicious-package hammerspoon
-    #   vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
 
-    #   depends osxfuse
-    brew install ntfs-3g sshfs
+    #   service with control panel:
+    #       remove related files when remove app form /Applications folder
+    brew install apptrap
+    #   screensaver: Mac screen saver
+    # brew install aerial
+    #   tray: easily block os to sleep
+    brew install caffeine
+    #   Finder extensions: add button in toolbar to open termial
+    brew install go2shell
+    #   service with tray:
+    #       auto-tools program with lua. for key-shortcuts configure, config under ~/.local/hammerspoon/
+    brew install hammerspoon
+    #   tray: enhance date tray icon's feature
+    brew install itsycal
+    #   app: tweak keyboard functions. eg: map right CMD to CMD+OPT+CTRL+SHIFT
+    brew install karabiner-elements
+    #   app: private passwords database
+    brew install keepassxc
+    #   app: key-shortcuts macro maker, replaced by hammerspoon
+    # brew install keyboard-maestro
+    #   app: vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
+    brew install macvim
+    #   IME: for erbi, which db under ~/.local/erbi
+    brew install openvanilla
+
+    brew install oracle-jdk
+    #   app: macOS Installer Packages(PKG) file viewer
+    brew install suspicious-package
+    #   3rd filesystem supported, osxfuse is base, but has been deprecated
+    # brew install osxfuse ntfs-3g sshfs
+
     #   network tools
     brew install iperf3 iproute2mac
     brew install charles wireshark
-    #   need FQ
-    # brew install go2shell
 }
 
 function install-brew-app {
     brew install aria2gui gimp google-chrome icefloor
-    # devices apps
-    brew install soduto scrcpy turbo-boost-switcher
-    # rdm virtualbox virtualbox-extension-pac
-    #   media apps
+
+    ### devices apps
+    #   cmd: connect android device via usb for device control
+    brew install scrcpy
+    #   app: connect android device via wifi and usb for device control
+    brew install soduto
+    #   tray: disable intel cpu's boost feature for save power
+    #       usage: sudo /Applications/Turbo\ Boost\ Switcher.app/Contents/MacOS/Turbo\ Boost\ Switcher
+    brew install turbo-boost-switcher
+    #   app: vm ware, replaced by VMWare
+    # brew install rdm virtualbox virtualbox-extension-pac
+
+    ### media apps
     brew install iina invisor-lite macx-youtube-downloader media-converter
-    #   game tools
+    ### game tools
     brew install openemu
-    #   wine apps
-    brew install  wine-stable
+    ### wine apps
+    brew install wine-stable
 }
 
 function install-brew-dev {
-    #   design tools
+    ### design tools
     brew install xmind
-    #   coding tools
-    brew install beyond-compare smartgit visual-studio-code 
-    #   C++ dev tools
-    brew install cloc cmake the_silver_searcher
-    #   java/android dev tools
-    brew install ant jenv nvm
+
+    ### coding tools
+    #   cmd: code searching tool, usage: ag
+    #       doc: https://github.com/ggreer/the_silver_searcher/wiki/Advanced-Usage
+    brew install the_silver_searcher
+    #   app: for file compare
+    #       reset tral version: rm "/Users/$(whoami)/Library/Application Support/Beyond Compare/registry.dat"
+    brew install beyond-compare
+    #   cmd: count source lines
+    brew install cloc
+    #   cmd: Archive a repository with all its submodules.
+    brew install git-archive-all
+    #   app: git GUI
+    brew install smartgit
+
+    ### C++ dev tools
+    brew install cmake
+
+    ### java dev tools
+    brew install ant
+    brew install jenv
+
+    ### java/android dev tools
     brew install android-studio
+    brew install apktool
+
+    ### javascript dev tools
+    brew install nvm
+    brew install visual-studio-code
 }
 
 function install-brew-ql {
@@ -121,10 +180,6 @@ function tweak-osx {
 
 # custom bin path
 export PATH=~/bin:${PATH}
-
-# macports config: usage: https://guide.macports.org/#using
-export PATH=/opt/local/bin:$PATH
-export PATH=/opt/local/sbin:$PATH
 
 if [ -f ~/.bashalias ]; then
     . ~/.bashalias
