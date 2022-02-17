@@ -242,17 +242,14 @@ if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 export PATH=~/Library/Python/2.7/bin:${PATH}
 
 # go config
-export GOPATH=~/go/.path
-export GOBIN=~/go/.bin
-export PATH=${GOBIN}:${PATH}
+# export GOPATH=~/go/.path
+# export GOBIN=~/go/.bin
+# export PATH=${GOBIN}:${PATH}
 
 # android sdk config
 export ANDROID_SDK_ROOT=~/Library/Android/sdk
 export ANDROID_HOME=${ANDROID_SDK_ROOT}
 export PATH=${ANDROID_SDK_ROOT}/platform-tools:${PATH}
-
-#   chromium source config
-export PATH=~/github/Chromium/depot_tools:${PATH}
 
 # wine config
 # winetricks src: https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
