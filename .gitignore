@@ -4,29 +4,20 @@
 \.DS_Store
 ################################################################################
 # include root directory items
+!/.bash_sessions_disable
 !/.bashalias
 !/.bashrc
-!/.config
+!/.config/
 !/.gitconfig
 !/.gitignore
 !/.gitignoreglobal
 !/.gvimrc
 !/.hammerspoon
 !/.home-env
+!/.local/
 !/.vimrc
 !/.zshrc
 !/Library
-
-################################################################################
-.config/*
-
-# include filezilla config
-!.config/filezilla/
-.config/filezilla/*
-!.config/filezilla/sitemanager.xml
-
-# include karabiner config
-!.config/karabiner/
 
 ################################################################################
 # include application support items

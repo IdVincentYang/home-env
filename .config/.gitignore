@@ -1,0 +1,20 @@
+################################################################################
+# exclude all but self
+/*
+!/.gitignore
+################################################################################
+# include necessary items
+
+# include bash config
+!/bash/
+
+# include filezilla site config
+!/filezilla/
+/filezilla/*
+!/filezilla/sitemanager.xml
+
+# include karabiner config
+!.config/karabiner/
+
+# include zsh config
+!/zsh/
