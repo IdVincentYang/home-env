@@ -133,6 +133,9 @@ alias gru='git reset --'
 # rm
 alias grm='git rm'
 alias grmc='git rm --cached'
+# submodule
+alias gsm='git submodule'
+alias gsmu='git submodule update --init'
 # status
 alias gst='git status'
 alias gsts='git status -s'
@@ -150,7 +153,6 @@ alias gtv='git tag -l'
 alias gtrm='git tag -d'
 
 alias gdt="git difftool -y"
-alias gsbu="git submodule update --init"
 alias gexp="git archive --format=zip"
 
 # docker

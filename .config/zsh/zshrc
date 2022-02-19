@@ -1,0 +1,9 @@
+export HISTFILE=$HOME/.local/state/zsh_history
+
+
+# oh-my-zsh:
+#   website: https://ohmyz.sh/
+#   github: https://github.com/ohmyzsh/ohmyzsh
+#   install.sh: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+
+source $HOME/.config/zsh/omzrc

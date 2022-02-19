@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.local/share/oh-my-zsh
+export ZSH_CUSTOM=$HOME/.local/share/oh-my-zsh-custom
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -7,7 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="robbyrussell"
 # ZSH_THEME="avit"
-ZSH_THEME="myagnoster"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,14 +56,13 @@ plugins=(
     extract
     fzf
     gitignore
-    osx
+    macos
     rsync
     urltools
     web-search
     z
-
     zsh-autosuggestions
-#    zsh-syntax-highlighting
+    zsh-syntax-highlighting
 )
 
 # User configuration
@@ -105,5 +105,22 @@ source $ZSH/oh-my-zsh.sh
 
 # autojump
 # [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
+
+################################################################################
+# Customize agnoster theme:
+#   This theme depends Powerline Fonts: https://github.com/powerline/fonts, install it with command:
+#       "git clone https://github.com/powerline/fonts.git --depth=1; cd fonts; ./install.sh; cd ..; rm -rf fonts"
+
+# For PS1 promt, the default is to long, tweak it shorter:
+#   Show all segments of the prompt with indices:
+#       "echo "${(F)AGNOSTER_PROMPT_SEGMENTS[@]}" | cat -n"
+
+# If not in SSH_CONNECTION then remove some prompts
+if [[ -z $SSH_CONNECTION ]]; then
+#   2: prompt_context, used for show user and host name
+  AGNOSTER_PROMPT_SEGMENTS[2]=
+#   3: prompt_virtualenv, used for show python in VIRTUAL_ENV
+  AGNOSTER_PROMPT_SEGMENTS[3]=
+fi
 
 source ~/.bashrc

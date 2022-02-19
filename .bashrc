@@ -15,52 +15,6 @@ function ensure() {
     terminal-notifier -title "Execute CMD Complete!" -message "$@"
 }
 
-function _try_git_clone_to() {
-     REPO_URL="$1"
-     DEST_DIR="$2"
-     if [ -z ${REPO_URL} ] || [ -z ${DEST_DIR} ]; then
-         echo "ERROR: _try_git_clone_to: invalid paremater"
-         return
-     fi
-     if [ -e ${DEST_DIR} ]; then
-         echo "WARNING: _try_git_clone_to: dest dir already exists[${DEST_DIR}]"
-         return
-     fi
- 
-     git clone $3 $4 $5 $6 $7 $8 $9 "${REPO_URL}" "${DEST_DIR}"
-}
-
-function install-ohmyzsh {
-    ZSH_DIR=~/.oh-my-zsh
-    if [ ! -e ${ZSH_DIR} ]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    fi
-    if [ -d ${ZSH_DIR} ]; then
-        cp -r ~/.home-env/zsh-themes/* ${ZSH_DIR}/themes/
-    fi
-}
-
-function install-terminal-themes {
-    # _try_git_clone_to git://github.com/altercation/solarized.git ~/.solarized --depth=1
-
-    # _try_git_clone_to https://github.com/lysyi3m/macos-terminal-themes.git ~/.macos-terminal-themes --depth=1
-
-    # ref: https://www.jianshu.com/p/60a11f762f62
-    POWERLINE_FONTS_DIR=~/.powerline-fonts
-    _try_git_clone_to https://github.com/powerline/fonts.git ${POWERLINE_FONTS_DIR} --depth=1
-    pushd ${POWERLINE_FONTS_DIR} > /dev/null
-    ./install.sh
-    popd > /dev/null
-}
-
-function install-ohmyzsh-plugins {
-    _try_git_clone_to https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    _try_git_clone_to https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-    # more external oh-my-zsh themes: https://github.com/robbyrussell/oh-my-zsh/wiki/External-themes
-
-}
-
 function install-brew {
     #   homepage: https://brew.sh/
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

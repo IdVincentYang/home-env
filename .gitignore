@@ -8,6 +8,7 @@
 !/.bashalias
 !/.bashrc
 !/.config/
+!/.gitmodules
 !/.gitconfig
 !/.gitignore
 !/.gitignoreglobal
@@ -16,7 +17,6 @@
 !/.home-env
 !/.local/
 !/.vimrc
-!/.zshrc
 !/Library
 
 ################################################################################

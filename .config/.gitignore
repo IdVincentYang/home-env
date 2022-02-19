@@ -5,6 +5,9 @@
 ################################################################################
 # include necessary items
 
+# include backups all
+!/backups/
+
 # include bash config
 !/bash/
 
