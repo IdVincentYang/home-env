@@ -1,0 +1,17 @@
+
+# Set NVM_DIR if it isn't already defined
+if [[ -z "$NVM_DIR" ]] ; then
+    export NVM_DIR="$HOME/.local/share/nvm"
+    if [[ ! -e ${NVM_DIR} ]] ; then
+        mkdir ${NVM_DIR}
+    fi
+# This loads nvm
+    [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
+# This loads nvm bash_completion
+    [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
+
+export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
+alias npm='npm --registry=https://registry.npm.taobao.org '
+

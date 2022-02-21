@@ -1,1 +1,143 @@
-export HISTFILE=~/.local/state/bash_history
+################################################################################
+# "read" Usage: read -r [VAR]
+#   -r causes the string to be interpreted "raw" (without considering backslash escapes)
+#
+# extension="${basename##*.}"
+# filename="${basename%.*}"
+################################################################################
+
+function ensure() {
+    echo "Ensure cmd: $@"
+    while : ; do
+        $@
+        [ $? -eq 0 ] && break
+    done
+    terminal-notifier -title "Execute CMD Complete!" -message "$@"
+}
+
+
+export BASH_CFG=$HOME/.config/bash
+
+# custom bin path
+export PATH=$HOME/.local/bin:${PATH}
+
+if [ -f "${BASH_CFG}/alias" ]; then
+    . "${BASH_CFG}/alias"
+fi
+
+# home brew
+export HOMEBREW_NO_AUTO_UPDATE=1
+# ffmpeg
+# export FONTCONFIG_PATH=/usr/local/etc/fonts
+
+# fzf config
+if [ -f `which fzf` ]; then
+    # https://zhuanlan.zhihu.com/p/41859976
+    if [ -f `which fd` ]; then
+        export FZF_DEFAULT_COMMAND='fd --type file'
+    elif [ -f `which ag` ]; then
+        export FZF_DEFAULT_COMMAND='ag -g ""'
+    fi
+    if [ ! -z $FZF_DEFAULT_COMMAND ]; then
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    fi
+    # FZF_COMPLETION_TRIGGER: 默认 **<tab>
+    # fzf 参数详见 fzf -h
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
+fi
+
+# JVM config
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+
+# python config
+export PATH=~/Library/Python/2.7/bin:${PATH}
+
+# go config
+# export GOPATH=~/go/.path
+# export GOBIN=~/go/.bin
+# export PATH=${GOBIN}:${PATH}
+
+# android sdk config
+export ANDROID_SDK_ROOT=~/Library/Android/sdk
+export ANDROID_HOME=${ANDROID_SDK_ROOT}
+export PATH=${ANDROID_SDK_ROOT}/platform-tools:${PATH}
+
+# wine config
+# winetricks src: https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+# winetricks variable doc: https://github.com/Winetricks/winetricks/wiki
+export XDG_DATA_HOME=/Users/yangws/.local/share/wineprefixes
+export WINEARCH=win32
+function winenv() {
+    if [ $# = 0 ]; then
+        unset WINEPREFIX
+        unset WINARCH
+    else
+        export WINEPREFIX=$XDG_DATA_HOME/$1
+        if [ $# -gt 1 ]; then
+            export WINEARCH=win$2
+        fi
+    fi
+    #   if WINEPREFIX dir not exit, try make it or tip exist dirs
+    if [ ! -d $WINEPREFIX ]; then
+        echo  "WINEPREFIX directory not exists yet, do you want create it [y/n]?"
+        read -r _YN
+        case $_YN in
+            [Yy]* )
+                mkdir $WINEPREFIX
+                if [ -d $WINEPREFIX ]; then
+                    wineboot
+                    winecfg
+                else
+                    echo "Failure to create WINEPREFIX folder: $WINEPREFIX"
+                fi
+                ;;
+            [Nn]* )
+                echo "Please use valid dir as below:"
+                ls $XDG_DATA_HOME
+                ;;
+        esac
+    fi
+}
+function winepack() {
+    if [ $# = 0 ]; then
+        echo "Please input exe file absolute path and args!"
+    elif [ ! -f $1 ]; then
+        echo "Invalid exe file path!"
+    else
+        _BASE_NAME="$(basename "${1}")"
+        _APP_NAME="${_BASE_NAME%.*}"
+        _APP_BUNDLE="${_APP_NAME}.app"
+        _CONTENT_DIR="${_APP_BUNDLE}/Contents"
+
+        if [ -e "${_APP_BUNDLE}" ]; then
+            echo "${PWD}/${_APP_BUNDLE} already exists :("
+        else
+            mkdir -p "${_CONTENT_DIR}"/MacOS
+            # create sh
+            _SH_PATH="${_CONTENT_DIR}/MacOS/${_APP_NAME}"
+            touch "$_SH_PATH"
+            echo "#!/bin/bash" > "$_SH_PATH"
+            echo "WINEPREFIX=$WINEPREFIX" >> "$_SH_PATH"
+            echo "WINEARCH=$WINEARCH" >> "$_SH_PATH"
+            echo "wine $@" >>  "$_SH_PATH"
+            chmod +x "$_SH_PATH"
+            #create plist
+            _PLIST="${_CONTENT_DIR}/Info.plist"
+            touch "$_PLIST"
+            echo '<?xml version="1.0" encoding="UTF-8"?>' > "$_PLIST"
+            echo '<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> "$_PLIST"
+            echo '<plist version="1.0">' >> "$_PLIST"
+            echo '<dict>' >> "$_PLIST"
+            echo '  <key>CFBundleExecutable</key>' >> "$_PLIST"
+            echo "    <string>${_APP_NAME}</string>" >> "$_PLIST"
+            echo '  </dict>' >> "$_PLIST"
+            echo '</plist>' >> "$_PLIST"
+
+            echo "${_APP_BUNDLE} packed success"
+        fi
+    fi
+}
+
+#export USE_CCACHE=0
+#export CCACHE_DIR=/Developer/ccache
+

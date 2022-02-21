@@ -6,7 +6,6 @@
 # include root directory items
 !/.bash_sessions_disable
 !/.bashalias
-!/.bashrc
 !/.config/
 !/.gitmodules
 !/.gitconfig
@@ -16,6 +15,7 @@
 !/.hammerspoon
 !/.home-env
 !/.local/
+!/.npmrc
 !/.vimrc
 !/Library
 

@@ -123,4 +123,4 @@ if [[ -z $SSH_CONNECTION ]]; then
   AGNOSTER_PROMPT_SEGMENTS[3]=
 fi
 
-source ~/.bashrc
+source ~/.config/bash/bashrc
