@@ -1,6 +1,15 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.local/share/oh-my-zsh
-export ZSH_CUSTOM=$HOME/.local/share/oh-my-zsh-custom
+export ZSH="$HOME/.local/share/oh-my-zsh"
+export ZSH_CUSTOM="$HOME/.local/share/oh-my-zsh-custom"
+export ZSH_COMPDUMP="$HOME/.cache/zcompdump-${HOST/.*/}-${ZSH_VERSION}"
+
+################################################################################
+# Pre config for plug z: https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/z/README
+
+# change the datafile location
+export _Z_DATA="$HOME/.local/state/z"
+# exclude dirs array
+#$_Z_EXCLUDE_DIRS=
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/

@@ -1,5 +1,5 @@
 export HISTFILE=$HOME/.local/state/zsh_history
-
+export ZSH_CFG=$HOME/.config/zsh
 
 # oh-my-zsh:
 #   website: https://ohmyz.sh/
