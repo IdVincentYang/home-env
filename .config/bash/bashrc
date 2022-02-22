@@ -30,7 +30,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # ffmpeg
 # export FONTCONFIG_PATH=/usr/local/etc/fonts
 
-# fzf config
+# fzf config: https://github.com/junegunn/fzf.vim
 if [ -f `which fzf` ]; then
     # https://zhuanlan.zhihu.com/p/41859976
     if [ -f `which fd` ]; then

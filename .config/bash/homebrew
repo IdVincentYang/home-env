@@ -9,7 +9,7 @@ function install-brew {
 }
 
 function install-brew-base {
-    brew install autoconf automake fd ffmpeg fzf git lrzsz p7zip stormssh tree vim watch wget you-get youtube-dl
+    brew install autoconf automake fd ffmpeg fzf highlight git lrzsz p7zip stormssh tree vim watch wget you-get youtube-dl
 
     #   service with control panel:
     #       remove related files when remove app form /Applications folder

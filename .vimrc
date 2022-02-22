@@ -340,6 +340,8 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'chrisbra/unicode.vim'
 Plug 'Chiel92/vim-autoformat'
+"  netrw 增强插件: https://github.com/Tao-Quixote/vim/blob/master/plugin/vinegar.md
+Plug 'tpope/vim-vinegar'
 
 " 目前没有找到如何在vim 脚本里面判断是否已安装 fzf 命令的方法, 先直接引用插件
 Plug '/usr/local/opt/fzf'
