@@ -18,6 +18,8 @@ function ensure() {
 
 export BASH_CFG=$HOME/.config/bash
 
+export LANG=en_US.UTF-8
+
 # custom bin path
 export PATH=$HOME/.local/bin:${PATH}
 
