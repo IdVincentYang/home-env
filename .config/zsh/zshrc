@@ -1,10 +1,10 @@
 export HISTFILE=$HOME/.local/state/zsh_history
 export ZSH_CFG=$HOME/.config/zsh
 
-function zshaddhistory() {
-    print -sr "${1%%$'\n'} ### ${PWD}"
-    fc -p
-}
+# function zshaddhistory() {
+#     print -sr "${1%%$'\n'} ### ${PWD}"
+#     fc -p
+# }
 
 # oh-my-zsh:
 #   website: https://ohmyz.sh/
