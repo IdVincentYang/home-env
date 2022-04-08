@@ -70,6 +70,8 @@ set autoread
 set autowrite
 set formatoptions+=mMj          " let vim can break chinese and join
 
+" set shell=/bin/bash\ --rcfile\ $HOME/.bash_profile   " using bash in vim shell
+
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 if has("autocmd")

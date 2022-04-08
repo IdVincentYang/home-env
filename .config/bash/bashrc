@@ -20,11 +20,15 @@ export BASH_CFG=$HOME/.config/bash
 
 export LANG=en_US.UTF-8
 
-# custom bin path
-export PATH=$HOME/.local/bin:${PATH}
+# custom bin path and home brew sbin path, other brew path added by /etc/paths
+export PATH=$HOME/.local/bin:/usr/local/sbin:${PATH}
 
 if [ -f "${BASH_CFG}/alias" ]; then
     . "${BASH_CFG}/alias"
+fi
+
+if [ $VIM ]; then
+        export PS1='[VIM]\h:\w\$ '
 fi
 
 # home brew
@@ -40,7 +44,7 @@ if [ -f `which fzf` ]; then
     elif [ -f `which ag` ]; then
         export FZF_DEFAULT_COMMAND='ag -g ""'
     fi
-    if [ ! -z $FZF_DEFAULT_COMMAND ]; then
+    if [ ! -z "$FZF_DEFAULT_COMMAND" ]; then
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     fi
     # FZF_COMPLETION_TRIGGER: 默认 **<tab>
@@ -50,9 +54,6 @@ fi
 
 # JVM config
 if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-
-# python config
-export PATH=~/Library/Python/2.7/bin:${PATH}
 
 # go config
 # export GOPATH=~/go/.path
