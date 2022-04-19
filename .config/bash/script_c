@@ -1,0 +1,110 @@
+if [[ "${_SCRIPT_C_ECHO_OFF}" != true ]] ; then
+    echo 'Usage: This script make source code file can be run in terminal like a command(the source file need chmod +x). This script compile your script and run the output binary with the command arguments, delete the binary finally.
+#if 0
+#Turn off the echo message, include the usage message.
+_SCRIPT_C_ECHO_OFF=true
+
+#Customize compiler binary path : if the script suffix is ".c", the default compiler path is clang or gcc, if suffix is ".cc" or ".cpp" or ".cxx", the default compiler path is clang++ or g++.
+//_SCRIPT_C_COMPILER_PATH=<path to your compiler>
+
+#Compile the script to gererate a binary in current directory but do not execute.
+_SCRIPT_C_COMPILE_ONLY=false
+
+#Customize compile option : if _SCRIPT_C_COMPILE_ONLY is true, and not define _SCRIPT_C_COMPILE_OPTION, the script arguments as _SCRIPT_C_COMPILE_OPTION.
+_SCRIPT_C_COMPILE_OPTION=
+
+#Customize execute option : if _SCRIPT_C_COMPILE_ONLY is false, and not define _SCRIPT_C_EXECUTE_OPTION, the script arguments as _SCRIPT_C_EXECUTE_OPTION.
+_SCRIPT_C_EXECUTE_OPTION=
+#endif
+
+source "$BASH_CFG/script_c"
+'
+fi #end of if [[ "${_SCRIPT_C_ECHO_OFF}" != true ]] ; then
+
+
+if [[ "${_SCRIPT_C_ECHO_OFF}" == true ]] ; then
+    _SCRIPT_ENV_ECHO_OFF=true
+fi
+source $BASH_CFG/script_env
+
+function _string_in_array() {
+    local str=$1
+    local suffixArray=$2
+    for suffix in ${suffixArray[@]}
+    do
+        if [[ "$str" == "$suffix" ]]
+        then
+            return 0    # 0 is success
+        fi
+    done
+    return 1    # not 0 is failure
+}
+
+#如果没有自定义编译器, 根据源码扩展名设置默认编译器路径
+if [ -z "${_SCRIPT_C_COMPILER_PATH}" ] ; then
+    _C_SUFFIX_ARRAY=(".c")
+    _CPP_SUFFIX_ARRAY=(".cc" ".cpp" ".cxx")
+    if _string_in_array "${_SCRIPT_NAME_EXT}" $_C_SUFFIX_ARRAY ; then
+        if [ -f "`which clang`" ] ; then
+            _SCRIPT_C_COMPILER_PATH="`which clang`"
+        elif [ -f "`which gcc`" ] ; then
+            _SCRIPT_C_COMPILER_PATH="`which gcc`"
+        else
+            echo "WARN: Can not find clang or gcc for compile C source in system."
+        fi
+    elif _string_in_array "${_SCRIPT_NAME_EXT}" $_CPP_SUFFIX_ARRAY ; then
+        if [ -f "`which clang++`" ] ; then
+            _SCRIPT_C_COMPILER_PATH="`which clang++`"
+        elif [ -f "`which g++`" ] ; then
+            _SCRIPT_C_COMPILER_PATH="`which g++`"
+        else
+            echo "WARN: Can not find clang++ or g++ for compile C++ source in system."
+        fi
+    else
+        echo "WARN: Can not recognize the file type: \"${_SCRIPT_NAME_EXT}\", it is not C source: \"${_C_SUFFIX_ARRAY[@]}\", and not C++ source: \"${_CPP_SUFFIX_ARRAY[@]}\"."
+    fi
+fi
+
+#检查有没有编译器
+if [ -z "${_SCRIPT_C_COMPILER_PATH}" ] ; then
+    echo "ERROR: No compiler specified!"
+    exit 1
+fi
+
+if [ -z "${_SCRIPT_C_COMPILE_OPTION}" ] ; then
+    if [[ "${_SCRIPT_C_COMPILE_ONLY}" == true ]] ; then
+        _SCRIPT_C_COMPILE_OPTION="$@"
+    fi
+fi
+
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "Compile:${_SCRIPT_C_COMPILER_PATH} -o ${_SCRIPT_NAME_STEM} ${_SCRIPT_C_COMPILE_OPTION} $0"
+fi
+
+"${_SCRIPT_C_COMPILER_PATH}" -o "${_SCRIPT_NAME_STEM}" ${_SCRIPT_C_COMPILE_OPTION} "$0"
+
+#检查有没有编译错误
+_RESULT=$?
+if (( "${_RESULT}" != 0 )) ; then
+    exit ${_RESULT}
+fi
+
+if [[ "${_SCRIPT_C_COMPILE_ONLY}" != true ]] ; then
+    if [ -z "${_SCRIPT_C_EXECUTE_OPTION}" ] ; then
+        _SCRIPT_C_EXECUTE_OPTION="$@"
+    fi
+    _BIN_PATH="${_SCRIPT_DIR}/${_SCRIPT_NAME_STEM}"
+    if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+        echo "Excute: ${_BIN_PATH} ${_SCRIPT_C_EXECUTE_OPTION}"
+    fi
+    "${_BIN_PATH}" ${_SCRIPT_C_EXECUTE_OPTION}
+
+#如果执行成功, 删除BIN文件
+    _RESULT=$?
+    if (( "${_RESULT}" != 0 )) ; then
+        exit ${_RESULT}
+    fi
+    rm "${_SCRIPT_NAME_STEM}"
+fi
+
+exit

@@ -1,15 +1,19 @@
 # 如果要屏蔽此脚本日志输出，定义下面变量为 true
-if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]]; then
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
     echo "Set _SCRIPT_ENV_ECHO_OFF=true before source this script to turn the script echo off."
 fi
 
 # 获取当前脚本的所在的目录的绝对路径
 _SCRIPT_DIR=`cd $(dirname "$0");pwd`
-echo "_SCRIPT_DIR=${_SCRIPT_DIR}"
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "_SCRIPT_DIR=${_SCRIPT_DIR}"
+fi
 
 # 获取当前脚本的文件名
 _SCRIPT_NAME=`basename "$0"`
-echo "_SCRIPT_NAME=${_SCRIPT_NAME}"
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "_SCRIPT_NAME=${_SCRIPT_NAME}"
+fi
 
 if [[ "${_SCRIPT_NAME}" == "."* ]]; then
     _SCRIPT_NAME_IS_HIDDEN=true
@@ -17,28 +21,36 @@ if [[ "${_SCRIPT_NAME}" == "."* ]]; then
 else
     NAME="${_SCRIPT_NAME}"
 fi
-echo "_SCRIPT_NAME_IS_HIDDEN=${_SCRIPT_NAME_IS_HIDDEN}"
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "_SCRIPT_NAME_IS_HIDDEN=${_SCRIPT_NAME_IS_HIDDEN}"
+fi
 
 if [[ "${NAME}" == *"."* ]]; then
     :
 else
     _SCRIPT_NAME_IS_PURE=true
 fi
-echo "_SCRIPT_NAME_IS_PURE=${_SCRIPT_NAME_IS_PURE}"
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "_SCRIPT_NAME_IS_PURE=${_SCRIPT_NAME_IS_PURE}"
+fi
 
 # 获取当前脚本的文件名去除最后扩展名剩下的部分
 _SCRIPT_NAME_STEM="${NAME%.*}"
 if [[ "$_SCRIPT_NAME_IS_HIDDEN" = true ]]; then
     _SCRIPT_NAME_STEM=".${_SCRIPT_NAME_STEM}"
 fi
-echo "_SCRIPT_NAME_STEM=${_SCRIPT_NAME_STEM}"
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "_SCRIPT_NAME_STEM=${_SCRIPT_NAME_STEM}"
+fi
 
 # 获取当前脚本的文件名从头到除开头 '.' 之外第一个 '.' 的部分, 不包括 '.'
 _SCRIPT_NAME_STEM_LEAST="${NAME%%.*}"
 if [[ "$_SCRIPT_NAME_IS_HIDDEN" = true ]]; then
     _SCRIPT_NAME_STEM_LEAST=".${_SCRIPT_NAME_STEM_LEAST}"
 fi
-echo "_SCRIPT_NAME_STEM_LEAST=${_SCRIPT_NAME_STEM_LEAST}"
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "_SCRIPT_NAME_STEM_LEAST=${_SCRIPT_NAME_STEM_LEAST}"
+fi
 
 # 获取当前脚本的扩展名, 包括 '.'
 if [[ "$_SCRIPT_NAME_IS_PURE" = true ]]; then
@@ -46,7 +58,9 @@ if [[ "$_SCRIPT_NAME_IS_PURE" = true ]]; then
 else
     _SCRIPT_NAME_EXT=".${NAME##*.}"
 fi
-echo "_SCRIPT_NAME_EXT=${_SCRIPT_NAME_EXT}"
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "_SCRIPT_NAME_EXT=${_SCRIPT_NAME_EXT}"
+fi
 
 # 获取当前脚本的文件名除开头 '.' 之后第一个 '.' 之后的部分, 包括 '.'
 if [[ "$_SCRIPT_NAME_IS_PURE" = true ]]; then
@@ -54,4 +68,6 @@ if [[ "$_SCRIPT_NAME_IS_PURE" = true ]]; then
 else
     _SCRIPT_NAME_EXT_MOST=".${NAME#*.}"
 fi
-echo "_SCRIPT_NAME_EXT_MOST=${_SCRIPT_NAME_EXT_MOST}"
+if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
+    echo "_SCRIPT_NAME_EXT_MOST=${_SCRIPT_NAME_EXT_MOST}"
+fi
