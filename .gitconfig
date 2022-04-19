@@ -45,3 +45,7 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[lfs "https://github-vincent/"]
+	locksverify = true
+[lfs "https://github.com/"]
+	locksverify = true
