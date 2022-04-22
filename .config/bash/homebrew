@@ -37,10 +37,6 @@ function install-brew-base {
     brew install openvanilla
 
     brew install oracle-jdk
-    #   app: macOS Installer Packages(PKG) file viewer
-    brew install suspicious-package
-    #   3rd filesystem supported, osxfuse is base, but has been deprecated
-    # brew install osxfuse ntfs-3g sshfs
 
     #   network tools
     brew install iperf3 iproute2mac
@@ -104,7 +100,15 @@ function install-brew-dev {
 }
 
 function install-brew-ql {
-    brew install  qlmarkdown qlvideo webpquicklook quicklook-json qlimagesize mdimagesizemdimporter
+    # https://github.com/sindresorhus/quick-look-plugins
+    # If you run into issues with macOS not letting you run the plugin because it's not signed by a verified developer you can follow these steps:
+    # run xattr -cr ~/Library/QuickLook/<QLPlugName>.qlgenerator (sudo if needed)
+    # run qlmanage -r
+    # run qlmanage -r cache
+    # Restart Finder by...
+    # Restarting your computer
+    # or holding down the option key and right click on Finder’s dock icon, then select “Relaunch” from the menu
+    brew install qlvideo webpquicklook quicklook-json qlcolorcode
     # brew install provisionql qladdict qlcolorcode qldds qlgradle qlprettypatch
     # qlrest qlstephen quicklook-csv quicklook-pat quicklookapk
     # quicklookase receiptquicklook

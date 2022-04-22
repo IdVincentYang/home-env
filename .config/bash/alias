@@ -1,8 +1,6 @@
 
 alias _P='HTTP_PROXY=http://127.0.0.1:7890 HTTPS_PROXY=http://127.0.0.1:7890 ALL_PROXY=socks5://127.0.0.1:7891'
 
-alias rsync='rsync --exclude ".DS_Store"'
-
 # adb shotcut
 
 _ADB_SCREEN_CAPTURE_USAGE="Usage: <cmd> [path, default='/tmp/screenshot.png']"
@@ -180,31 +178,8 @@ alias vi='mvim'
 
 alias tel="rlwrap nc"
 
-function sfs () {
-    BIN_PATH=`which sshfs`
-    if [[ $? != 0 ]]; then
-        echo "Can't find command: sshfs, please install it first!"
-        return 1
-    fi
-    if [ -z $1 ]; then
-        echo "Please input remote directory path as argument 1."
-        return 2
-    fi
-    REMOTE_DIR="$1"
-    LOCAL_DIR="/Volumes/${REMOTE_DIR//\//.}"
-    if [ ! -d ${LOCAL_DIR} ]; then
-        mkdir -p ${LOCAL_DIR}
-    fi
-    sshfs ${REMOTE_DIR} ${LOCAL_DIR} -o volname=${REMOTE_DIR}
-    open ${LOCAL_DIR}
-}
-#Productivity
-md5check() { md5sum "$1" | grep "$2";}
-alias genpasswd="strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n'; echo"
-
-#System info
-alias cmount="mount | column -t"
-alias psg="ps aux | grep"
+# Beyond Compare Trial Date Reset
+alias bcreset="rm \"/Users/$(whoami)/Library/Application Support/Beyond Compare/registry.dat\""
 
 #Network
 alias ydl="youtube-dl --yes-playlist --proxy socks5://127.0.0.1:7891/ -i"
@@ -226,8 +201,4 @@ alias ipinfo="curl ifconfig.me && curl ifconfig.me/host"
 #   --domains website.org
 #   --restrict-file-names=windows
 alias websiteget="wget --random-wait -c -nc -k -np -r -p -e robots=off -U mozilla"
-
-# intellij diff
-alias idiff="/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea diff"
-alias imerge="/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea merge"
 
