@@ -32,7 +32,7 @@ function install-brew-base {
     #   app: key-shortcuts macro maker, replaced by hammerspoon
     # brew install keyboard-maestro
     #   app: vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
-    brew install macvim
+    brew install --cask macvim
     #   IME: for erbi, which db under ~/.local/erbi
     brew install openvanilla
 
@@ -91,8 +91,7 @@ function install-brew-dev {
     brew install jenv
 
     ### java/android dev tools
-    brew install android-studio
-    brew install apktool
+    brew install apktool dex2jar jd-gui
 
     ### javascript dev tools
     brew install nvm
