@@ -25,6 +25,8 @@ function install-brew-base {
     brew install hammerspoon
     #   tray: enhance date tray icon's feature
     brew install itsycal
+    #   tray: dozer, add hide icon feature
+    brew install dozer
     #   app: tweak keyboard functions. eg: map right CMD to CMD+OPT+CTRL+SHIFT
     brew install karabiner-elements
     #   app: private passwords database
