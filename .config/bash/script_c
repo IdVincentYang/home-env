@@ -29,8 +29,8 @@ source $BASH_CFG/script_env
 
 function _string_in_array() {
     local str=$1
-    local suffixArray=$2
-    for suffix in ${suffixArray[@]}
+    local suffixArray=$2[@]
+    for suffix in ${!suffixArray}
     do
         if [[ "$str" == "$suffix" ]]
         then
@@ -44,7 +44,7 @@ function _string_in_array() {
 if [ -z "${_SCRIPT_C_COMPILER_PATH}" ] ; then
     _C_SUFFIX_ARRAY=(".c")
     _CPP_SUFFIX_ARRAY=(".cc" ".cpp" ".cxx")
-    if _string_in_array "${_SCRIPT_NAME_EXT}" $_C_SUFFIX_ARRAY ; then
+    if _string_in_array "${_SCRIPT_NAME_EXT}" _C_SUFFIX_ARRAY ; then
         if [ -f "`which clang`" ] ; then
             _SCRIPT_C_COMPILER_PATH="`which clang`"
         elif [ -f "`which gcc`" ] ; then
@@ -52,7 +52,7 @@ if [ -z "${_SCRIPT_C_COMPILER_PATH}" ] ; then
         else
             echo "WARN: Can not find clang or gcc for compile C source in system."
         fi
-    elif _string_in_array "${_SCRIPT_NAME_EXT}" $_CPP_SUFFIX_ARRAY ; then
+    elif _string_in_array "${_SCRIPT_NAME_EXT}" _CPP_SUFFIX_ARRAY ; then
         if [ -f "`which clang++`" ] ; then
             _SCRIPT_C_COMPILER_PATH="`which clang++`"
         elif [ -f "`which g++`" ] ; then
