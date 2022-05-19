@@ -1,0 +1,7 @@
+[ArchiveToNAS]
+is_set=true
+set_session_enabled_ArchiveMediaToNas=true
+set_session_enabled_ArchiveMusicToNAS=true
+set_session_enabled_ArchivePixel4ToNas=true
+set_session_enabled_ArchivePublicToNas=true
+set_session_enabled_ArchiveYangwsToNas=true
