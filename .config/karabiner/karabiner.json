@@ -45,6 +45,26 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Keep 'n' from being pressed twice",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "n"
+                                },
+                                "parameters": {
+                                    "basic.to_if_held_down_threshold_milliseconds": 10
+                                },
+                                "to_if_held_down": [
+                                    {
+                                        "key_code": "n",
+                                        "repeat": false
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
