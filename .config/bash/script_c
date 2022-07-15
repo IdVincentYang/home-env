@@ -4,17 +4,21 @@ if [[ "${_SCRIPT_C_ECHO_OFF}" != true ]] ; then
 #Turn off the echo message, include the usage message.
 _SCRIPT_C_ECHO_OFF=true
 
-#Customize compiler binary path : if the script suffix is ".c", the default compiler path is clang or gcc, if suffix is ".cc" or ".cpp" or ".cxx", the default compiler path is clang++ or g++.
-//_SCRIPT_C_COMPILER_PATH=<path to your compiler>
-
 #Compile the script to gererate a binary in current directory but do not execute.
 _SCRIPT_C_COMPILE_ONLY=false
 
-#Customize compile option : if _SCRIPT_C_COMPILE_ONLY is true, and not define _SCRIPT_C_COMPILE_OPTION, the script arguments as _SCRIPT_C_COMPILE_OPTION.
+#Script arguments as compile options : if not set, script arguments as binary input arguments.
+_SCRIPT_C_ARGUMENTS_AS_COMPILE_OPTIONS=false
+
+#Customize compiler binary path : if the script suffix is ".c", the default compiler path is clang or gcc, if suffix is ".cc" or ".cpp" or ".cxx", the default compiler path is clang++ or g++.
+_SCRIPT_C_COMPILER_PATH=<path to your compiler>
+
+#Customize compile options.
 _SCRIPT_C_COMPILE_OPTION=
 
-#Customize execute option : if _SCRIPT_C_COMPILE_ONLY is false, and not define _SCRIPT_C_EXECUTE_OPTION, the script arguments as _SCRIPT_C_EXECUTE_OPTION.
+#Customize execute option.
 _SCRIPT_C_EXECUTE_OPTION=
+
 #endif
 
 source "$BASH_CFG/script_c"
@@ -71,10 +75,10 @@ if [ -z "${_SCRIPT_C_COMPILER_PATH}" ] ; then
     exit 1
 fi
 
-if [ -z "${_SCRIPT_C_COMPILE_OPTION}" ] ; then
-    if [[ "${_SCRIPT_C_COMPILE_ONLY}" == true ]] ; then
-        _SCRIPT_C_COMPILE_OPTION="$@"
-    fi
+if [[ "${_SCRIPT_C_ARGUMENTS_AS_COMPILE_OPTIONS}" != true ]] ; then
+    _SCRIPT_C_EXECUTE_OPTION="${_SCRIPT_C_EXECUTE_OPTION} $@"
+else
+    _SCRIPT_C_COMPILE_OPTION="${_SCRIPT_C_COMPILE_OPTION} $@"
 fi
 
 if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
@@ -90,9 +94,6 @@ if (( "${_RESULT}" != 0 )) ; then
 fi
 
 if [[ "${_SCRIPT_C_COMPILE_ONLY}" != true ]] ; then
-    if [ -z "${_SCRIPT_C_EXECUTE_OPTION}" ] ; then
-        _SCRIPT_C_EXECUTE_OPTION="$@"
-    fi
     _BIN_PATH="${_SCRIPT_DIR}/${_SCRIPT_NAME_STEM}"
     if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
         echo "Excute: ${_BIN_PATH} ${_SCRIPT_C_EXECUTE_OPTION}"
