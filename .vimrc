@@ -75,7 +75,7 @@ set formatoptions+=mMj          " let vim can break chinese and join
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 """"""""""""""""""""""""""""""""""""""""
@@ -334,21 +334,23 @@ endfunction
 " g:plug*
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/vim-plug'
-Plug 'lifepillar/vim-solarized8'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-scripts/txt.vim'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
 Plug 'chrisbra/unicode.vim'
 Plug 'Chiel92/vim-autoformat'
-"  netrw 增强插件: https://github.com/Tao-Quixote/vim/blob/master/plugin/vinegar.md
-Plug 'tpope/vim-vinegar'
+Plug 'easymotion/vim-easymotion'
 
 " 目前没有找到如何在vim 脚本里面判断是否已安装 fzf 命令的方法, 先直接引用插件
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-plug'
 
+Plug 'lifepillar/vim-solarized8'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+"  netrw 增强插件: https://github.com/Tao-Quixote/vim/blob/master/plugin/vinegar.md
+Plug 'tpope/vim-vinegar'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-scripts/txt.vim'
 " 解决调用终端命令报错: WARNING: terminal is not fully functional
 " https://github.com/vim-utils/vim-man
 Plug 'vim-utils/vim-man'
@@ -474,6 +476,41 @@ if has_key(g:plugs, 'vim-autoformat')
     " let g:autoformat_retab = 0
     " disable remove trailing spaces due to this has been done by above
     let g:autoformat_remove_trailing_spaces = 0
+
+endif
+
+""""""""""""""""""""""""""""""""""""""""
+" Plug 'https://github.com/easymotion/vim-easymotion
+if has_key(g:plugs, 'vim-easymotion')
+    " The default configuration defines the following mappings in normal,
+    " visual and operator-pending mode if |g:EasyMotion_do_mapping| is on:
+    "
+    " Note: The default leader has been changed to <Leader><Leader> to avoid
+    "       conflicts with other plugins you may have installed
+    "
+    "     Default Mapping      | Details
+    "     ---------------------|----------------------------------------------
+    "     <Leader>f{char}      | Find {char} to the right. See |f|.
+    "     <Leader>F{char}      | Find {char} to the left. See |F|.
+    "     <Leader>t{char}      | Till before the {char} to the right. See |t|.
+    "     <Leader>T{char}      | Till after the {char} to the left. See |T|.
+    "     <Leader>w            | Beginning of word forward. See |w|.
+    "     <Leader>W            | Beginning of WORD forward. See |W|.
+    "     <Leader>b            | Beginning of word backward. See |b|.
+    "     <Leader>B            | Beginning of WORD backward. See |B|.
+    "     <Leader>e            | End of word forward. See |e|.
+    "     <Leader>E            | End of WORD forward. See |E|.
+    "     <Leader>ge           | End of word backward. See |ge|.
+    "     <Leader>gE           | End of WORD backward. See |gE|.
+    "     <Leader>j            | Line downward. See |j|.
+    "     <Leader>k            | Line upward. See |k|.
+    "     <Leader>n            | Jump to latest "/" or "?" forward. See |n|.
+    "     <Leader>N            | Jump to latest "/" or "?" backward. See |N|.
+    "     <Leader>s            | Find(Search) {char} forward and backward.
+    "                          | See |f| and |F|.
+    nmap <Leader><Leader>J <Plug>(easymotion-eol-j)
+    nmap <Leader><Leader>K <Plug>(easymotion-eol-k)
+    nmap <Leader><Leader>S <Plug>(easymotion-overwin-f2)
 
 endif
 
