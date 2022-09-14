@@ -34,7 +34,7 @@ function install-brew-base {
     #   app: key-shortcuts macro maker, replaced by hammerspoon
     # brew install keyboard-maestro
     #   app: vim doc chinese version: https://sourceforge.net/projects/vimcdoc/
-    brew install --cask macvim
+    brew install macvim
     #   IME: for erbi, which db under ~/.local/erbi
     brew install openvanilla
 
@@ -58,6 +58,10 @@ function install-brew-app {
     brew install turbo-boost-switcher
     #   app: vm ware, replaced by VMWare
     # brew install rdm virtualbox virtualbox-extension-pac
+
+    ### graphic apps
+    # app: vector graphics editor
+    brew install inkscape
 
     ### media apps
     brew install iina invisor-lite macx-youtube-downloader media-converter
