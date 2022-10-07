@@ -3,5 +3,9 @@
     {
         "key": "cmd+r",
         "command": "workbench.action.tasks.runTask"
+    },
+    {
+        "key": "ctrl+cmd+c",
+        "command": "workbench.output.action.clearOutput"
     }
 ]

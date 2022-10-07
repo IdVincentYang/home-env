@@ -7,7 +7,7 @@
     "editor.minimap.enabled": false,
     // 输入时就进行格式化，默认触发字符较少，分号可以触发
     "editor.formatOnType": true,
-    "editor.formatOnPaste": true,
+    "editor.formatOnPaste": false,
     "editor.formatOnSave": true,
     // snippets代码优先显示补全
     "editor.snippetSuggestions": "top",
