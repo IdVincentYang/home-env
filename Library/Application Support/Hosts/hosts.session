@@ -8,7 +8,6 @@
 255.255.255.255	broadcasthost
 ::1	localhost
 127.0.0.1	baidu.com
-127.0.0.1	me
 192.168.1.10	nas
 # Added by Docker Desktop
 # To allow the same kube context to work on the host and the container:
