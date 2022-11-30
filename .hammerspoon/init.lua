@@ -29,6 +29,7 @@ local _AppMetaArray = {
     { "Notes" },
     { "Preview" },
     { "Terminal" },
+    { "Warp" },
     { "Visual Studio Code", "/Applications/Visual Studio Code.app", "com.microsoft.VSCode" },
     { "WeChat" },
     { "Xcode" },
@@ -70,7 +71,7 @@ local _HotkeyMap = {
     q = {},
     r = { _SUPER_META, "Calendar" },
     s = { _SUPER_META, "Visual Studio Code" },
-    t = { _SUPER_META, "Terminal" },
+    t = { _SUPER_META, "Warp" },
     u = { _SUPER_META, "企业微信" },
     v = { _SUPER_META, "MacVim" },
     w = { _SUPER_META, "WeChat" },
@@ -132,7 +133,7 @@ hs.timer.new(0, function()
             else
                 _L.w("_MoveOneScreen invalid argument: " .. direction);
             end
-            hs.mouse.setAbsolutePosition(wind:frame().center);
+            hs.mouse.absolutePosition(wind:frame().center);
         end
     end
 
