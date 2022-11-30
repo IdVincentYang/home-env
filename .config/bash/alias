@@ -1,8 +1,3 @@
-
-alias _Ph='HTTP_PROXY=http://127.0.0.1:7890'
-alias _Phs='HTTPS_PROXY=https://127.0.0.1:7890'
-alias _Ps5='SOCKS_PROXY=socks5h://127.0.0.1:7891'
-
 # adb shotcut
 
 _ADB_SCREEN_CAPTURE_USAGE="Usage: <cmd> [path, default='/tmp/screenshot.png']"

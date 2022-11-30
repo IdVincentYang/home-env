@@ -15,15 +15,35 @@ function ensure() {
     terminal-notifier -title "Execute CMD Complete!" -message "$@"
 }
 
+function setproxy() {
+    _P=$1
+    if [ -z "$_P" ]; then
+        # set clash mix port as default proxy
+        _P="http://127.0.0.1:7890"
+    fi
+    export ALL_PROXY=$_P
+    export FTP_PROXY=$_P
+    export HTTP_PROXY=$_P
+    export HTTPS_PROXY=$_P
+    export SOCKS_PROXY=$_P
+}
+
+function unsetproxy() {
+    unset ALL_PROXY
+    unset FTP_PROXY
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset SOCKS_PROXY
+}
+
+setproxy
+
 export BASH_CFG=$HOME/.config/bash
 
 export LANG=en_US.UTF-8
 
 # custom bin path and home brew sbin path, other brew path added by /etc/paths
 export PATH=$HOME/.local/bin:/usr/local/sbin:${PATH}
-
-# set clash mix port as http proxy
-export http_proxy=http://127.0.0.1:7890
 
 if [ -f "${BASH_CFG}/alias" ]; then
     . "${BASH_CFG}/alias"
