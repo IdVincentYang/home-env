@@ -15,13 +15,15 @@ function ensure() {
     terminal-notifier -title "Execute CMD Complete!" -message "$@"
 }
 
-
 export BASH_CFG=$HOME/.config/bash
 
 export LANG=en_US.UTF-8
 
 # custom bin path and home brew sbin path, other brew path added by /etc/paths
 export PATH=$HOME/.local/bin:/usr/local/sbin:${PATH}
+
+# set clash mix port as http proxy
+export http_proxy=http://127.0.0.1:7890
 
 if [ -f "${BASH_CFG}/alias" ]; then
     . "${BASH_CFG}/alias"

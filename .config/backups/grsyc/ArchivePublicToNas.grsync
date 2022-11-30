@@ -1,11 +1,11 @@
 [ArchivePublicToNas]
 is_set=false
 text_source=/Users/yangws/archives.noindex/Public/
-text_dest=admin@192.168.1.10:/volume1/Public/
+text_dest=yangws@192.168.1.10:/volume1/Public/
 text_notes=
 text_com_before=
-text_com_after=
-text_addit=-e "sshpass -p '1006wdnas' ssh" --progress -avs  --exclude=.DS_Store
+text_com_after=/usr/local/bin/sshpass -p '1006wdnas' ssh  admin@192.168.1.10 "chmod a+r /volume1/Public/"
+text_addit=-e "sshpass -p '99092026' ssh -p 1022" --progress -avs  --exclude=.DS_Store
 check_time=false
 check_perm=false
 check_owner=false

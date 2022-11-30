@@ -1,5 +1,7 @@
 
-alias _P='HTTP_PROXY=http://127.0.0.1:7890 HTTPS_PROXY=http://127.0.0.1:7890 ALL_PROXY=socks5://127.0.0.1:7891'
+alias _Ph='HTTP_PROXY=http://127.0.0.1:7890'
+alias _Phs='HTTPS_PROXY=https://127.0.0.1:7890'
+alias _Ps5='SOCKS_PROXY=socks5h://127.0.0.1:7891'
 
 # adb shotcut
 
