@@ -11,22 +11,32 @@ function install-brew {
 function install-brew-base {
     brew install autoconf automake fd ffmpeg fzf highlight git lrzsz p7zip stormssh tree vim watch wget you-get youtube-dl
 
-    #   service with control panel:
-    #       remove related files when remove app form /Applications folder
+    # fonts
+    brew tap homebrew/cask-fonts
+    brew install font-jetbrains-mono-nerd-font
+
+    # control panel extensions:
+    #   panel: remove related files when remove app form /Applications folder
     brew install apptrap
+    brew install oracle-jdk
+
     #   screensaver: Mac screen saver
     # brew install aerial
-    #   tray: easily block os to sleep
-    brew install caffeine
+
     #   Finder extensions: add button in toolbar to open termial
     brew install go2shell
-    #   service with tray:
-    #       auto-tools program with lua. for key-shortcuts configure, config under ~/.local/hammerspoon/
+
+    # service with tray icons:
+    #   tray: easily block os to sleep
+    brew install caffeine
+    #   tray: auto-tools program with lua. for key-shortcuts configure, config under ~/.local/hammerspoon/
     brew install hammerspoon
     #   tray: enhance date tray icon's feature
     brew install itsycal
     #   tray: dozer, add hide icon feature
     brew install dozer
+
+    # apps for system enhance:
     #   app: tweak keyboard functions. eg: map right CMD to CMD+OPT+CTRL+SHIFT
     brew install karabiner-elements
     #   app: private passwords database
@@ -38,7 +48,6 @@ function install-brew-base {
     #   IME: for erbi, which db under ~/.local/erbi
     brew install openvanilla
 
-    brew install oracle-jdk
 
     #   network tools
     brew install iperf3 iproute2mac
