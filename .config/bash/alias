@@ -179,7 +179,8 @@ alias tel="rlwrap nc"
 alias bcreset="rm \"/Users/$(whoami)/Library/Application Support/Beyond Compare/registry.dat\""
 
 #Network
-alias ydl="youtube-dl --yes-playlist --proxy socks5://127.0.0.1:7891/ -i"
+alias ydlv="yt-dlp --no-playlist --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
+alias ydll="yt-dlp --yes-playlist --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
 alias yget="you-get -x 127.0.0.1:7890"
 alias listen="lsof -P -i -n"
 alias ports='netstat -tulanp'
