@@ -27,7 +27,7 @@ function setproxy() {
     _P=$1
     if [ -z "$_P" ]; then
         # set clash mix port as default proxy
-        _P="https://127.0.0.1:7890"
+        _P="socks5h://127.0.0.1:7891"
     fi
     export ALL_PROXY=$_P
     export FTP_PROXY=$_P
