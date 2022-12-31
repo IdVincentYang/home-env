@@ -16,4 +16,4 @@ elseif OSX()
 elseif WINDOWS()
     set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
 endif
-echom ".gvimrc loaded"
+" echom ".gvimrc loaded"

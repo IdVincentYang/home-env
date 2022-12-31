@@ -15,7 +15,7 @@ function ensure() {
     terminal-notifier -title "Execute CMD Complete!" -message "$@"
 }
 
-function listproxy() {
+function proxylist() {
     echo "ALL_PROXY=$ALL_PROXY"
     echo "FTP_PROXY=$FTP_PROXY"
     echo "HTTP_PROXY=$HTTP_PROXY"
@@ -23,7 +23,7 @@ function listproxy() {
     echo "SOCKS_PROXY=$SOCKS_PROXY"
 }
 
-function setproxy() {
+function proxyset() {
     _P=$1
     if [ -z "$_P" ]; then
         # set clash mix port as default proxy
@@ -36,7 +36,7 @@ function setproxy() {
     export SOCKS_PROXY=$_P
 }
 
-function unsetproxy() {
+function proxyunset() {
     unset ALL_PROXY
     unset FTP_PROXY
     unset HTTP_PROXY
@@ -44,7 +44,7 @@ function unsetproxy() {
     unset SOCKS_PROXY
 }
 
-setproxy
+proxyset
 
 export BASH_CFG=$HOME/.config/bash
 

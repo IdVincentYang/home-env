@@ -52,6 +52,7 @@ function install-brew-base {
     #   network tools
     brew install iperf3 iproute2mac
     brew install charles wireshark
+    brew install postman
 }
 
 function install-brew-app {

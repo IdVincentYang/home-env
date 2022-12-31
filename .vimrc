@@ -514,4 +514,4 @@ if has_key(g:plugs, 'vim-easymotion')
 
 endif
 
-echom ".vimrc loaded"
+" echom ".vimrc loaded"
