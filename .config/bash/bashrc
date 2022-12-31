@@ -6,6 +6,26 @@
 # filename="${basename%.*}"
 ################################################################################
 
+# display alert
+
+function alert() {
+    ASCRIPT="display alert \"$1\" message \"$2 $3 $4 $5 $6 $7 $8 $9\""
+    osascript -e "${ASCRIPT}"
+}
+
+function notify() {
+    WITH_TITLE=""
+    if [ -n "$2" ] ; then
+        WITH_TITLE="with title \"$2\""
+    fi
+    WITH_SUBTITLE=""
+    if [ -n "$3" ] ; then
+        WITH_SUBTITLE="subtitle \"$3\""
+    fi
+    ASCRIPT="display notification \"$1\" ${WITH_TITLE} ${WITH_SUBTITLE}"
+    osascript -e "${ASCRIPT}"
+}
+
 function ensure() {
     echo "Ensure cmd: $@"
     while : ; do
@@ -47,6 +67,9 @@ function proxyunset() {
 proxyset
 
 export BASH_CFG=$HOME/.config/bash
+
+# 导出二笔输入法码表路径: Path of ErBi
+export PEB=~/Library/Application\ Support/OpenVanilla/UserData/TableBased/erbi.cin
 
 export LANG=en_US.UTF-8
 
