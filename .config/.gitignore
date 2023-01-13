@@ -17,7 +17,8 @@
 !/filezilla/sitemanager.xml
 
 # include karabiner config
-!.config/karabiner/
+!/karabiner/
+/karabiner/automatic_backups/*
 
 # include zsh config
 !/zsh/

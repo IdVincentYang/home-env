@@ -47,7 +47,8 @@ function install-brew-base {
     brew install macvim
     #   IME: for erbi, which db under ~/.local/erbi
     brew install openvanilla
-
+    #   app: a simple timer
+    brew install michaelvillar-timer
 
     #   network tools
     brew install iperf3 iproute2mac
