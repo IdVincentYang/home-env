@@ -47,44 +47,26 @@
                         ]
                     },
                     {
-                        "description": "Mouse 4 Switch Super Key",
+                        "description": "Mouse 5 to CTRL + Mouse1",
                         "manipulators": [
                             {
-                                "from": {
-                                    "pointing_button": "button4"
-                                },
-                                "to": [
+                                "conditions": [
                                     {
-                                        "key_code": "right_command",
-                                        "modifiers": [
-                                            "left_control",
-                                            "left_option",
-                                            "left_shift"
-                                        ]
+                                        "file_paths": [
+                                            "/usr/local/bin/scrcpy"
+                                        ],
+                                        "type": "frontmost_application_if"
                                     }
                                 ],
-                                "to_if_alone": [
-                                    {
-                                        "pointing_button": "button4"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Mouse 5 Switch CMD_s",
-                        "manipulators": [
-                            {
                                 "from": {
                                     "pointing_button": "button5"
                                 },
                                 "to": [
                                     {
-                                        "key_code": "s",
                                         "modifiers": [
-                                            "left_gui"
-                                        ]
+                                            "left_control"
+                                        ],
+                                        "pointing_button": "button1"
                                     }
                                 ],
                                 "type": "basic"
