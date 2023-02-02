@@ -1,5 +1,6 @@
 %gen_inp
-%ename erbi
+%ename My Erbi
+%sename erbi
 %cname 自定二笔
 %scname 二笔
 %encoding UTF-8
