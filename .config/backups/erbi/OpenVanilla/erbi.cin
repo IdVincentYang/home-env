@@ -1,6 +1,7 @@
 %gen_inp
 %ename erbi
-%cname 二笔
+%cname 自定二笔
+%scname 二笔
 %encoding UTF-8
 %selket 1234567890
 %endkey `~!@#$%^&*()-_=+[{]}\|'"
@@ -153,9 +154,6 @@ _ —
 = ＝
 + +
 + ＋
-
-cqzj 重载
-cqh/ 重绘
 a 安
 a, 嫒
 a,. 娭
@@ -133124,3 +133122,5 @@ dfgj 代工
 ykwl 原味
 qvmk 墙面
 sqxt 生鲜
+cqzj 重载
+cqh/ 重绘
