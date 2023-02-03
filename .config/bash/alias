@@ -1,3 +1,4 @@
+################################################################################
 # adb shotcut
 
 _ADB_SCREEN_CAPTURE_USAGE="Usage: <cmd> [path, default='/tmp/screenshot.png']"
@@ -26,6 +27,43 @@ alias adbscr='scrcpy --shortcut-mod=ralt --show-touches '
 alias adbtopactivity='adb shell dumpsys activity top | grep ACTIVITY' # get top activity name
 alias adbwifisignal='adb shell settings put global captive_portal_detection_enabled' # 0, 1
 
+################################################################################
+# Docker
+alias d='docker'
+alias dci='docker rmi $(docker images -q -f dangling=true)'
+alias dcc='docker rm $(docker ps -a -q)'
+alias dc='docker-compose'
+alias dm='docker-machine'
+alias di='docker image'
+alias dnd='docker node'
+alias dnw='docker netowork'
+alias dp='docker plugin'
+alias dsr='docker secret'
+alias dst='docker stack'
+alias dsv='docker service'
+alias dsw='docker swarm'
+alias dv='docker volume'
+
+################################################################################
+# Download
+alias ydlv="yt-dlp --no-playlist --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
+alias ydll="yt-dlp --yes-playlist --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
+alias yget="you-get -x 127.0.0.1:7890"
+# wget args:
+#   -c: --continue
+#   -nc:--no-clobber
+#   -k: --convert-links
+#   -np:--no-parent
+#   -r: --recursive
+#   -p: --page-requisites
+#   -e: --execute=COMMAND
+#   -U: --user-agent=AGENT
+#
+#   --domains website.org
+#   --restrict-file-names=windows
+alias websiteget="wget --random-wait -c -nc -k -np -r -p -e robots=off -U mozilla"
+
+################################################################################
 # git
 alias g='git'
 # add
@@ -120,53 +158,22 @@ alias gtrm='git tag -d'
 alias gdt="git difftool -y"
 alias gexp="git archive --format=zip"
 
-# docker
-alias d='docker'
-alias dci='docker rmi $(docker images -q -f dangling=true)'
-alias dcc='docker rm $(docker ps -a -q)'
-alias dc='docker-compose'
-alias dm='docker-machine'
-alias di='docker image'
-alias dnd='docker node'
-alias dnw='docker netowork'
-alias dp='docker plugin'
-alias dsr='docker secret'
-alias dst='docker stack'
-alias dsv='docker service'
-alias dsw='docker swarm'
-alias dv='docker volume'
-
-# Virtualbox
-alias usstart='VBoxManage startvm --type headless UbuntuS16'
-alias usstop='VBoxManage controlvm UbuntuS16 poweroff'
-
-# other
-alias vi='mvim'
-
+################################################################################
+# Network
 alias tel="rlwrap nc"
-
-# Beyond Compare Trial Date Reset
-alias bcreset="rm \"/Users/$(whoami)/Library/Application Support/Beyond Compare/registry.dat\""
-
-#Network
-alias ydlv="yt-dlp --no-playlist --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
-alias ydll="yt-dlp --yes-playlist --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
-alias yget="you-get -x 127.0.0.1:7890"
 alias listen="lsof -P -i -n"
 alias ports='netstat -tulanp'
 alias ipinfo="curl ifconfig.me && curl ifconfig.me/host"
 
-# wget args:
-#   -c: --continue
-#   -nc:--no-clobber
-#   -k: --convert-links
-#   -np:--no-parent
-#   -r: --recursive
-#   -p: --page-requisites
-#   -e: --execute=COMMAND
-#   -U: --user-agent=AGENT
-#
-#   --domains website.org
-#   --restrict-file-names=windows
-alias websiteget="wget --random-wait -c -nc -k -np -r -p -e robots=off -U mozilla"
+################################################################################
+# Virtualbox
+alias usstart='VBoxManage startvm --type headless UbuntuS16'
+alias usstop='VBoxManage controlvm UbuntuS16 poweroff'
+
+################################################################################
+# Other
+alias vi='mvim'
+
+# Beyond Compare Trial Date Reset
+alias bcreset="rm \"/Users/$(whoami)/Library/Application Support/Beyond Compare/registry.dat\""
 
