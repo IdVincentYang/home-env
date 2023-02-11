@@ -23,5 +23,7 @@
     "explorer.confirmDelete": false,
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format"
-    }
+    },
+    "git.openRepositoryInParentFolders": "never",
+    "debug.javascript.autoAttachFilter": "smart"
 }
