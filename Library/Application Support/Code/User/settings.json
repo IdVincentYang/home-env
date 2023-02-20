@@ -25,5 +25,8 @@
         "editor.defaultFormatter": "xaver.clang-format"
     },
     "git.openRepositoryInParentFolders": "never",
-    "debug.javascript.autoAttachFilter": "smart"
+    "debug.javascript.autoAttachFilter": "smart",
+    "[typescript]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    }
 }
