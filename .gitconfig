@@ -49,3 +49,5 @@
 	locksverify = true
 [lfs "https://github.com/"]
 	locksverify = true
+[init]
+	defaultBranch = main
