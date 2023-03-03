@@ -28,5 +28,7 @@
     "debug.javascript.autoAttachFilter": "smart",
     "[typescript]": {
         "editor.defaultFormatter": "xaver.clang-format"
-    }
+    },
+    "chatgpt.emailAddress": "",
+    "chatgpt.method": "Browser Auto-login"
 }
