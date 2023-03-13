@@ -1,0 +1,84 @@
+# wine config
+# winetricks src: https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+# winetricks variable doc: https://github.com/Winetricks/winetricks/wiki
+
+# Require:
+#   - Environment Variables: WINE_PREFIX_ROOT
+
+if [ -z "${WINE_PREFIX_ROOT}" ]; then
+    echo "Please define `WINE_PREFIX_ROOT` variable first!"
+else
+    function winenv() {
+        if [ $# = 0 ]; then
+            echo "WINPREFIX=${WINEPREFIX}"
+            echo "WINEARCH=${WINEARCH}"
+        else
+            export WINEPREFIX=$WINE_PREFIX_ROOT/$1
+        fi
+        #   if WINEPREFIX dir not exit, try make it or tip exist dirs
+        if [ ! -d $WINEPREFIX ]; then
+            echo  "WINEPREFIX directory not exists yet, do you want create it [y/n]?"
+            read -r _YN
+            case $_YN in
+                [Yy]* )
+                    echo "WINPREFIX=${WINEPREFIX}"
+                    echo "WINEARCH=${WINEARCH}"
+
+                    mkdir $WINEPREFIX
+                    if [ -d $WINEPREFIX ]; then
+                        wine64 wineboot
+                        wine64 winecfg
+                    else
+                        echo "Failure to create WINEPREFIX folder: $WINEPREFIX"
+                    fi
+                    ;;
+                [Nn]* )
+                    echo "Please use valid dir as below:"
+                    ls $WINE_PREFIX_ROOT
+                    ;;
+            esac
+        else
+            echo "WINPREFIX=${WINEPREFIX}"
+            echo "WINEARCH=${WINEARCH}"
+        fi
+    }
+    function winepack() {
+        if [ $# = 0 ]; then
+            echo "Please input exe file absolute path and args!"
+        elif [ ! -f $1 ]; then
+            echo "Invalid exe file path!"
+        else
+            _BASE_NAME="$(basename "${1}")"
+            _APP_NAME="${_BASE_NAME%.*}"
+            _APP_BUNDLE="${_APP_NAME}.app"
+            _CONTENT_DIR="${_APP_BUNDLE}/Contents"
+
+            if [ -e "${_APP_BUNDLE}" ]; then
+                echo "${PWD}/${_APP_BUNDLE} already exists :("
+            else
+                mkdir -p "${_CONTENT_DIR}"/MacOS
+                # create sh
+                _SH_PATH="${_CONTENT_DIR}/MacOS/${_APP_NAME}"
+                touch "$_SH_PATH"
+                echo "#!/bin/bash" > "$_SH_PATH"
+                echo "WINEPREFIX=$WINEPREFIX" >> "$_SH_PATH"
+                echo "WINEARCH=$WINEARCH" >> "$_SH_PATH"
+                echo "wine64 $@" >>  "$_SH_PATH"
+                chmod +x "$_SH_PATH"
+                #create plist
+                _PLIST="${_CONTENT_DIR}/Info.plist"
+                touch "$_PLIST"
+                echo '<?xml version="1.0" encoding="UTF-8"?>' > "$_PLIST"
+                echo '<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> "$_PLIST"
+                echo '<plist version="1.0">' >> "$_PLIST"
+                echo '<dict>' >> "$_PLIST"
+                echo '  <key>CFBundleExecutable</key>' >> "$_PLIST"
+                echo "    <string>${_APP_NAME}</string>" >> "$_PLIST"
+                echo '  </dict>' >> "$_PLIST"
+                echo '</plist>' >> "$_PLIST"
+
+                echo "${_APP_BUNDLE} packed success"
+            fi
+        fi
+    }
+fi
