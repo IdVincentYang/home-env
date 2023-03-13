@@ -5,6 +5,9 @@
 ################################################################################
 # include necessary items
 
+# include aria2 config
+!/aria2/
+
 # include backups all
 !/backups/
 
