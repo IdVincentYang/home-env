@@ -342,7 +342,6 @@ Plug 'easymotion/vim-easymotion'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-plug'
-
 Plug 'lifepillar/vim-solarized8'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
@@ -350,6 +349,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 
 Plug 'vim-airline/vim-airline'
+Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/txt.vim'
 " 解决调用终端命令报错: WARNING: terminal is not fully functional
 " https://github.com/vim-utils/vim-man

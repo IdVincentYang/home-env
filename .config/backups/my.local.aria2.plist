@@ -3,13 +3,16 @@
 <plist version="1.0">
   <dict>
     <key>Label</key>
-    <string>aria2</string>
+    <string>my.local.aria2</string>
     <key>ProgramArguments</key>
     <array>
         <string>/usr/local/bin/aria2c</string>
-        <string>--conf-path=/Users/wensheng/.aria2/aria2.conf</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
+    <key>StandardErrorPath</key>
+	<string>/dev/null</string>
+	<key>StandardOutPath</key>
+	<string>/dev/null</string>
   </dict>
 </plist>
