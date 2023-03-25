@@ -7,13 +7,23 @@
 #   应用商店显示调试菜单
 defaults write com.apple.appstore ShowDebugMenu -bool true
 
+
 #########################################################################
 ##  Dock
 #   隐藏窗口显示半透明效果
 defaults write com.apple.Dock showhidden -bool true
+#   清除App Store 图标上的更新标记（数字角标）
+#       禁用标记 App 图标（禁用数字角标）
+#       系统偏好设置… > 通知与专注模式，通知，选择 “App Store” 取消勾选 “标记 App 图标”（也可以完全关闭该项通知）。
+defaults write com.apple.appstored.plist BadgeCount 0
 
 #########################################################################
 ##  Finder
 #   显示隐藏文件
 defaults write com.apple.finder AppleShowAllFiles -bool true
+
+#########################################################################
+#   最后让更新生效
+Killall Dock
 KillAll Finder
+

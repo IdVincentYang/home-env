@@ -21,6 +21,7 @@ function _adb_screen_capture() {
 }
 
 alias adbcapture='_adb_screen_capture'
+alias adbip="adb shell ip route | awk '{print $9}'"
 alias adbpower='adb shell input keyevent 26'
 alias adbpoweroff='adb shell reboot -p'
 alias adbscr='scrcpy --shortcut-mod=ralt --show-touches '
