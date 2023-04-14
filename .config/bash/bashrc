@@ -208,6 +208,7 @@ function proxyunset() {
 ################################################################################
 
 proxyset -s "socks5h://127.0.0.1:7891" "http://127.0.0.1:7890"
+export no_proxy="localhost, 127.0.0.1, ::1"
 
 if [ $VIM ]; then
         export PS1='[VIM]\h:\w\$ '
@@ -217,6 +218,7 @@ fi
 # command tools config begin:
 
 # home brew
+export HOMEBREW_GITHUB_API_TOKEN="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"
 export HOMEBREW_NO_AUTO_UPDATE=1
 # ffmpeg
 # export FONTCONFIG_PATH=/usr/local/etc/fonts
@@ -244,6 +246,10 @@ if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 # export GOPATH=~/go/.path
 # export GOBIN=~/go/.bin
 # export PATH=${GOBIN}:${PATH}
+
+# pyenv config
+export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
+eval "$(pyenv init -)"
 
 # android sdk config
 export ANDROID_SDK_ROOT=~/Library/Android/sdk
