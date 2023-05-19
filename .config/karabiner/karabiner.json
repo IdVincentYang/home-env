@@ -16,7 +16,34 @@
                 },
                 "rules": [
                     {
-                        "description": "Change Command_R to Hyper (ctrl+shift+cmd+opt) + Command_R. (Post escape key when pressed alone.)",
+                        "description": "Mouse 5 to CTRL + Mouse1",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "file_paths": [
+                                            "/usr/local/bin/scrcpy"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "pointing_button": "button5"
+                                },
+                                "to": [
+                                    {
+                                        "modifiers": [
+                                            "left_control"
+                                        ],
+                                        "pointing_button": "button1"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change Command_R to Hyper(ctrl+shift+cmd+opt). (Post escape key when pressed alone.)",
                         "manipulators": [
                             {
                                 "from": {
@@ -43,30 +70,61 @@
                                     }
                                 ],
                                 "type": "basic"
+                            },
+                            {
+                                "description": "Avoid starting sysdiagnose with the built-in macOS shortcut cmd+shift+option+ctrl+,",
+                                "from": {
+                                    "key_code": "comma",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "command",
+                                            "shift",
+                                            "option",
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": [],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "Avoid starting sysdiagnose with the built-in macOS shortcut cmd+shift+option+ctrl+.",
+                                "from": {
+                                    "key_code": "period",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "command",
+                                            "shift",
+                                            "option",
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": [],
+                                "type": "basic"
                             }
                         ]
                     },
                     {
-                        "description": "Mouse 5 to CTRL + Mouse1",
+                        "description": "Mouse 5 to Hyper(ctrl+shift+cmd+opt)",
                         "manipulators": [
                             {
-                                "conditions": [
-                                    {
-                                        "file_paths": [
-                                            "/usr/local/bin/scrcpy"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
                                 "from": {
                                     "pointing_button": "button5"
                                 },
                                 "to": [
                                     {
+                                        "key_code": "right_command",
                                         "modifiers": [
-                                            "left_control"
-                                        ],
-                                        "pointing_button": "button1"
+                                            "left_control",
+                                            "left_option",
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
                                     }
                                 ],
                                 "type": "basic"

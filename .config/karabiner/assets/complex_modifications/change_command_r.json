@@ -1,11 +1,10 @@
 {
-  "title": "Change Command_R Key (Right Command)",
+  "title": "Change Command_R, Mouse_5 Key to Hyper(ctrl+shift+cmd+opt)",
   "rules": [
     {
-      "description": "Change Command_R to Hyper (ctrl+shift+cmd+opt) + Command_R. (Post escape key when pressed alone.)",
+      "description": "Change Command_R to Hyper(ctrl+shift+cmd+opt). (Post escape key when pressed alone.)",
       "manipulators": [
         {
-          "type": "basic",
           "from": {
             "key_code": "right_command",
             "modifiers": {
@@ -28,7 +27,66 @@
             {
               "key_code": "escape"
             }
-          ]
+          ],
+          "type": "basic"
+        },
+        {
+          "description": "Avoid starting sysdiagnose with the built-in macOS shortcut cmd+shift+option+ctrl+,",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "command",
+                "shift",
+                "option",
+                "control"
+              ]
+            }
+          },
+          "to": [],
+          "type": "basic"
+        },
+        {
+          "description": "Avoid starting sysdiagnose with the built-in macOS shortcut cmd+shift+option+ctrl+.",
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "mandatory": [
+                "command",
+                "shift",
+                "option",
+                "control"
+              ]
+            }
+          },
+          "to": [],
+          "type": "basic"
+        }
+      ]
+    },
+    {
+      "description": "Mouse 5 to Hyper(ctrl+shift+cmd+opt), (Post escape key when pressed alone.)",
+      "manipulators": [
+        {
+          "from": {
+            "pointing_button": "button5"
+          },
+          "to": [
+            {
+              "key_code": "right_command",
+              "modifiers": [
+                "left_control",
+                "left_option",
+                "left_shift"
+              ]
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "type": "basic"
         }
       ]
     }
