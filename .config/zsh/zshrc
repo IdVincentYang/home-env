@@ -6,6 +6,7 @@ export ZSH_CFG=$HOME/.config/zsh
 #     fc -p
 # }
 
+################################################################################
 # oh-my-zsh:
 #   website: https://ohmyz.sh/
 #   github: https://github.com/ohmyzsh/ohmyzsh
