@@ -1,0 +1,41 @@
+################################################################################
+# Bash Env definations begin:
+# Specify XDG Base Directories for macOS
+if [[ $OSTYPE == 'darwin'* ]]; then
+    # $XDG_DATA_HOME: Directory containing user-specific data files. Default value is $HOME/.local/share.
+    export XDG_DATA_HOME="${HOME}/.local/share"
+    # $XDG_CONFIG_HOME: Directory containing user-specific configuration files. Default value is $HOME/.config.
+    export XDG_CONFIG_HOME="${HOME}/.config"
+    # $XDG_CACHE_HOME: Directory containing user-specific non-essential data files. Default value is $HOME/.cache.
+    #   In MacOS, $HOME/Library/Caches: This directory contains caches used by applications installed by the user, such as browser caches, app caches, and system caches.
+    export XDG_CACHE_HOME="${HOME}/Library/Caches"
+    # $XDG_RUNTIME_DIR: Directory containing runtime files that should be deleted when the user logs out. Default value is /run/user/$UID, where $UID is the user ID.
+    export XDG_RUNTIME_DIR="${HOME}/Library/Caches/XDG_Runtime"
+    # $XDG_DOCUMENTS_DIR: Directory containing the user's documents. Default value is $HOME/Documents.
+    export XDG_DOCUMENTS_DIR="${HOME}/Documents"
+    # $XDG_DOWNLOAD_DIR: Directory containing the user's downloads. Default value is $HOME/Downloads.
+    export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
+    # $XDG_MUSIC_DIR: Directory containing the user's music. Default value is $HOME/Music.
+    export XDG_MUSIC_DIR="${HOME}/Music"
+    # $XDG_PICTURES_DIR: Directory containing the user's pictures. Default value is $HOME/Pictures.
+    export XDG_PICTURES_DIR="${HOME}/Pictures"
+    # $XDG_PUBLICSHARE_DIR: Directory containing public files. Default value is $HOME/Public.
+    export XDG_PUBLICSHARE_DIR="${HOME}/Public"
+    # $XDG_TEMPLATES_DIR: Directory containing templates. Default value is $HOME/Templates.
+    export XDG_TEMPLATES_DIR="${HOME}/Documents/XDG_Templates"
+    # $XDG_VIDEOS_DIR: Directory containing the user's videos. Default value is $HOME/Videos.
+    export XDG_VIDEOS_DIR="${HOME}/Movies"
+
+elif [[ $OSTYPE == 'linux'* ]]; then
+    export XDG_DATA_HOME="${HOME}/.local/share"
+    export XDG_CONFIG_HOME="${HOME}/.config"
+    export XDG_CACHE_HOME="${HOME}/.cache"
+# export XDG_RUNTIME_DIR="/run/user/$UID"
+    export XDG_DOCUMENTS_DIR="${HOME}/Documents"
+    export XDG_DOWNLOAD_DIR="${HOME}/Downloads"
+    export XDG_MUSIC_DIR="${HOME}/Music"
+    export XDG_PICTURES_DIR="${HOME}/Pictures"
+    export XDG_PUBLICSHARE_DIR="${HOME}/Public"
+    export XDG_TEMPLATES_DIR="${HOME}/Documents/XDG_Templates"
+    export XDG_VIDEOS_DIR="${HOME}/Movies"
+fi

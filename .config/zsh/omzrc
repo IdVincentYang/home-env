@@ -1,8 +1,3 @@
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.local/share/oh-my-zsh"
-export ZSH_CUSTOM="$HOME/.local/share/oh-my-zsh-custom"
-export ZSH_COMPDUMP="$HOME/.cache/zcompdump-${HOST/.*/}-${ZSH_VERSION}"
-
 ################################################################################
 # Pre config for plug z: https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/z/README
 
@@ -23,7 +18,7 @@ ZSH_THEME="agnoster"
 # CASE_SENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -58,6 +53,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    ag
     adb
     colored-man-pages
     command-not-found
@@ -65,7 +61,6 @@ plugins=(
     extract
     fzf
     gitignore
-    macos
     rsync
     urltools
     web-search
@@ -76,14 +71,11 @@ plugins=(
 
 # User configuration
 # Add the following to your zshrc to access the online help:
-unalias run-help
-autoload run-help
-autoload run-help-git
+unalias run-help 2>/dev/null
+autoload -Uz run-help
+autoload -Uz run-help-git
 HELPDIR=/usr/local/share/zsh/help
 alias help=run-help
-
-#export PATH="/Users/wensheng/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -132,4 +124,4 @@ if [[ -z $SSH_CONNECTION ]]; then
   AGNOSTER_PROMPT_SEGMENTS[3]=
 fi
 
-source ~/.config/bash/bashrc
+

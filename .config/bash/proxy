@@ -1,0 +1,115 @@
+function proxylist() {
+    echo "ALL_PROXY=$ALL_PROXY"
+    echo "FTP_PROXY=$FTP_PROXY"
+    echo "HTTP_PROXY=$HTTP_PROXY"
+    echo "HTTPS_PROXY=$HTTPS_PROXY"
+    echo "SOCKS_PROXY=$SOCKS_PROXY"
+}
+
+function proxyset() {
+    if [[ $# -eq 0 ]] ; then
+        echo 'Set environment proxies, usage: proxyset [-afhHs <proxy>] [-v] [default proxy for others]
+    -a  set ALL_PROXY
+    -f  set FTP_PROXY
+    -h  set HTTP_PROXY
+    -H  set HTTPS_PROXY
+    -s  set SOCKS_PROXY
+    -v  verbose above proxies setting
+
+    default porxy argument can be ignored, in this case, the remain proxies not specified will keep before setting.
+
+    eg: proxyset -s "socks5h://127.0.0.1:7891" -v "http://127.0.0.1:7890"
+    '
+        return
+    fi
+
+    # define temp vars for store proxies from args
+    _P=""
+    _PA=""
+    _PF=""
+    _PH=""
+    _PHS=""
+    _PS=""
+
+    while getopts "a:f:h:H:s:v" arg; do
+        case $arg in
+            a)
+                _PA="$OPTARG"
+                ;;
+            f)
+                _PF="$OPTARG"
+                ;;
+            h)
+                _PH="$OPTARG"
+                ;;
+            H)
+                _PHS="$OPTARG"
+                ;;
+            s)
+                _PS="$OPTARG"
+                ;;
+            v)
+                _VERBOSE=1
+                ;;
+        esac
+    done
+    shift $(expr $OPTIND - 1)
+    if [[ $# -gt 0 ]] ; then
+        _P="$@"
+    fi
+
+    # if has -ha arg, set to ALL_PROXY, else
+    #   if default proxy given, set to ALL_PROXY
+    if [[ ! -z "$_PA" ]] ; then
+        export ALL_PROXY="$_PA"
+    else
+        if [[ ! -z "$_P" ]] ; then
+            export ALL_PROXY="$_P"
+        fi
+    fi
+    # set FTP_PROXY
+    if [[ ! -z "$_PF" ]] ; then
+        exprot FTP_PROXY="$_PF"
+    else
+        if [[ ! -z "$_P" ]] ; then
+            export FTP_PROXY="$_P"
+        fi
+    fi
+    # set HTTP_PROXY
+    if [[ ! -z "$_PH" ]] ; then
+        exprot HTTP_PROXY="$_PH"
+    else
+        if [[ ! -z "$_P" ]] ; then
+            export HTTP_PROXY="$_P"
+        fi
+    fi
+    # set HTTPS_PROXY
+    if [[ ! -z "$_PHS" ]] ; then
+        export HTTPS_PROXY="$_PHS"
+    else
+        if [[ ! -z "$_P" ]] ; then
+            export HTTPS_PROXY="$_P"
+        fi
+    fi
+    # set SOCKS_PROXY
+    if [[ ! -z "$_PS" ]] ; then
+        export SOCKS_PROXY="$_PS"
+    else
+        if [[ ! -z "$_P" ]] ; then
+            export SOCKS_PROXY="$_P"
+        fi
+    fi
+
+    if [[ ! -z $_VERBOSE ]] ; then
+        proxylist
+    fi
+}
+
+function proxyunset() {
+    unset ALL_PROXY
+    unset FTP_PROXY
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset SOCKS_PROXY
+}
+

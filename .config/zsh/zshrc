@@ -1,5 +1,9 @@
-export HISTFILE=$HOME/.local/state/zsh_history
-export ZSH_CFG=$HOME/.config/zsh
+export BASH_CFG="$HOME/.config/bash"
+
+export HISTFILE="$HOME/.local/state/zsh_history"
+export ZSH_CFG="$HOME/.config/zsh"
+
+source "${BASH_CFG}/proxy"
 
 # function zshaddhistory() {
 #     print -sr "${1%%$'\n'} ### ${PWD}"
@@ -12,4 +16,12 @@ export ZSH_CFG=$HOME/.config/zsh
 #   github: https://github.com/ohmyzsh/ohmyzsh
 #   install.sh: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 
+# Path to your oh-my-zsh installation.
+export ZSH="${XDG_DATA_HOME}/oh-my-zsh"
+export ZSH_CUSTOM="${XDG_DATA_HOME}/oh-my-zsh-custom"
+export ZSH_COMPDUMP="${XDG_CACHE_HOME}/zcompdump-${HOST/.*/}-${ZSH_VERSION}"
+
 source $HOME/.config/zsh/omzrc
+
+# Load persional alias.
+source "${BASH_CFG}/alias"
