@@ -14,7 +14,7 @@ function brew-install-base {
 
     ### network client tools (unavialable stormssh)
     brew install lrzsz wget yt-dlp
-    brew install --cask filezilla
+    brew install --cask cyberduck
 
     ### fonts
     #   nerd fonts(https://github.com/ryanoasis/nerd-fonts/blob/master/readme_cn.md)
