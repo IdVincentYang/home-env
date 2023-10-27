@@ -380,6 +380,7 @@ autocmd VimEnter *
 " plug: 'https://github.com/lifepillar/vim-solarized8'
 if has_key(g:plugs, 'vim-solarized8')
     " set background=dark
+    set background=light
     colorscheme solarized8
 endif
 
