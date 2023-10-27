@@ -1,15 +1,44 @@
-export HISTFILE=$HOME/.local/state/zsh_history
-export ZSH_CFG=$HOME/.config/zsh
+
+export HISTFILE="$HOME/.local/state/zsh_history"
 
 # function zshaddhistory() {
 #     print -sr "${1%%$'\n'} ### ${PWD}"
 #     fc -p
 # }
 
+
 ################################################################################
 # oh-my-zsh:
 #   website: https://ohmyz.sh/
 #   github: https://github.com/ohmyzsh/ohmyzsh
 #   install.sh: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+#
 
-source $HOME/.config/zsh/omzrc
+# Path to your oh-my-zsh installation.
+export ZSH="${XDG_DATA_HOME}/oh-my-zsh"
+export ZSH_CUSTOM="${XDG_DATA_HOME}/oh-my-zsh-custom"
+export ZSH_COMPDUMP="${XDG_CACHE_HOME}/zcompdump-${HOST/.*/}-${ZSH_VERSION}"
+
+if [ -f "$ZSH/oh-my-zsh.sh" ]; then
+    source "$ZSH_CFG/omzrc"
+
+else
+    cat << EOF
+[WARN] oh-my-zsh not found, please install it under home:
+    git submodule update --init
+
+Due to some zsh plugin's feature has been supported by terminal app,
+    so these plugins should load manually in different env:
+
+- zsh-autosuggestions:
+    - source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+- zsh-syntax-highlighting:
+    - Note that zsh-syntax-highlighting must be the last plugin sourced.
+    - source  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+Then restart shell.
+EOF
+
+fi
+

@@ -16,6 +16,12 @@ function! StripTrailingWhitespace()
 endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if has('win32')
+    source $VIMRUNTIME/mswin.vim
+    behave mswin
+endif
+
 " General
 filetype plugin indent on   " Automatically detect file types.
 syntax on                   " Syntax highlighting
@@ -338,8 +344,7 @@ Plug 'chrisbra/unicode.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
 
-" 目前没有找到如何在vim 脚本里面判断是否已安装 fzf 命令的方法, 先直接引用插件
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-plug'
 Plug 'lifepillar/vim-solarized8'

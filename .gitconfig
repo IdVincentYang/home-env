@@ -14,6 +14,7 @@
 
 [push]
 	default = simple
+	recurseSubmodules = check
 
 [help]
     autocorrect = 1
@@ -37,7 +38,8 @@
 [pull]
 	rebase = true
 [gui]
-	encoding = utf-8
+	encoding = UTF-8
+	pruneduringfetch = true
 [i18n]
 	commitencoding = utf-8
 [filter "lfs"]
@@ -51,3 +53,5 @@
 	locksverify = true
 [init]
 	defaultBranch = main
+[commit]
+	gpgSign = false

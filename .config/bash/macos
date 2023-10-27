@@ -16,6 +16,8 @@ defaults write com.apple.Dock showhidden -bool true
 #       禁用标记 App 图标（禁用数字角标）
 #       系统偏好设置… > 通知与专注模式，通知，选择 “App Store” 取消勾选 “标记 App 图标”（也可以完全关闭该项通知）。
 defaults write com.apple.appstored.plist BadgeCount 0
+#   清除 System Preferences 图标上的跟新标记 (数字角标)(System Preferences UI 中的 System Update 上的红点还在)
+defaults delete com.apple.systempreferences AttentionPrefBundleIDs
 
 #########################################################################
 ##  Finder

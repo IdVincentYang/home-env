@@ -1,0 +1,34 @@
+################################################################################
+# Helper functions defination begin:
+#   - alert
+#   - notify
+#   - ensure
+
+# display alert
+function alert() {
+    ASCRIPT="display alert \"$1\" message \"$2 $3 $4 $5 $6 $7 $8 $9\""
+    osascript -e "${ASCRIPT}"
+}
+
+function notify() {
+    WITH_TITLE=""
+    if [ -n "$2" ] ; then
+        WITH_TITLE="with title \"$2\""
+    fi
+    WITH_SUBTITLE=""
+    if [ -n "$3" ] ; then
+        WITH_SUBTITLE="subtitle \"$3\""
+    fi
+    ASCRIPT="display notification \"$1\" ${WITH_TITLE} ${WITH_SUBTITLE}"
+    osascript -e "${ASCRIPT}"
+}
+
+function ensure() {
+    echo "Ensure cmd: $@"
+    while : ; do
+        $@
+        [ $? -eq 0 ] && break
+    done
+    terminal-notifier -title "Execute CMD Complete!" -message "$@"
+}
+

@@ -171,10 +171,3 @@ alias ipinfo="curl ifconfig.me && curl ifconfig.me/host"
 alias usstart='VBoxManage startvm --type headless UbuntuS16'
 alias usstop='VBoxManage controlvm UbuntuS16 poweroff'
 
-################################################################################
-# Other
-alias vi='mvim'
-
-# Beyond Compare Trial Date Reset
-alias bcreset="rm \"/Users/$(whoami)/Library/Application Support/Beyond Compare/registry.dat\""
-
