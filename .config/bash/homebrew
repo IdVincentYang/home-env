@@ -13,7 +13,7 @@ function brew-install-base {
 
 
     ### network client tools (unavialable stormssh)
-    brew install lrzsz wget yt-dlp
+    brew install grsync lrzsz rsync wget yt-dlp
     brew install --cask cyberduck
 
     ### fonts

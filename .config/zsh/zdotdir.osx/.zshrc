@@ -24,10 +24,11 @@ source "${ZSH_CFG}/zshrc"
 ################################################################################
 # command tools config begin:
 
-# homebrew
-if which brew > /dev/null ; then
-    export HOMEBREW_GITHUB_API_TOKEN="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"
-    export HOMEBREW_NO_AUTO_UPDATE=1
+# android sdk path
+if [ -d ~/Library/Android/sdk ]; then
+    export ANDROID_SDK_ROOT=~/Library/Android/sdk
+    export ANDROID_HOME=${ANDROID_SDK_ROOT}
+    export PATH=${ANDROID_SDK_ROOT}/platform-tools:${PATH}
 fi
 
 # ffmpeg
@@ -49,27 +50,28 @@ if which fzf > /dev/null ; then
     export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
 fi
 
-# JVM config
-if which jenv > /dev/null; then
-    export PATH="$HOME/.jenv/bin:$PATH"
-    eval "$(jenv init -)"
-fi
-
 # go config
 # export GOPATH=~/go/.path
 # export GOBIN=~/go/.bin
 # export PATH=${GOBIN}:${PATH}
+
+# homebrew
+if which brew > /dev/null ; then
+    export HOMEBREW_GITHUB_API_TOKEN="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"
+    export HOMEBREW_NO_AUTO_UPDATE=1
+fi
+
+# Java VM bin path
+if which jenv > /dev/null; then
+    export PATH="$HOME/.jenv/bin:$PATH"
+    eval "$(jenv init -)"
+fi
 
 # pyenv config
 if which pyenv > /dev/null; then
     export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
     eval "$(pyenv init -)"
 fi
-
-# android sdk config
-export ANDROID_SDK_ROOT=~/Library/Android/sdk
-export ANDROID_HOME=${ANDROID_SDK_ROOT}
-export PATH=${ANDROID_SDK_ROOT}/platform-tools:${PATH}
 
 # wine config(no use on apple silicon)
 # Override wine default storage folder $XDG_DATA_HOME to it's sub dir wineprefixes/default
