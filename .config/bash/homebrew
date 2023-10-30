@@ -43,8 +43,8 @@ function brew-install-base {
     brew install dozer
 
     ### apps for system enhance:
-    #   app:(apple silicon unsupported) tweak keyboard functions. eg: map right CMD to CMD+OPT+CTRL+SHIFT
-    # brew install --cask karabiner-elements
+    #   app: tweak keyboard functions. eg: map right CMD to CMD+OPT+CTRL+SHIFT
+    brew install --cask karabiner-elements
     #   app: private passwords database
     brew install --cask keepassxc
     #   app: key-shortcuts macro maker, replaced by hammerspoon
