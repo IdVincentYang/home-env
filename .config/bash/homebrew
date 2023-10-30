@@ -150,9 +150,32 @@ function brew-install-ql {
     # Restart Finder by...
     # Restarting your computer
     # or holding down the option key and right click on Finder’s dock icon, then select “Relaunch” from the menu
-    brew install qlvideo webpquicklook quicklook-json qlcolorcode
-    # brew install provisionql qladdict qlcolorcode qldds qlgradle qlprettypatch
-    # qlrest qlstephen quicklook-csv quicklook-pat quicklookapk
-    # quicklookase receiptquicklook
+    #
+    # Plugins:
+    #   - provisionql:      ipa & provision
+    #   - qladdict:         srt file
+    #   - qlcolorcode:
+    #   - qldds:
+    #   - qlgradle:
+    #   - qlprettypatch:
+    #   - qlvideo:
+    #   - quicklook-json:
+    #   - quicklook-pat:    view Adobe Photoshop pattern files
+    #   - quicklookapk:
+    #   - quicklookase:     quicklook for ASE files (Adobe Swatch Exchange)
+    #   - receiptquicklook: inspect App Store receipts
+    #
+    # no used:
+    #   - quicklook-csv:    osx supported
+    #   - webpquicklook:    osx supported
+    #   - qlstephen:        osx supported
+
+    brew install --cask qladdict qlcolorcode qlprettypatch qlvideo quicklook-json
+
+    xattr -cr ~/Library/QuickLook/QLAddict.qlgenerator
+    xattr -cr ~/Library/QuickLook/QLColorCode.qlgenerator
+    xattr -cr ~/Library/QuickLook/qlprettypatch.qlgenerator
+    qlmanage -r cache
+    open /Applications/QuickLook\ Video.app
 }
 
