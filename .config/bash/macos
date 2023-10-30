@@ -4,8 +4,8 @@
 
 #########################################################################
 ##  App Store
-#   应用商店显示调试菜单
-defaults write com.apple.appstore ShowDebugMenu -bool true
+# (no use anymore) 应用商店显示调试菜单
+# defaults write com.apple.appstore ShowDebugMenu -bool true
 
 
 #########################################################################
