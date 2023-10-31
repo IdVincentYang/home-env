@@ -19,9 +19,15 @@
 /filezilla/*
 !/filezilla/sitemanager.xml
 
+# include grsync config
+!/grsync/
+
 # include karabiner config
 !/karabiner/
 /karabiner/automatic_backups/*
+
+# include UltiSnips
+!/UltiSnips/
 
 # include zsh config
 !/zsh/

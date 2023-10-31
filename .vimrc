@@ -344,11 +344,13 @@ Plug 'chrisbra/unicode.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
 
+Plug 'jayli/vim-easycomplete'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-plug'
 Plug 'lifepillar/vim-solarized8'
 Plug 'scrooloose/nerdcommenter'
+Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-surround'
 "  netrw 增强插件: https://github.com/Tao-Quixote/vim/blob/master/plugin/vinegar.md
 Plug 'tpope/vim-vinegar'
@@ -520,4 +522,19 @@ if has_key(g:plugs, 'vim-easymotion')
 
 endif
 
+""""""""""""""""""""""""""""""""""""""""
+" Plug 'https://github.com/jayli/vim-easycomplete'
+if has_key(g:plugs, 'vim-easycomplete')
+    " https://gist.github.com/jayli/75d9c68cdfd286dd84a85c44cf3f9085
+endif
+
+""""""""""""""""""""""""""""""""""""""""
+" Plug 'https://github.com/SirVer/ultisnips'
+if has_key(g:plugs, 'ultisnips')
+    " https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt#L163
+    " If you want :UltiSnipsEdit to split your window.
+    " let g:UltiSnipsEditSplit="vertical"
+    let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=$XDG_CONFIG_HOME.'/UltiSnips'
+    let g:UltiSnipsSnippetDirectories=['UltiSnips', $XDG_CONFIG_HOME.'/UltiSnips']
+endif
 " echom ".vimrc loaded"

@@ -26,5 +26,7 @@ if which /opt/homebrew/bin/brew > /dev/null; then
     eval $(/opt/homebrew/bin/brew shellenv)
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # set variable __ZDOTLOADED for dot file load track
 export __ZDOTLOADED="$__ZDOTLOADED\n$ZDOTDIR/.zshenv"
