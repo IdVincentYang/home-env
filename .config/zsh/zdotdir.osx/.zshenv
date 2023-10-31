@@ -7,26 +7,21 @@
 #
 #   When a login shell exits, the files $ZDOTDIR/.zlogout and then /etc/zlogout are read.
 
-### Tweak zsh shell env
-# Disable Terminal app's per session save/restore mechanism(/etc/zshrc_Apple_Terminal)
-export SHELL_SESSIONS_DISABLE=1
+if [ -z "${__ZDOTLOADED}" ]; then
+    ### Tweak zsh shell env
+    # Disable Terminal app's per session save/restore mechanism(/etc/zshrc_Apple_Terminal)
+    export SHELL_SESSIONS_DISABLE=1
 
-# Tweak terminal settings
-export LANG=en_US.UTF-8
+    # Tweak terminal settings
+    export LANG=en_US.UTF-8
 
-# Define home env variables
-export BASH_CFG="$HOME/.config/bash"
-export ZSH_CFG="$HOME/.config/zsh"
+    # Define home env variables
+    export BASH_CFG="$HOME/.config/bash"
+    export ZSH_CFG="$HOME/.config/zsh"
 
-# Define XDG like system dirs
-source "${BASH_CFG}/xdg_dirs"
+    # Define XDG like system dirs
+    source "${BASH_CFG}/xdg_dirs"
 
-# Homebrew installed bin path
-if which /opt/homebrew/bin/brew > /dev/null; then
-    eval $(/opt/homebrew/bin/brew shellenv)
+    # set variable __ZDOTLOADED for dot file load track
+    export __ZDOTLOADED="$__ZDOTLOADED\n$ZDOTDIR/.zshenv"
 fi
-
-export PATH="$HOME/.local/bin:$PATH"
-
-# set variable __ZDOTLOADED for dot file load track
-export __ZDOTLOADED="$__ZDOTLOADED\n$ZDOTDIR/.zshenv"

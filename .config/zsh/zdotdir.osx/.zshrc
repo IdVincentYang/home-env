@@ -21,25 +21,21 @@ proxyset -s "socks5h://127.0.0.1:7890" "http://127.0.0.1:7890"
 
 source "${ZSH_CFG}/zshrc"
 
+source "${BASH_CFG}/alias"
+source "${BASH_CFG}/alias.osx"
+
 ################################################################################
 # command tools config begin:
-
-# android sdk path
-if [ -d ~/Library/Android/sdk ]; then
-    export ANDROID_SDK_ROOT=~/Library/Android/sdk
-    export ANDROID_HOME=${ANDROID_SDK_ROOT}
-    export PATH=${ANDROID_SDK_ROOT}/platform-tools:${PATH}
-fi
 
 # ffmpeg
 # export FONTCONFIG_PATH=/usr/local/etc/fonts
 
 # fzf config: https://github.com/junegunn/fzf.vim
-if which fzf > /dev/null ; then
+if which fzf > /dev/null; then
     # https://zhuanlan.zhihu.com/p/41859976
-    if [ -f `which fd` ]; then
+    if which fd > /dev/null; then
         export FZF_DEFAULT_COMMAND='fd --type file'
-    elif [ -f `which ag` ]; then
+    elif which ag > /dev/null; then
         export FZF_DEFAULT_COMMAND='ag -g ""'
     fi
     if [ ! -z "$FZF_DEFAULT_COMMAND" ]; then
@@ -59,18 +55,6 @@ fi
 if which brew > /dev/null ; then
     export HOMEBREW_GITHUB_API_TOKEN="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"
     export HOMEBREW_NO_AUTO_UPDATE=1
-fi
-
-# Java VM bin path
-if which jenv > /dev/null; then
-    export PATH="$HOME/.jenv/bin:$PATH"
-    eval "$(jenv init -)"
-fi
-
-# pyenv config
-if which pyenv > /dev/null; then
-    export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
-    eval "$(pyenv init -)"
 fi
 
 # wine config(no use on apple silicon)
