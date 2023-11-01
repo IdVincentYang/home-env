@@ -33,17 +33,50 @@ source "${BASH_CFG}/alias.osx"
 # fzf config: https://github.com/junegunn/fzf.vim
 if which fzf > /dev/null; then
     # https://zhuanlan.zhihu.com/p/41859976
-    if which fd > /dev/null; then
-        export FZF_DEFAULT_COMMAND='fd --type file'
-    elif which ag > /dev/null; then
-        export FZF_DEFAULT_COMMAND='ag -g ""'
+
+    # fzf 参数详见 fzf -h
+    # export FZF_COMPLETION_TRIGGER='**'
+    # Options to fzf command
+    export FZF_COMPLETION_OPTS='--border --info=inline'
+    export FZF_DEFAULT_OPTS="
+        --height 70%
+        --layout=reverse
+        --preview 'bat --color=always --style=numbers --line-range=:500 {}'
+    "
+    export FZF_CTRL_T_OPTS="
+        --preview 'bat -n --color=always {}'
+        --bind 'ctrl-/:change-preview-window(down|hidden|)'
+    "
+    export FZF_CTRL_R_OPTS="
+        --preview 'echo {}' --preview-window up:3:hidden:wrap
+        --bind 'ctrl-/:toggle-preview'
+        --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+        --color header:italic
+        --header 'Press CTRL-Y to copy command into clipboard'
+    "
+    # Set FZF_ALT_C_COMMAND to override the default command 'cd'
+    # export FZF_ALT_C_COMMAND=cd
+    export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+
+    if which rg > /dev/null; then
+        export FZF_DEFAULT_COMMAND='rg -. --files '
+
+        # command for listing path candidates.
+        # - The first argument to the function ($1) is the base path to start traversal
+        # - See the source code (completion.{bash,zsh}) for the details.
+        _fzf_compgen_path() {
+            # fd --hidden --no-ignore --follow --exclude ".git" --type f "$1"
+            rg -. --follow --no-ignore --files "$1" 2>/dev/null
+        }
+
+        # Use to generate the list for directory completion
+        _fzf_compgen_dir() {
+            rg -. --follow --no-ignore --files "$1" 2>/dev/null | awk -F'/[^/]*$' '!h[$1]++ { print $1 }'
+        }
     fi
     if [ ! -z "$FZF_DEFAULT_COMMAND" ]; then
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     fi
-    # FZF_COMPLETION_TRIGGER: 默认 **<tab>
-    # fzf 参数详见 fzf -h
-    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
 fi
 
 # This loads nvm bash_completion

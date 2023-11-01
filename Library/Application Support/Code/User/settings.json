@@ -30,5 +30,6 @@
         "editor.defaultFormatter": "xaver.clang-format"
     },
     "chatgpt.emailAddress": "",
-    "chatgpt.method": "Browser Auto-login"
+    "chatgpt.method": "Browser Auto-login",
+    "security.workspace.trust.enabled": false
 }

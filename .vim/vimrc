@@ -435,9 +435,13 @@ endif
 """"""""""""""""""""""""""""""""""""""""
 " Plug: 'fzf.vim': https://segmentfault.com/a/1190000016186540
 " 集成说明: https://segmentfault.com/a/1190000016186540
-"let g:fzf_command_prefix = 'F'  " 设置fzf命令前缀
-nnoremap <silent> <leader>o :GFiles <CR>
-nnoremap <silent> <leader>f :call fzf#vim#ag(input("Ag args:"))<CR>
+if has_key(g:plugs, 'fzf.vim')
+    "let g:fzf_command_prefix = 'F'  " 设置fzf命令前缀
+    " search files include hidden files in current dir
+    command!-bang -nargs=* Rgh call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case --hidden ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)'
+    " search files include hidden and ignore files in current dir
+    command!-bang -nargs=* Rgg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case --hidden --no-ignore ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)'
+endif
 
 """"""""""""""""""""""""""""""""""""""""
 " Plug: 'https://github.com/vim-utils/vim-man'
