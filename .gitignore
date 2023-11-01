@@ -11,11 +11,10 @@
 !/.gitconfig
 !/.gitignore
 !/.gitignoreglobal
-!/.gvimrc
 !/.hammerspoon
 !/.local/
 !/.npmrc
-!/.vimrc
+!/.vim/
 !/Library
 
 ################################################################################

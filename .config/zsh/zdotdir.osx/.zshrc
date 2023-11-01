@@ -46,6 +46,11 @@ if which fzf > /dev/null; then
     export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
 fi
 
+# This loads nvm bash_completion
+if which nvm > /dev/null; then
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
 # go config
 # export GOPATH=~/go/.path
 # export GOBIN=~/go/.bin

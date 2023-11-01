@@ -20,6 +20,15 @@ if which jenv > /dev/null; then
     eval "$(jenv init -)"
 fi
 
+# This loads nvm
+if [ -s "/opt/homebrew/opt/nvm/nvm.sh" ];  then
+    export NVM_DIR="$HOME/.nvm"
+    if [ ! -e "$NVM_DIR" ]; then
+        mkdir "$NVM_DIR"
+    fi
+    source "/opt/homebrew/opt/nvm/nvm.sh"
+fi
+
 # pyenv config
 if which pyenv > /dev/null; then
     export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
