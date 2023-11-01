@@ -6,6 +6,9 @@
 " Environment
 set nocompatible
 
+" move .viminfo out of home dir
+set viminfo +=n$HOME/.vim/viminfo
+
 " Strip trailing whitespace and newlines on save
 function! StripTrailingWhitespace()
     let l = line(".")
