@@ -230,7 +230,7 @@ nnoremap <M-j> mz:m+<CR>`z
 nnoremap <M-k> mz:m-2<CR>`z
 
 " fast buffer switch
-nnoremap <C-s-tab> :bp<CR>
+nnoremap <C-S-tab> :bp<CR>
 nnoremap <C-tab> :bn<CR>
 
 " fast buffer close
@@ -436,7 +436,28 @@ endif
 " Plug: 'fzf.vim': https://segmentfault.com/a/1190000016186540
 " 集成说明: https://segmentfault.com/a/1190000016186540
 if has_key(g:plugs, 'fzf.vim')
-    "let g:fzf_command_prefix = 'F'  " 设置fzf命令前缀
+
+    let g:fzf_vim = {}
+    " Preview window is hidden by default. You can toggle it with ctrl-/.
+    " It will show on the right with 50% width, but if the width is smaller
+    " than 70 columns, it will show above the candidate list
+    let g:fzf_vim.preview_window = ['right,50%,<30(up,40%)', 'ctrl-/']
+
+    let g:fzf_command_prefix = 'Fzf'  " 设置 command line 中 fzf 命令前缀
+    " Normal mode mappings
+    nmap <leader><tab> <plug>(fzf-maps-n)
+    " imap <Leader><tab> <plug><fzf-maps-i)     " Insert mode mappings
+    " xmap <leader><tab> <plug>(fzf-maps-x)     " Visual mode mappings
+    " omap <leader><tab> <plug>(fzf-maps-o)     " Operator-pending mappings
+    
+    " Insert mode completion(default settings)
+    " imap <c-x><c-k> <plug>(fzf-complete-word) " word from dict
+    " imap <c-x><c-f> <plug>(fzf-complete-path) " curr dir path completion
+    " imap <c-x><c-l> <plug>(fzf-complete-line) " whole line completion
+    
+    " list current dir easier
+    command! -bang -complete=dir -nargs=? LS
+        \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}), <bang>0)
     " search files include hidden files in current dir
     command!-bang -nargs=* Rgh call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case --hidden ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)'
     " search files include hidden and ignore files in current dir

@@ -9,7 +9,7 @@ function brew-install {
 }
 
 function brew-install-base {
-    brew install autoconf automake bat ffmpeg fzf gh git p7zip ripgrep tree watch
+    brew install autoconf automake bat ffmpeg fd fzf gh git p7zip ripgrep tree watch
 
 
     ### network client tools (unavialable stormssh)
