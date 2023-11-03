@@ -11,7 +11,6 @@ function brew-install {
 function brew-install-base {
     brew install autoconf automake bat ffmpeg fd fzf gh git p7zip ripgrep tree watch
 
-
     ### network client tools (unavialable stormssh)
     brew install grsync lrzsz rsync wget yt-dlp
     brew install --cask cyberduck
@@ -142,6 +141,9 @@ function brew-install-net {
 }
 
 function brew-install-ql {
+    # mac app info viewer, include ql plugin
+    brew install --cask apparency
+
     # https://github.com/sindresorhus/quick-look-plugins
     # If you run into issues with macOS not letting you run the plugin because it's not signed by a verified developer you can follow these steps:
     # run xattr -cr ~/Library/QuickLook/<QLPlugName>.qlgenerator (sudo if needed)
@@ -154,26 +156,26 @@ function brew-install-ql {
     # Plugins:
     #   - provisionql:      ipa & provision
     #   - qladdict:         srt file
-    #   - qlcolorcode:
     #   - qldds:
+    #   - qlmarkdown:       markdown
     #   - qlgradle:
     #   - qlprettypatch:
-    #   - qlvideo:
-    #   - quicklook-json:
+    #   - qlvideo:          unsupported video format 
+    #   - quicklook-json:   json
     #   - quicklook-pat:    view Adobe Photoshop pattern files
     #   - quicklookapk:
     #   - quicklookase:     quicklook for ASE files (Adobe Swatch Exchange)
     #   - receiptquicklook: inspect App Store receipts
+    #   - syntax-highlight: code preview
     #
     # no used:
     #   - quicklook-csv:    osx supported
     #   - webpquicklook:    osx supported
     #   - qlstephen:        osx supported
 
-    brew install --cask qladdict qlcolorcode qlprettypatch qlvideo quicklook-json
+    brew install --cask --no-quarantine qladdict qlcolorcode qlprettypatch qlvideo quicklook-json syntax-highlight
 
     xattr -cr ~/Library/QuickLook/QLAddict.qlgenerator
-    xattr -cr ~/Library/QuickLook/QLColorCode.qlgenerator
     xattr -cr ~/Library/QuickLook/qlprettypatch.qlgenerator
     qlmanage -r cache
     open /Applications/QuickLook\ Video.app
