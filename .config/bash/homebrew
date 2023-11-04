@@ -131,7 +131,10 @@ function brew-install-dev {
 
     ### javascript dev tools
     brew install nvm
-    brew install visual-studio-code
+    brew install --cask visual-studio-code
+
+    ### python dev tools
+    brew install pyenv pyenv-virtualenv
 }
 
 function brew-install-net {

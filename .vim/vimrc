@@ -437,11 +437,13 @@ endif
 " 集成说明: https://segmentfault.com/a/1190000016186540
 if has_key(g:plugs, 'fzf.vim')
 
-    let g:fzf_vim = {}
+    " let g:fzf_vim = {}
     " Preview window is hidden by default. You can toggle it with ctrl-/.
     " It will show on the right with 50% width, but if the width is smaller
     " than 70 columns, it will show above the candidate list
-    let g:fzf_vim.preview_window = ['right,50%,<30(up,40%)', 'ctrl-/']
+    " let g:fzf_vim.preview_window = ['right,50%,<30(up,40%)', 'ctrl-/']
+
+    let g:fzf_action = { 'ctrl-e': 'edit' }
 
     let g:fzf_command_prefix = 'Fzf'  " 设置 command line 中 fzf 命令前缀
     " Normal mode mappings
@@ -450,11 +452,15 @@ if has_key(g:plugs, 'fzf.vim')
     " xmap <leader><tab> <plug>(fzf-maps-x)     " Visual mode mappings
     " omap <leader><tab> <plug>(fzf-maps-o)     " Operator-pending mappings
     
+    " C-p 查看文件列表, C-e 查看当前 buf，两次 C-e 快速切换上次打开的 buf
+
     " Insert mode completion(default settings)
     " imap <c-x><c-k> <plug>(fzf-complete-word) " word from dict
     " imap <c-x><c-f> <plug>(fzf-complete-path) " curr dir path completion
     " imap <c-x><c-l> <plug>(fzf-complete-line) " whole line completion
-    
+    nmap <C-p> :FzfFiles<CR>
+    nmap <C-e> :FzfBuffers<CR>
+
     " list current dir easier
     command! -bang -complete=dir -nargs=? LS
         \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}), <bang>0)

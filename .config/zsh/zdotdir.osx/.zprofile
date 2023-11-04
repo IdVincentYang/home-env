@@ -33,6 +33,10 @@ fi
 if which pyenv > /dev/null; then
     export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
     eval "$(pyenv init -)"
+
+    if which which pyenv-virtualenv > /dev/null; then
+        eval "$(pyenv virtualenv-init -)"
+    fi
 fi
 
 export __ZDOTLOADED="$__ZDOTLOADED\n$ZDOTDIR/.zprofile"
