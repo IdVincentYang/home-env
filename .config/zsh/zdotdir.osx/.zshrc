@@ -17,7 +17,7 @@ fi
 
 # Setting terminal proxy via clash
 source "${BASH_CFG}/proxy"
-proxyset -s "socks5h://127.0.0.1:7890" "http://127.0.0.1:7890"
+# proxyset -s "socks5h://127.0.0.1:7890" "http://127.0.0.1:7890"
 
 source "${ZSH_CFG}/zshrc"
 
@@ -42,6 +42,10 @@ if which fzf > /dev/null; then
 
     # if fd exists, set fd as fzf backend, instead the default find
     if which fd > /dev/null; then
+
+        function fzfd {
+            echo $@
+        }
         export FZF_DEFAULT_COMMAND='fd --one-file-system --hidden'
         # use ctrl + t to search path under home
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --no-ignore . $HOME"

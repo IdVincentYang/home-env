@@ -2,8 +2,8 @@
 function brew-install {
     #   homepage: https://brew.sh/
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    #   tray: for FQ
-    brew install clashx
+    #   tray: (instead of shadowrocket) for FQ
+    # brew install clashx
     #   app: homebrew GUI
     # brew install cakebrew
 }
@@ -145,7 +145,7 @@ function brew-install-net {
 
 function brew-install-ql {
     # mac app info viewer, include ql plugin
-    brew install --cask apparency
+    brew install --cask apparency suspicious-package
 
     # https://github.com/sindresorhus/quick-look-plugins
     # If you run into issues with macOS not letting you run the plugin because it's not signed by a verified developer you can follow these steps:
