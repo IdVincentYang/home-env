@@ -16,7 +16,7 @@ if [ $VIM ]; then
 fi
 
 # Setting terminal proxy via clash
-source "${BASH_CFG}/proxy"
+# source "${BASH_CFG}/proxy"
 # proxyset -s "socks5h://127.0.0.1:7890" "http://127.0.0.1:7890"
 
 source "${ZSH_CFG}/zshrc"
