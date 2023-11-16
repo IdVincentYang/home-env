@@ -102,7 +102,7 @@ function brew-install-app {
 
 function brew-install-dev {
     ### design tools
-    #brew install --cask drawio xmind
+    #brew install --cask drawio freeplane
 
     ### coding tools
     #   cmd: code searching tool, usage: ag
