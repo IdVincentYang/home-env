@@ -20,16 +20,18 @@
 ################################################################################
 # include application support items
 /Library/*
-!Library/Application\ Support/
-Library/Application\ Support/*
+!/Library/Application\ Support/
+/Library/Application\ Support/*
 
 # include visual studio code config
-!Library/Application\ Support/Code/
-Library/Application\ Support/Code/*
-!Library/Application\ Support/Code/User/
-Library/Application\ Support/Code/User/globalStorage/
-Library/Application\ Support/Code/User/History/
-Library/Application\ Support/Code/User/workspaceStorage/
+!/Library/Application\ Support/Code/
+/Library/Application\ Support/Code/*
+!/Library/Application\ Support/Code/User/
+/Library/Application\ Support/Code/User/globalStorage/
+/Library/Application\ Support/Code/User/History/
+/Library/Application\ Support/Code/User/workspaceStorage/
 
-# include host config
-!Library/Application\ Support/Hosts/
+# include IINA config
+!/Library/Application\ Support/com.colliderli.iina
+/Library/Application\ Support/com.colliderli.iina/*
+!/Library/Application\ Support/com.colliderli.iina/input_conf
