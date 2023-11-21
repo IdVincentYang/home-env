@@ -19,6 +19,9 @@
 /filezilla/*
 !/filezilla/sitemanager.xml
 
+# include mpv config
+!/mpv
+
 # include grsync config
 !/grsync/
 
