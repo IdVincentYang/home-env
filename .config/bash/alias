@@ -47,8 +47,8 @@ alias dv='docker volume'
 
 ################################################################################
 # Download
-alias ydlv="yt-dlp --no-playlist --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
-alias ydll="yt-dlp --yes-playlist --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
+alias ydlv="yt-dlp --no-playlist --sponsorblock-remove all --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
+alias ydll="yt-dlp --yes-playlist --sponsorblock-remove all --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
 alias yget="you-get -x 127.0.0.1:7890"
 # wget args:
 #   -c: --continue
