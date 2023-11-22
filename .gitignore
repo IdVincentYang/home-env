@@ -23,14 +23,6 @@
 !/Library/Application\ Support/
 /Library/Application\ Support/*
 
-# include visual studio code config
-!/Library/Application\ Support/Code/
-/Library/Application\ Support/Code/*
-!/Library/Application\ Support/Code/User/
-/Library/Application\ Support/Code/User/globalStorage/
-/Library/Application\ Support/Code/User/History/
-/Library/Application\ Support/Code/User/workspaceStorage/
-
 # include IINA config
 !/Library/Application\ Support/com.colliderli.iina
 /Library/Application\ Support/com.colliderli.iina/*
