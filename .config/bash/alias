@@ -47,9 +47,12 @@ alias dv='docker volume'
 
 ################################################################################
 # Download
-alias ydlv="yt-dlp --no-playlist --sponsorblock-remove all --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
-alias ydll="yt-dlp --yes-playlist --sponsorblock-remove all --console-title --windows-filenames -f \"bv[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b\" "
-alias yget="you-get -x 127.0.0.1:7890"
+alias yda="yt-dlp --no-embed-subs --no-playlist --console-title -f \"ba\" -S \"+acodec:mp3,abr,asr\" -o \"%(title)s %(id)s.%(ext)s\" "
+alias ydal="yt-dlp --no-embed-subs --yes-playlist --console-title -f \"ba\" -S \"+acodec:mp3,abr,asr\" -o \"%(title)s %(id)s.%(ext)s\" "
+alias ydv="yt-dlp --no-playlist --console-title -f \"bv[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=?1080]/bv*[height<=1080]+ba/b[height<=?1080]\" -o \"%(title)s %(id)s.%(ext)s\" "
+alias ydvl="yt-dlp --yes-playlist --console-title -f \"bv[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=?1080]/bv*[height<=1080]+ba/b[height<=?1080]\" -o \"%(title)s %(id)s.%(ext)s\" "
+
+alias yget="you-get -x 127.0.0.1:1082"
 # wget args:
 #   -c: --continue
 #   -nc:--no-clobber
