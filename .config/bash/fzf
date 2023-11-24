@@ -1,0 +1,82 @@
+# vi: ft=sh
+
+# https://github.com/junegunn/fzf/blob/master/README-VIM.md
+# https://zhuanlan.zhihu.com/p/41859976
+
+# fzf 参数详见 fzf -h
+# export FZF_COMPLETION_TRIGGER='**'
+# Options to fzf command
+export FZF_COMPLETION_OPTS='--border --info=inline'
+
+_PREVIEW_DEFAULT_OPTS="'
+    ([[ -f {} ]] && (bat --color=always --style=numbers --line-range=:500 {} || cat {})) ||
+    ([[ -d {} ]] && (tree -C {} || ls -la {})) ||
+    (echo {} 2> /dev/null | head -200)
+'"
+export FZF_DEFAULT_OPTS="
+    --bind 'ctrl-a:select-all'
+    --bind 'ctrl-o:execute(open {+})'
+    --bind 'ctrl-s:execute(code {+})'
+    --bind 'ctrl-v:execute(echo {+} | xargs -o mvim)'
+    --bind 'ctrl-y:execute-silent(echo -e {+} | pbcopy)+abort'
+    --bind 'ctrl-/:change-preview-window(down|hidden|)'
+    --color header:italic
+    --header '⌃-:preview,a:all,o:open,s:VS,v:mvim,y:copy'
+    --height 70%
+    --info=inline
+    --layout=reverse
+    --multi
+    --preview $_PREVIEW_DEFAULT_OPTS
+"
+export FZF_CTRL_T_OPTS="
+    --bind 'ctrl-/:change-preview-window(down|hidden|)'
+    --preview $_PREVIEW_DEFAULT_OPTS
+"
+export FZF_CTRL_R_OPTS="
+    --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+    --bind 'ctrl-/:toggle-preview'
+    --color header:italic
+    --header 'Press CTRL-Y to copy command into clipboard'
+    --preview 'echo {}'
+    --preview-window up:3:hidden:wrap
+"
+# Set FZF_ALT_C_COMMAND to override the default command 'cd' 
+# export FZF_ALT_C_COMMAND=cd
+export FZF_ALT_C_OPTS="
+    --preview 'tree {} || ls -la {}'
+"
+# if fd exists, set fd as fzf backend, instead the default find
+if which fd > /dev/null; then
+
+    export FZF_DEFAULT_COMMAND="fd --one-file-system --hidden --exclude .git"
+    # use ctrl + t to search path under home
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --no-ignore . $HOME"
+    # use alt + c to change pwd under home
+    export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --no-ignore --type d . $HOME"
+    # - The first argument to the function ($1) is the base path to start traversal
+    # - See the source code (completion.{bash,zsh}) for the details.
+    _fzf_compgen_path() {
+        # fd --hidden --no-ignore --follow --exclude ".git/" "$1"
+        _P="$(realpath $1)"
+        if [ "$_P" == "$HOME" ]; then
+            # under home directory
+            fd --one-file-system --no-ignore . "$1"
+        else
+            fd --one-file-system --hidden . "$1"
+        fi
+    }
+
+    # Use fd to generate the list for directory completion
+    _fzf_compgen_dir() {
+        _P="$(realpath $1)"
+        if [ "$_P" == "$HOME" ]; then
+            # under home directory
+            fd --one-file-system --no-ignore --type d . "$1"
+        else
+            fd --one-file-system --hidden --type d . "$1"
+        fi
+    }
+else
+    echo "Reach invalid branch of $BASH_CFG/fzf!"
+fi
+

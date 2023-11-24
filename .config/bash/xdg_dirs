@@ -1,3 +1,5 @@
+# vi: set fp=sh
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 ################################################################################
 # Bash Env definations begin:
 # Specify XDG Base Directories for macOS
@@ -6,6 +8,8 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export XDG_DATA_HOME="${HOME}/.local/share"
     # $XDG_CONFIG_HOME: Directory containing user-specific configuration files. Default value is $HOME/.config.
     export XDG_CONFIG_HOME="${HOME}/.config"
+    # $XDG_STATE_HOME defines the base directory relative to which user-specific state files should be stored. Default value is $HOME/.local/state.
+    export XDG_STATE_HOME="${HOME}/.local/state"
     # $XDG_CACHE_HOME: Directory containing user-specific non-essential data files. Default value is $HOME/.cache.
     #   In MacOS, $HOME/Library/Caches: This directory contains caches used by applications installed by the user, such as browser caches, app caches, and system caches.
     export XDG_CACHE_HOME="${HOME}/Library/Caches"
@@ -29,6 +33,7 @@ if [[ $OSTYPE == 'darwin'* ]]; then
 elif [[ $OSTYPE == 'linux'* ]]; then
     export XDG_DATA_HOME="${HOME}/.local/share"
     export XDG_CONFIG_HOME="${HOME}/.config"
+    export XDG_STATE_HOME="${HOME}/.local/state"
     export XDG_CACHE_HOME="${HOME}/.cache"
 # export XDG_RUNTIME_DIR="/run/user/$UID"
     export XDG_DOCUMENTS_DIR="${HOME}/Documents"
