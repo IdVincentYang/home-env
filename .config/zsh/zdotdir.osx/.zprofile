@@ -29,6 +29,14 @@ if [ -s "/opt/homebrew/opt/nvm/nvm.sh" ];  then
     source "/opt/homebrew/opt/nvm/nvm.sh"
 fi
 
+# pnpm
+export PNPM_HOME="~/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 # pyenv config
 if which pyenv > /dev/null; then
     export PYENV_ROOT="${XDG_DATA_HOME}/pyenv"
