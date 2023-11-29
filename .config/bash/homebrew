@@ -40,6 +40,8 @@ function brew-install-base {
     brew install itsycal
     #   tray: dozer, add hide icon feature
     brew install dozer
+    #   tray: easydict, translate util
+    brew install easydict
 
     ### apps for system enhance:
     #   app: tweak keyboard functions. eg: map right CMD to CMD+OPT+CTRL+SHIFT
