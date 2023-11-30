@@ -32,5 +32,8 @@
 # include UltiSnips
 !/UltiSnips/
 
+# include yt-dlp config
+!/yt-dlp/
+
 # include zsh config
 !/zsh/
