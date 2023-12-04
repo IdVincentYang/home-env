@@ -22,6 +22,7 @@ local _AppMetaArray = {
     { "CocosCreator" },
     { "Finder" },
     { "Fork" },
+    { "Freeplane" },
     { "Google Chrome" },
     { "Numbers" },
     { "MacVim" },
@@ -75,7 +76,7 @@ local _HotkeyMap = {
     u = { _SUPER_META, "企业微信" },
     v = { _SUPER_META, "MacVim" },
     w = { _SUPER_META, "WeChat" },
-    x = { _SUPER_META, "Xcode" },
+    x = { _SUPER_META, "Freeplane" },
     y = {},
     z = { _SUPER_META, "XMind" },
 };

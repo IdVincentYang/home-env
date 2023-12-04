@@ -50,7 +50,7 @@ alias dv='docker volume'
 alias yda="yt-dlp --no-embed-subs --no-playlist --console-title -f \"ba\" -S \"+acodec:mp3,abr,asr\" -o \"%(title)s %(id)s.%(ext)s\" "
 alias ydal="yt-dlp --no-embed-subs --yes-playlist --console-title -f \"ba\" -S \"+acodec:mp3,abr,asr\" -o \"%(title)s %(id)s.%(ext)s\" "
 alias ydv="yt-dlp --no-playlist --console-title -f \"bv[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=?1080]/bv*[height<=1080]+ba/b[height<=?1080]\" -S \"vcodec:h265\" -o \"%(title)s %(id)s.%(ext)s\" "
-alias ydvl="yt-dlp --yes-playlist --console-title -f \"bv[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=?1080]/bv*[height<=1080]+ba/b[height<=?1080]\"  -S \"vcodec:h265\" -o \"[%(playlist_uploader)s]%(playlist_title)s %(playlist_id)s[%(playlist_count)s]/%(playlist_autonumber)02d %(title)s %(id)s.%(ext)s\" "
+alias ydvl="yt-dlp --yes-playlist --console-title -f \"bv[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=?1080]/bv*[height<=1080]+ba/b[height<=?1080]\"  -S \"vcodec:h265\" -o \"[%(playlist_uploader)s]%(playlist_title)s %(playlist_id)s/%(playlist_autonumber)02d %(title)s %(id)s.%(ext)s\" "
 
 alias yget="you-get -x 127.0.0.1:1082"
 # wget args:
