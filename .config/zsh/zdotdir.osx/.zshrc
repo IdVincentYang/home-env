@@ -24,6 +24,8 @@ source "${ZSH_CFG}/zshrc"
 source "${BASH_CFG}/alias"
 source "${BASH_CFG}/alias.osx"
 
+source "$BASH_CFG/utils"
+
 ################################################################################
 # command tools config begin:
 

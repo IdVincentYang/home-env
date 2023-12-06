@@ -10,3 +10,6 @@
 [submodule ".local/share/oh-my-zsh"]
 	path = .local/share/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule ".local/share/colorized-logs"]
+	path = .local/share/colorized-logs
+	url = https://github.com/kilobyte/colorized-logs.git

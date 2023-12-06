@@ -1,0 +1,7 @@
+# vi: set ft=sh:
+
+function manvi {
+    eval "man $@ | ansi2txt | col -b | vi -R -"
+}
+
+
