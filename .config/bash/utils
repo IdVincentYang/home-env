@@ -1,7 +1,8 @@
 # vi: set ft=sh:
 
-function manvi {
-    eval "man $@ | ansi2txt | col -b | vi -R -"
+# View std output in vi
+function vvi {
+    eval "$@ | ansi2txt | col -b | vi -R -"
 }
 
 
