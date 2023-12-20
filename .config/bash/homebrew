@@ -1,3 +1,4 @@
+# vi: set ft=sh :
 
 function brew-install {
     #   homepage: https://brew.sh/
@@ -186,3 +187,10 @@ function brew-install-ql {
     open /Applications/QuickLook\ Video.app
 }
 
+function brew-install-service {
+    # sql server and client app
+    # - default db named `postgresql` created under     /opt/homebrew/var/postgresql@16
+    brew install postgresql@16
+    brew install --cask --no-quarantine pgadmin4
+    brew services start postgresql@16
+}
