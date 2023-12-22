@@ -27,6 +27,13 @@ if [ -s "/opt/homebrew/opt/nvm/nvm.sh" ];  then
         mkdir "$NVM_DIR"
     fi
     source "/opt/homebrew/opt/nvm/nvm.sh"
+
+    # for pm2
+    if which pm2 > /dev/null; then
+        echo "[WARN] pm2 not installed, via 'pnpm install -g pm2' to install."
+    else
+        export PM2_HOME="${XDG_CONFIG_HOME:-~/.pm2}/pm2"
+    fi
 fi
 
 # pnpm
