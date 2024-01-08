@@ -18,33 +18,6 @@
                 },
                 "rules": [
                     {
-                        "description": "Mouse 5 to CTRL + Mouse1",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "file_paths": [
-                                            "/usr/local/bin/scrcpy"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "pointing_button": "button5"
-                                },
-                                "to": [
-                                    {
-                                        "modifiers": [
-                                            "left_control"
-                                        ],
-                                        "pointing_button": "button1"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Change Command_R to Hyper(ctrl+shift+cmd+opt). (Post escape key when pressed alone.)",
                         "manipulators": [
                             {
@@ -132,6 +105,61 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "[Android Emulator] Press 'Back' button by'Mouse 2[⌘ ⌫]'",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "file_paths": [
+                                            "^/Users/yangws/Library/Android/sdk/emulator/qemu/darwin-aarch64/qemu-system-aarch64$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "pointing_button": "button2"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "[Android Emulator] Press 'Home' button by 'Mouse 3[⇧ ⌘ h]'",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "file_paths": [
+                                            "^/Users/yangws/Library/Android/sdk/emulator/qemu/darwin-aarch64/qemu-system-aarch64$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "pointing_button": "button3"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "h",
+                                        "modifiers": [
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
@@ -145,7 +173,7 @@
                         "product_id": 50475,
                         "vendor_id": 1133
                     },
-                    "ignore": true,
+                    "ignore": false,
                     "manipulate_caps_lock_led": false,
                     "simple_modifications": [],
                     "treat_as_built_in_keyboard": false
@@ -159,7 +187,7 @@
                         "product_id": 50475,
                         "vendor_id": 1133
                     },
-                    "ignore": true,
+                    "ignore": false,
                     "manipulate_caps_lock_led": false,
                     "simple_modifications": [],
                     "treat_as_built_in_keyboard": false
@@ -448,6 +476,20 @@
                         "vendor_id": 16700
                     },
                     "ignore": true,
+                    "manipulate_caps_lock_led": false,
+                    "simple_modifications": [],
+                    "treat_as_built_in_keyboard": false
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "identifiers": {
+                        "is_keyboard": false,
+                        "is_pointing_device": true,
+                        "product_id": 9488,
+                        "vendor_id": 2362
+                    },
+                    "ignore": false,
                     "manipulate_caps_lock_led": false,
                     "simple_modifications": [],
                     "treat_as_built_in_keyboard": false

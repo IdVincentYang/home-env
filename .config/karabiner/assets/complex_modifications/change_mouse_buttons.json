@@ -1,0 +1,60 @@
+{
+  "title": "change mouse buttons",
+  "rules": [
+    {
+      "description": "[Android Emulator] Press 'Back' button by'Mouse 2[⌘ ⌫]'",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button2"
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace",
+              "modifiers": [
+                "left_command"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "file_paths": [
+                "^/Users/yangws/Library/Android/sdk/emulator/qemu/darwin-aarch64/qemu-system-aarch64$"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "[Android Emulator] Press 'Home' button by 'Mouse 3[⇧ ⌘ h]'",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button3"
+          },
+          "to": [
+            {
+              "key_code": "h",
+              "modifiers": [
+                "left_command",
+                "left_shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "file_paths": [
+                "^/Users/yangws/Library/Android/sdk/emulator/qemu/darwin-aarch64/qemu-system-aarch64$"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
