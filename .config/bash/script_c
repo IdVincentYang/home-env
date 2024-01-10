@@ -1,8 +1,8 @@
 if [[ "${_SCRIPT_C_ECHO_OFF}" != true ]] ; then
     echo 'Usage: This script make source code file can be run in terminal like a command(the source file need chmod +x). This script compile your script and run the output binary with the command arguments, delete the binary finally.
-#if 0
-#Turn off the echo message, include the usage message.
-_SCRIPT_C_ECHO_OFF=true
+    #if 0
+    #Turn off the echo message, include the usage message.
+    _SCRIPT_C_ECHO_OFF=true
 
 #Compile the script to gererate a binary in current directory but do not execute.
 _SCRIPT_C_COMPILE_ONLY=false
@@ -26,10 +26,9 @@ source "$BASH_CFG/script_c"
 fi #end of if [[ "${_SCRIPT_C_ECHO_OFF}" != true ]] ; then
 
 
-if [[ "${_SCRIPT_C_ECHO_OFF}" == true ]] ; then
-    _SCRIPT_ENV_ECHO_OFF=true
-fi
+_SCRIPT_ENV_ECHO_OFF=true
 source $BASH_CFG/script_env
+unset _SCRIPT_ENV_ECHO_OFF
 
 function _string_in_array() {
     local str=$1
@@ -100,7 +99,7 @@ if [[ "${_SCRIPT_C_COMPILE_ONLY}" != true ]] ; then
     fi
     "${_BIN_PATH}" ${_SCRIPT_C_EXECUTE_OPTION}
 
-#如果执行成功, 删除BIN文件
+    #如果执行成功, 删除BIN文件
     _RESULT=$?
     if (( "${_RESULT}" != 0 )) ; then
         exit ${_RESULT}

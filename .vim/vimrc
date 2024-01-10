@@ -346,7 +346,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'chrisbra/unicode.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
-
+Plug 'honza/vim-snippets'
 Plug 'jayli/vim-easycomplete'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -451,7 +451,7 @@ if has_key(g:plugs, 'fzf.vim')
     " imap <Leader><tab> <plug><fzf-maps-i)     " Insert mode mappings
     " xmap <leader><tab> <plug>(fzf-maps-x)     " Visual mode mappings
     " omap <leader><tab> <plug>(fzf-maps-o)     " Operator-pending mappings
-    
+
     " C-p 查看文件列表, C-e 查看当前 buf，两次 C-e 快速切换上次打开的 buf
 
     " Insert mode completion(default settings)
@@ -463,7 +463,7 @@ if has_key(g:plugs, 'fzf.vim')
 
     " list current dir easier
     command! -bang -complete=dir -nargs=? LS
-        \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}), <bang>0)
+                \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}), <bang>0)
     " search files include hidden files in current dir
     command!-bang -nargs=* Rgh call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case --hidden ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)'
     " search files include hidden and ignore files in current dir
