@@ -218,6 +218,9 @@ nnoremap <s-cr> o<esc>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
 nnoremap <silent> <leader>ee :e $MYVIMRC<CR>
 
+" edit a temporary file
+nnoremap <leader><leader>t :exec "e " . tempname()<CR>
+
 " scroll page using space
 nnoremap <Space> <C-F>
 nnoremap <S-Space> <C-B>

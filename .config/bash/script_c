@@ -1,3 +1,5 @@
+# vi: ft=sh
+
 if [[ "${_SCRIPT_C_ECHO_OFF}" != true ]] ; then
     echo 'Usage: This script make source code file can be run in terminal like a command(the source file need chmod +x). This script compile your script and run the output binary with the command arguments, delete the binary finally.
     #if 0
@@ -74,6 +76,7 @@ if [ -z "${_SCRIPT_C_COMPILER_PATH}" ] ; then
     exit 1
 fi
 
+# 确定编译参数
 if [[ "${_SCRIPT_C_ARGUMENTS_AS_COMPILE_OPTIONS}" != true ]] ; then
     _SCRIPT_C_EXECUTE_OPTION="${_SCRIPT_C_EXECUTE_OPTION} $@"
 else
@@ -84,7 +87,14 @@ if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
     echo "Compile:${_SCRIPT_C_COMPILER_PATH} -o ${_SCRIPT_NAME_STEM} ${_SCRIPT_C_COMPILE_OPTION} $0"
 fi
 
-"${_SCRIPT_C_COMPILER_PATH}" -o "${_SCRIPT_NAME_STEM}" ${_SCRIPT_C_COMPILE_OPTION} "$0"
+# 确定输出文件名
+if [[ -z "${_SCRIPT_NAME_EXT}" ]]; then
+    _BIN_PATH="${_SCRIPT_DIR}/${_SCRIPT_NAME_STEM}.bin"
+else
+    _BIN_PATH="${_SCRIPT_DIR}/${_SCRIPT_NAME_STEM}"
+fi
+
+"${_SCRIPT_C_COMPILER_PATH}" -o "${_BIN_PATH}" ${_SCRIPT_C_COMPILE_OPTION} "$0"
 
 #检查有没有编译错误
 _RESULT=$?
@@ -93,7 +103,6 @@ if (( "${_RESULT}" != 0 )) ; then
 fi
 
 if [[ "${_SCRIPT_C_COMPILE_ONLY}" != true ]] ; then
-    _BIN_PATH="${_SCRIPT_DIR}/${_SCRIPT_NAME_STEM}"
     if [[ "${_SCRIPT_ENV_ECHO_OFF}" != true ]] ; then
         echo "Excute: ${_BIN_PATH} ${_SCRIPT_C_EXECUTE_OPTION}"
     fi
@@ -104,7 +113,7 @@ if [[ "${_SCRIPT_C_COMPILE_ONLY}" != true ]] ; then
     if (( "${_RESULT}" != 0 )) ; then
         exit ${_RESULT}
     fi
-    rm "${_SCRIPT_NAME_STEM}"
+    rm "${_BIN_PATH}"
 fi
 
 exit
