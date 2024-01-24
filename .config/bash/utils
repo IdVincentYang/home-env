@@ -6,3 +6,73 @@ function vvi {
 }
 
 
+# repeat execute cmd [after ? seconds] [until <condition>] with [interval ? seconds]
+#
+function repeat_do() {
+  if [[ $# -eq 0 ]]; then
+    echo 'repeat execute cmd [after ? seconds] [until <condition>] with [interval ? seconds]
+
+    cmd : shell command string, used to execute repeatly
+    --after <arg>: sleep <arg> seconds before the cmd first execution
+    --interval <arg>: sleep <arg> seconds between two cmd executions
+    --until <str>: shell commend string, which will be eval before cmd execution, if this command string result is not 0, return from the function "repeat_do" '
+    return 1
+  fi
+  local cmd=""
+
+  local after=0
+  local interval=0
+  local until=""
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --after)
+        after=$(bc <<< "$2")
+        shift 2
+        ;;
+      --interval)
+        interval=$(bc <<< "$2")
+        shift 2
+        ;;
+      --until)
+        until="$2"
+        shift 2
+        ;;
+      *)
+        if [ -z "$cmd" ]; then
+            cmd="$1"
+            shift
+        else
+            echo "More than one command: '$cmd' and '$1'"
+            return 2
+        fi
+        ;;
+    esac
+  done
+
+  echo "Repeat do '$cmd' after '$after' seconds until '$until' with interval '$interval' seconds:"
+
+  if [[ -z "$cmd" ]]; then
+    echo "Command not specified"
+    return 3
+  fi
+
+  if [[ $after -gt 0 ]]; then
+    sleep "$after"
+  fi
+
+  while true; do
+    if [[ -n "$until" ]]; then
+      if eval "$until"; then
+        break
+      fi
+    fi
+
+    eval "$cmd"
+
+    if [[ $interval -gt 0 ]]; then
+      sleep "$interval"
+    fi
+  done
+}
+
