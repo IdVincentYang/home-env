@@ -32,3 +32,59 @@ function ensure() {
     terminal-notifier -title "Execute CMD Complete!" -message "$@"
 }
 
+rm_meta() {
+  # Read all directories under "/Volumes/" directory into a list variable named "_SUB_DIR_LIST", excluding sub directories started with prefix "Macintosh HD" and "com.apple.TimeMachine"
+  _SUB_DIR_LIST=$(ls -l1% "/Volumes/" | grep -v "Macintosh HD" | grep -v "com.apple.TimeMachine")
+
+  # If size of "_SUB_DIR_LIST" is 0, echo "No removable device exists" then return from function
+  if [ -z "$_SUB_DIR_LIST" ]; then
+    echo "No removable device exists"
+    return
+  fi
+
+  # If size of "_SUB_DIR_LIST" is 1, then assign the item to a string variable named "_USB_DEVICE"
+  if [ $(echo "$_SUB_DIR_LIST" | wc -l) -eq 1 ]; then
+    _USB_DEVICE=$(echo "$_SUB_DIR_LIST")
+  # If size of "_SUB_DIR_LIST" is more than 1, then show a menu in stdout and let user select which item in "_SUB_DIR_LIST" will be used, after user choose one item, assign the item to a string variable named "_USB_DEVICE"
+  else
+    echo "Select a removable device:"
+    IFS=$'\n'
+    select _USB_DEVICE in $_SUB_DIR_LIST; do
+      break
+    done
+  fi
+
+  # Concat "/Volumes/" string and "_USB_DEVICE" variable value then assign value to a string variable named "_USB_DEVICE_PATH"
+  _USB_DEVICE_PATH="/Volumes/$_USB_DEVICE"
+
+  # If exists a hidden file named ".metadata_never_index" under "_USB_DEVICE_PATH" directory then echo "Meta files has been disabled under $_USB_DEVICE_PATH", then return from function
+  if [ -f "$_USB_DEVICE_PATH/.metadata_never_index" ]; then
+    echo "Meta files has been disabled under $_USB_DEVICE_PATH"
+    return
+  fi
+
+  # Show prompt "Are you sure remove meta files under $_USB_DEVICE_PATH? (y or n)" and wait user input char 'y' or 'n', if user input 'n' then return from function, if user input 'y' then do next step
+  read "yn?Are you sure disable meta files under $_USB_DEVICE_PATH? (y or n) "
+  if [ "$yn" != "y" ]; then
+    return
+  fi
+
+  # Pushd into "_USB_DEVICE_PATH" directory
+  pushd "$_USB_DEVICE_PATH" > /dev/null
+
+  # Call such shell commands:
+  #
+  # mdutil -i off $(pwd)
+  # rm -rf .{,_.}{fseventsd,Spotlight-V*,Trashes}
+  # mkdir .fseventsd
+  # touch .fseventsd/no_log .metadata_never_index .Trashes
+  mdutil -i off "$(pwd)"
+  rm -rf .{fseventsd,Spotlight-V*,Trashes}
+  mkdir .fseventsd
+  touch .fseventsd/no_log .metadata_never_index .Trashes
+
+  find . -name "._*" -exec rm {} +
+
+  # Popd
+  popd > /dev/null
+}
