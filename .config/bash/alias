@@ -68,6 +68,10 @@ alias yget="you-get -x 127.0.0.1:1082"
 alias websiteget="wget --random-wait -c -nc -k -np -r -p -e robots=off -U mozilla"
 
 ################################################################################
+# fossil
+alias f='fossil'
+
+################################################################################
 # git
 alias g='git'
 # add

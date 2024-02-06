@@ -12,6 +12,8 @@ if [ -d ~/Library/Android/sdk ]; then
     export ANDROID_SDK_ROOT=~/Library/Android/sdk
     export ANDROID_HOME=${ANDROID_SDK_ROOT}
     export PATH=${ANDROID_SDK_ROOT}/platform-tools:${PATH}
+    # default android device
+    export ANDROID_SERIAL="99031FFBA00CPX"
 fi
 
 # Java VM bin path

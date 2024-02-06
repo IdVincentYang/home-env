@@ -188,6 +188,9 @@ function brew-install-ql {
 }
 
 function brew-install-service {
+    # sqlite client app
+    brew install --cask --no-quarantine db-browser-for-sqlite
+
     # sql server and client app
     # - default db named `postgresql` created under     /opt/homebrew/var/postgresql@16
     brew install postgresql@16
