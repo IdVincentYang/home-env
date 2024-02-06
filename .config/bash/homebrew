@@ -35,6 +35,9 @@ function brew-install-base {
     ### service with tray icons:
     #   tray: easily block os to sleep
     brew install caffeine
+    #   tray: clipboard manager
+    # brew install --cask --no-quarantine copyq
+    brew install maccy
     #   tray: auto-tools program with lua. for key-shortcuts configure, config under ~/.local/hammerspoon/
     brew install hammerspoon
     #   tray: enhance date tray icon's feature
@@ -43,6 +46,9 @@ function brew-install-base {
     brew install dozer
     #   tray: easydict, translate util
     brew install easydict
+    #   tray: nearby, share items with nearby android
+    #       https://github.com/grishka/NearDrop
+    brew install grishka/grishka/neardrop
 
     ### apps for system enhance:
     #   app: tweak keyboard functions. eg: map right CMD to CMD+OPT+CTRL+SHIFT
