@@ -58,7 +58,7 @@ function repeat_do() {
   fi
 
   if [[ $after -gt 0 ]]; then
-    t=$(date -v+"$interval"S +"%H:%M:%S")
+    t=$(date -v+"$after"S +"%H:%M:%S")
     echo "First do '$cmd' at $t."
     sleep "$after"
   fi
