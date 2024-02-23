@@ -58,6 +58,8 @@ function repeat_do() {
   fi
 
   if [[ $after -gt 0 ]]; then
+    t=$(date -v+"$interval"S +"%H:%M:%S")
+    echo "First do '$cmd' at $t."
     sleep "$after"
   fi
 
@@ -71,6 +73,8 @@ function repeat_do() {
     eval "$cmd"
 
     if [[ $interval -gt 0 ]]; then
+      t=$(date -v+"$interval"S +"%H:%M:%S")
+      echo "Next do '$cmd' at $t."
       sleep "$interval"
     fi
   done
