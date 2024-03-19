@@ -3,6 +3,12 @@
 # Homebrew installed bin path
 if which /opt/homebrew/bin/brew > /dev/null; then
     eval $(/opt/homebrew/bin/brew shellenv)
+
+    # export HOMEBREW_NO_INSTALL_FROM_API=1
+
+    if which /opt/homebrew/opt/curl/bin/curl > /dev/null; then
+        export HOMEBREW_CURL_PATH="/opt/homebrew/opt/curl/bin/curl"
+    fi
 fi
 
 export PATH="$HOME/.local/bin:$PATH"
